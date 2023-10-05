@@ -13,6 +13,7 @@ public class Player_Movement : MonoBehaviour
     private Vector2 moveDirection;
 
     private Rigidbody2D rb;
+    private float width, height;
 
     private void Awake()
     {
@@ -22,6 +23,8 @@ public class Player_Movement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        width = transform.localScale.x / 2;
+        height = transform.localScale.y / 2;
     }
 
     private void OnEnable()
@@ -38,7 +41,17 @@ public class Player_Movement : MonoBehaviour
     private void Update()
     {
         moveDirection = move.ReadValue<Vector2>();
-        transform.position = new Vector2(Mathf.Clamp(transform.position.x, walls.transform.GetChild(2).position.x, walls.transform.GetChild(3).position.x), Mathf.Clamp(transform.position.y, walls.transform.GetChild(0).position.y, walls.transform.GetChild(1).position.y));
+        ClampPosition();
+    }
+
+    private void ClampPosition()
+    {
+        var pos = transform.position;
+
+        pos.x = Mathf.Clamp(transform.position.x, walls.transform.GetChild(2).position.x + width, walls.transform.GetChild(3).position.x - width);
+        pos.y = Mathf.Clamp(transform.position.y, walls.transform.GetChild(0).position.y + height, walls.transform.GetChild(1).position.y - height);
+
+        transform.position = pos;
     }
 
     private void FixedUpdate()
