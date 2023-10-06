@@ -9,19 +9,16 @@ public class Mouse_Handler : MonoBehaviour
     public PlayerInput input;
 
     private PlayerControls controls;
-    private InputAction select; 
 
     private void Start()
     {
         controls = GetComponent<Player_Movement>().GetControls();
-        select = controls.Player.LeftClick;
-        select.Enable();
         input.onActionTriggered += OnClick;
     }
 
     private void OnDisable()
     {
-        select.Disable();
+        
     }
 
     private void Update()
@@ -33,7 +30,16 @@ public class Mouse_Handler : MonoBehaviour
     {
         if (context.action.name.Equals("Left Click") && context.performed) 
         {
-            Debug.Log("You Clicked!");
+            var pos = Mouse.current.position.ReadValue();
+            var worldPos = Camera.main.ScreenToWorldPoint(pos);
+
+            Collider2D detectedCollider = Physics2D.OverlapPoint(worldPos);
+
+            if (detectedCollider != null)
+            {
+                Debug.Log(detectedCollider.name);
+            }
+
         }
     }
 
