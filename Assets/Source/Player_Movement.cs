@@ -15,6 +15,8 @@ public class Player_Movement : MonoBehaviour
     private Rigidbody2D rb;
     private float width, height;
 
+    public PlayerControls GetControls() { return controls; }
+
     private void Awake()
     {
         controls = new PlayerControls();
