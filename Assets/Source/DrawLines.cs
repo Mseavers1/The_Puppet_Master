@@ -6,10 +6,11 @@ using static UnityEngine.GraphicsBuffer;
 public class DrawLines : MonoBehaviour
 {
     public Vector3 direction;
+    public Color color = Color.blue;
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
+        Gizmos.color = color;
         Gizmos.DrawLine(transform.position, transform.position + direction);
     }
 }
