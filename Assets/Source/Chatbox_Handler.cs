@@ -10,6 +10,7 @@ public class Chatbox_Handler : MonoBehaviour
 
     public void StartChat()
     {
+        chatbox.transform.position = chatPoint.transform.position;
         chatbox.SetActive(true);
 
         movePlayer = true;
@@ -20,6 +21,9 @@ public class Chatbox_Handler : MonoBehaviour
         if (movePlayer)
         {
             player.transform.position = Vector3.Lerp(player.transform.position, playerPoint.transform.position, smoothFactor * Time.fixedDeltaTime);
+
+            if (Vector3.Distance(player.transform.position, playerPoint.transform.position) <= .3f) movePlayer = false;
+
         }
     }
 
