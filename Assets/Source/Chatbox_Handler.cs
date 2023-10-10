@@ -5,17 +5,21 @@ using UnityEngine;
 public class Chatbox_Handler : MonoBehaviour
 {
     private GameObject chatbox, player, playerPoint, chatPoint;
-    private float smoothFactor = 0.3f;
+    private float smoothFactor = 3f;
+    private bool movePlayer = false;
 
     public void StartChat()
     {
         chatbox.SetActive(true);
 
-        while(true)
+        movePlayer = true;
+    }
+
+    private void FixedUpdate()
+    {
+        if (movePlayer)
         {
             player.transform.position = Vector3.Lerp(player.transform.position, playerPoint.transform.position, smoothFactor * Time.fixedDeltaTime);
-
-            if (player.transform.position == playerPoint.transform.position) break;
         }
     }
 
