@@ -1,0 +1,10 @@
+* NPC Name
+Hello there!
+Welcome to the example text set for the chatbox.
+Set a new text file to me based on the sample file!
+* END
+
+This is a sample file to help remember how the chatbox system works.
+Use the * to insert keywords
+* [name of NPC] -> Used to highlight who is talking
+* END -> Ends the diolouge which allows more text for notes if needed or for branches

@@ -14,8 +14,11 @@ public class Player_Movement : MonoBehaviour
 
     private Rigidbody2D rb;
     private float width, height;
+    private bool canMove; 
 
     public PlayerControls GetControls() { return controls; }
+
+    public void EnableMovement(bool enable = true) { canMove = enable; }
 
     private void Awake()
     {
@@ -27,6 +30,7 @@ public class Player_Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         width = transform.localScale.x / 2;
         height = transform.localScale.y / 2;
+        canMove = true;
     }
 
     private void OnEnable()
@@ -42,7 +46,9 @@ public class Player_Movement : MonoBehaviour
 
     private void Update()
     {
-        moveDirection = move.ReadValue<Vector2>();
+        if(canMove)
+            moveDirection = move.ReadValue<Vector2>();
+
         ClampPosition();
     }
 

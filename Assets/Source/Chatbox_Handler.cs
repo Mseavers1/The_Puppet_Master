@@ -14,6 +14,9 @@ public class Chatbox_Handler : MonoBehaviour
         chatbox.SetActive(true);
 
         movePlayer = true;
+        player.GetComponent<Player_Movement>().EnableMovement(false);
+
+        var reader = new Chatbox_Reader("Sample");
     }
 
     private void FixedUpdate()
