@@ -3,6 +3,14 @@ Hello there!
 Welcome to the example text set for the chatbox.
 Set a new text file to me based on the sample file!
 * END
+* NPC Name
+Why are you still here?!
+I thought I told you to go look at the sample file!
+* END
+* REPEAT
+* NPC Name
+...
+* END
 
 This is a sample file to help remember how the chatbox system works.
 Use the * to insert keywords

@@ -29,10 +29,19 @@ public class Mouse_Handler : MonoBehaviour
             {
                 Debug.Log(detectedCollider.name);
 
-                if (detectedCollider.tag == "NPC")
+                switch (detectedCollider.tag)
                 {
-                    detectedCollider.GetComponent<Chatbox_Handler>().StartChat();
+                    case "NPC":
+                        var handler = detectedCollider.GetComponent<Chatbox_Handler>();
+                        if(!handler.playing)
+                            handler.StartChat();
+                        break;
+                    case "Chatbox":
+                        detectedCollider.transform.GetComponentInParent<Chatbox_Handler>().ContinueChat();
+                        break;
                 }
+
+
             }
 
         }
