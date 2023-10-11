@@ -9,19 +9,22 @@ using UnityEngine.UIElements;
 
 public class Chatbox_Reader
 {
-    private StreamReader reader;
     private TMP_Text text;
     private Chatbox_Handler handler;
     private int mode = 0; // 0 - NORMAL, 1 - REPEAT
+
+    private Queue<string> current, processed;
 
     private Queue<string> dialogue = new();
     private Queue<string> repeat = new();
 
     public Chatbox_Reader(string path, TMP_Text text, Chatbox_Handler handler) 
     { 
-        reader = new StreamReader(path);
         this.text = text;
         this.handler = handler;
+
+        current = Load(path);
+        processed = new Queue<string>();
     }
 
     public void Start()
@@ -33,7 +36,7 @@ public class Chatbox_Reader
             return;
         }
 
-        var line = reader.ReadLine();
+        var line = Next();
 
         // Detects if it is not a command
         if (line[0] != '*')
@@ -54,6 +57,30 @@ public class Chatbox_Reader
         }
 
         text.text = dialogue.Dequeue();
+    }
+
+    private string Next()
+    {
+        var line = current.Dequeue();
+        processed.Enqueue(line);
+        return line;
+    }
+
+    private Queue<string> Load(string path)
+    {
+        Queue<string> loaded = new();
+        
+        var reader = new StreamReader(path);
+        var line = reader.ReadLine();
+
+        while (line != null)
+        {
+            loaded.Enqueue(line);
+            line = reader.ReadLine();
+        }
+       
+
+        return loaded;
     }
     
     private void Debug(string message)
@@ -84,12 +111,12 @@ public class Chatbox_Reader
         handler.ChangeSpeaker(speaker); // TODO - implement this method
 
         var dialogue = new Queue<string>();
-        var currentLine = reader.ReadLine();
+        var currentLine = Next();
 
         while (currentLine != "* END REPEAT")
         {
             dialogue.Enqueue(currentLine);
-            currentLine = reader.ReadLine();
+            currentLine = Next();
         }
 
         this.dialogue = dialogue;
@@ -117,12 +144,12 @@ public class Chatbox_Reader
         handler.ChangeSpeaker(speaker); // TODO - implement this method
 
         var dialogue = new Queue<string>();
-        var currentLine = reader.ReadLine();
+        var currentLine = Next();
 
         while (currentLine != "* END CHAT")
         {
             dialogue.Enqueue(currentLine);
-            currentLine = reader.ReadLine();
+            currentLine = Next();
         }
 
         this.dialogue = dialogue;
