@@ -27,7 +27,7 @@ public class Mouse_Handler : MonoBehaviour
 
             if (detectedCollider != null)
             {
-                Debug.Log(detectedCollider.name);
+                //Debug.Log(detectedCollider.name);
 
                 switch (detectedCollider.tag)
                 {

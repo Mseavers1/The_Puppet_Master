@@ -13,10 +13,10 @@ public class Chatbox_Reader
     private Chatbox_Handler handler;
     private int mode = 0; // 0 - NORMAL, 1 - REPEAT
 
-    private Queue<string> current, processed;
+    private LinkedList<string> current;
+    private Stack<string> processed;
 
     private Queue<string> dialogue = new();
-    private Queue<string> repeat = new();
 
     public Chatbox_Reader(string path, TMP_Text text, Chatbox_Handler handler) 
     { 
@@ -24,16 +24,14 @@ public class Chatbox_Reader
         this.handler = handler;
 
         current = Load(path);
-        processed = new Queue<string>();
+        processed = new Stack<string>();
     }
 
     public void Start()
     {
         if (mode == 1)
         {
-            dialogue = CopyQueue(repeat);
-            Play();
-            return;
+            Return();
         }
 
         var line = Next();
@@ -59,23 +57,57 @@ public class Chatbox_Reader
         text.text = dialogue.Dequeue();
     }
 
+    private void Debug(Stack<string> s)
+    {
+        while(s.Count > 0)
+            Debug(s.Pop());
+    }
+
+    // Go back if command was REPEAT
+    private void Return()
+    {
+        mode = 0;
+        // Undo previous lines until it gets to the return statement
+        while(processed.Peek().Length < 7 || processed.Peek().Substring(0, 8) != "* REPEAT")
+        {
+            current.AddFirst(processed.Pop());
+        }
+        
+        // Makes sure to have the return statement added back into the list
+        current.AddFirst(processed.Pop());
+    }
+    
+    // Go back based on a label
+    private void Return(string label)
+    {
+
+    }
+
+    // Go futher in label is ahead
+    private void Ahead(string label)
+    {
+
+    }
+
     private string Next()
     {
-        var line = current.Dequeue();
-        processed.Enqueue(line);
+        var line = current.First.Value;
+        current.RemoveFirst();
+
+        processed.Push(line);
         return line;
     }
 
-    private Queue<string> Load(string path)
+    private LinkedList<string> Load(string path)
     {
-        Queue<string> loaded = new();
+        LinkedList<string> loaded = new();
         
         var reader = new StreamReader(path);
         var line = reader.ReadLine();
 
         while (line != null)
         {
-            loaded.Enqueue(line);
+            loaded.AddLast(line);
             line = reader.ReadLine();
         }
        
@@ -120,7 +152,6 @@ public class Chatbox_Reader
         }
 
         this.dialogue = dialogue;
-        repeat = CopyQueue(dialogue);
 
         Play();
     }
