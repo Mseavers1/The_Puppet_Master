@@ -37,7 +37,9 @@ public class Mouse_Handler : MonoBehaviour
                             handler.StartChat();
                         break;
                     case "Chatbox":
-                        detectedCollider.transform.GetComponentInParent<Chatbox_Handler>().ContinueChat();
+                        if(detectedCollider.GetComponentInParent<Chatbox_Handler>().canContinue)
+                            detectedCollider.transform.GetComponentInParent<Chatbox_Handler>().ContinueChat();
+                        
                         break;
                 }
 

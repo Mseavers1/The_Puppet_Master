@@ -10,6 +10,7 @@ public class Chatbox_Handler : MonoBehaviour
 {
     public TextAsset textInput;
     public bool playing;
+    public bool canContinue { set; get; }
 
     private GameObject chatbox, player, playerPoint, chatPoint;
     private float smoothFactor = 3f;
@@ -19,6 +20,7 @@ public class Chatbox_Handler : MonoBehaviour
 
     public void StartChat()
     {
+        canContinue = true;
         playing = true;
 
         chatbox.transform.position = chatPoint.transform.position;
@@ -46,6 +48,14 @@ public class Chatbox_Handler : MonoBehaviour
     public void ChangeSpeaker(string speaker)
     {
 
+    }
+
+    public void GenerateChoices(Dictionary<string, string> choices)
+    {
+        
+        var selectedChoicePath = choices["Awsome"]; // TODO - implement proper choices later
+
+        reader.SelectChoice(selectedChoicePath);
     }
 
     private void FixedUpdate()

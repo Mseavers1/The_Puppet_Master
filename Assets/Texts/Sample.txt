@@ -1,3 +1,4 @@
+* LABEL a
 * CHAT NPC Name
 Hello there!
 Okay, Goodbye!
@@ -7,6 +8,18 @@ You are still here?
 I have nothing to do with you...
 Please leave and never return!
 * END CHAT
+* CHAT NPC Name
+...
+You know what?
+I'm sorry...
+...
+* END CHAT
+* Q How are you doing today?
+* ALT Waiting for a response...
+* CHOICE A Awsome
+* CHOICE B Meh
+* END Q
+LABEL b
 * REPEAT NPC Name
 I said begone, foul human!
 How many times do I have to say it?!
