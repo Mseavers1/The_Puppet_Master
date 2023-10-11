@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -26,28 +27,12 @@ public class Chatbox_Handler : MonoBehaviour
         movePlayer = true;
         player.GetComponent<Player_Movement>().EnableMovement(false);
 
-        if (reader.IsRepeating())
-        {
-            var line = reader.savedLines.Dequeue();
-            text.text = line;
-            reader.savedLines.Enqueue(line);
-            return;
-        }
-
-        reader.NextLine();
+        reader.Start();
     }
 
     public void ContinueChat()
     {
-        if (reader.IsRepeating())
-        {
-            var line = reader.savedLines.Dequeue();
-            text.text = line;
-            reader.savedLines.Enqueue(line);
-            return;
-        }
-
-        reader.NextLine();
+        reader.Play();
     }
 
     public void EndChat()
@@ -56,6 +41,11 @@ public class Chatbox_Handler : MonoBehaviour
 
         chatbox.SetActive(false);
         player.GetComponent<Player_Movement>().EnableMovement();
+    }
+
+    public void ChangeSpeaker(string speaker)
+    {
+
     }
 
     private void FixedUpdate()

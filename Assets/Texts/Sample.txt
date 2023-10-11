@@ -1,18 +1,13 @@
-* NPC Name
+* CHAT NPC Name
 Hello there!
-Welcome to the example text set for the chatbox.
-Set a new text file to me based on the sample file!
-* END
-* NPC Name
-Why are you still here?!
-I thought I told you to go look at the sample file!
-* END
-* REPEAT
-* NPC Name
-...
-* END
-
-This is a sample file to help remember how the chatbox system works.
-Use the * to insert keywords
-* [name of NPC] -> Used to highlight who is talking
-* END -> Ends the diolouge which allows more text for notes if needed or for branches
+Okay, Goodbye!
+* END CHAT
+* CHAT NPC Name
+You are still here?
+I have nothing to do with you...
+Please leave and never return!
+* END CHAT
+* REPEAT NPC Name
+I said begone, foul human!
+How many times do I have to say it?!
+* END REPEAT
