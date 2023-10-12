@@ -66,7 +66,7 @@ public class Chatbox_Reader
         // TODO - Implement if a-z & A-Z are taken
 
         // If true -> Go Back | if false -> Go Foward
-        if (currentLabel[0] > label[0])
+        if (currentLabel[0] >= label[0])
         {
             Return(label);
         } 
@@ -101,7 +101,8 @@ public class Chatbox_Reader
     // Go back based on a label
     private void Return(string label)
     {
-        while (processed.Peek().Length < 8 + label.Length || processed.Peek().Substring(0, 8 + label.Length) != "* LABEL " + label)
+
+        while (processed.Peek().Length < 7 || processed.Peek() != "* LABEL " + label)
         {
             current.AddFirst(processed.Pop());
         }
@@ -112,10 +113,10 @@ public class Chatbox_Reader
     // Go futher in label is ahead
     private void Forward(string label)
     {
-        while (current.First.Value.Length < 8 + label.Length || current.First.Value.Substring(0, 8 + label.Length) != "* LABEL " + label)
+        var line = Next();
+        while (line.Length < 7 + label.Length || line != "* LABEL " + label)
         {
-            processed.Push(current.First.Value);
-            current.RemoveFirst();
+            line = Next();
         }
     }
 
@@ -201,7 +202,7 @@ public class Chatbox_Reader
         var line = current.First.Value;
         var alt = Default_Alt;
 
-        if (line.Length > 4 && line.Substring(3, 2) == "ALT")
+        if (line.Length > 4 && line.Substring(2, 3) == "ALT")
         {
             alt = line[6..];
             Next();

@@ -16,10 +16,10 @@ I'm sorry...
 * END CHAT
 * Q How are you doing today?
 * ALT Waiting for a response...
-* CHOICE A Awsome
-* CHOICE B Meh
+* CHOICE a Awsome
+* CHOICE b Meh
 * END Q
-LABEL b
+* LABEL b
 * REPEAT NPC Name
 I said begone, foul human!
 How many times do I have to say it?!

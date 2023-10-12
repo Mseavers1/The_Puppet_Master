@@ -53,7 +53,7 @@ public class Chatbox_Handler : MonoBehaviour
     public void GenerateChoices(Dictionary<string, string> choices)
     {
         
-        var selectedChoicePath = choices["Awsome"]; // TODO - implement proper choices later
+        var selectedChoicePath = choices["Meh"]; // TODO - implement proper choices later
 
         reader.SelectChoice(selectedChoicePath);
     }
