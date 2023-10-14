@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -29,12 +28,33 @@ public class Chatbox_Handler : MonoBehaviour
         movePlayer = true;
         player.GetComponent<Player_Movement>().EnableMovement(false);
 
-        reader.Start();
+        //reader.Start();
+        reader.Next();
+    }
+
+    public void QDebug(string msg)
+    {
+        Debug.Log(msg);
     }
 
     public void ContinueChat()
     {
-        reader.Play();
+        switch (reader.GetMode())
+        {
+            case 0:
+                reader.Next();
+                break;
+            case 1:
+                Display(reader.NextDialogue());
+                break;
+            default: break;
+        }
+        //reader.Play();
+    }
+
+    public void Display(string message)
+    {
+        text.text = message;
     }
 
     public void EndChat()
@@ -53,7 +73,10 @@ public class Chatbox_Handler : MonoBehaviour
     public void GenerateChoices(Dictionary<string, string> choices)
     {
         
-        var selectedChoicePath = choices["Meh"]; // TODO - implement proper choices later
+        // Temporary!
+        // Suppose to generate the proper choices
+        // The following should be presented under each click depending what choice the user selects
+        var selectedChoicePath = choices["Meh"];
 
         reader.SelectChoice(selectedChoicePath);
     }
@@ -71,7 +94,8 @@ public class Chatbox_Handler : MonoBehaviour
 
     private void Start()
     {
-        reader = new Chatbox_Reader(AssetDatabase.GetAssetPath(textInput), text, this);
+        //reader = new Chatbox_Reader(AssetDatabase.GetAssetPath(textInput), text, this);
+        reader = new Chatbox_Reader(AssetDatabase.GetAssetPath(textInput), this);
     }
 
     private void Awake()

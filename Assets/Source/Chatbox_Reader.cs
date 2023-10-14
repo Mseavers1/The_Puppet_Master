@@ -1,302 +1,316 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.Search;
-using UnityEngine.UIElements;
 
 public class Chatbox_Reader
 {
-    private TMP_Text text;
-    private Chatbox_Handler handler;
-    private int mode = 0; // 0 - NORMAL, 1 - REPEAT
-
-    private LinkedList<string> current;
-    private Stack<string> processed;
+    private LinkedList<string> instructions = new();
+    private Stack<string> processed = new();
+    private Queue<string> dialogue = new();
 
     private string currentLabel;
+    private Chatbox_Handler handler;
+    private byte mode; // 0 - Processing // 1 - Chat // 2 - Waiting for input
 
-    private Queue<string> dialogue = new();
-    private const string Default_Alt = "Select from the choices on your character.";
-
-    public Chatbox_Reader(string path, TMP_Text text, Chatbox_Handler handler) 
-    { 
-        this.text = text;
+    public Chatbox_Reader(string path, Chatbox_Handler handler) 
+    {
         this.handler = handler;
-
-        current = Load(path);
-        processed = new Stack<string>();
+        Load(path);
+        mode = 0;
     }
 
-    public void Start()
+    // Processes the next instruction
+    public void Next()
     {
-        if (mode == 1)
-        {
-            Return();
-        }
-
-        var line = Next();
-
-        // Detects if it is not a command
-        if (line[0] != '*')
-        {
-            throw new Exception("Script is broken! It needs to start with a COMMAND. This is invalid: " + line);
-        }
-
-        Command(line.Substring(2));
+        var instruction = NextInstruction();
+        Command(instruction);
     }
 
-    public void Play()
+    public string NextDialogue()
     {
-        // No more to display
-        if (dialogue.Count == 0)
+        var message = dialogue.Dequeue();
+
+        if (dialogue.Count == 0) { mode = 0; }
+
+        return message;
+    }
+
+    public byte GetMode()
+    {
+        return mode;
+    }
+
+    public void SelectChoice(string label)
+    {
+        mode = 0;
+        GoTo(label);
+    }
+
+    // Get the first line and remove it from the list
+    private string NextInstruction()
+    {
+        var instruction = instructions.First.Value;
+        instructions.RemoveFirst();
+        processed.Push(instruction);
+        return instruction;
+    }
+
+    private void Command(string instruction)
+    {
+        var command = instruction.Split(' ')[0].ToLower();
+
+        // Check if its the ending command
+        if (command == "end") 
         {
             handler.EndChat();
             return;
         }
 
-        text.text = dialogue.Dequeue();
-    }
+        // Gets the parms from the commands
+        var instruct = instruction.Substring(command.Length + 1);
 
-    public void SelectChoice(string label)
-    {
-        // TODO - Implement if a-z & A-Z are taken
-
-        // If true -> Go Back | if false -> Go Foward
-        if (currentLabel[0] >= label[0])
+        switch (command)
         {
-            Return(label);
-        } 
-        else
-        {
-            Forward(label);
+            case "label":
+                // Updates the current label
+                UpdateLabel(instruct);
+                Next();
+                break;
+            case "speaker":
+                // Change the current speaker (effects) TODO
+                Next();
+                break;
+            case "message":
+                // How many of the next lines will be messages
+                Message(int.Parse(instruct));
+                break;
+            case "goto":
+                // Moves up or down the instructions to find the inserted label
+                GoTo(instruct);
+                currentLabel = instruct;
+                Next();
+                break;
+            case "choices":
+                // How many of the next lines will be avaliable choices for a sinle-line question
+                Choices(int.Parse(instruct));
+                break;
+            case "if":
+                // Conditional statements
+                If(instruct);
+                break;
+            default: throw new Exception("Command is not defined: " + command + " in instruction " + instruction);
         }
 
-        handler.canContinue = true;
     }
 
-    private void Debug(Stack<string> s)
+    private void If(string parm)
     {
-        while(s.Count > 0)
-            Debug(s.Pop());
-    }
+        var parms = parm.Split(' ');
+        var numberOfConditions = MathF.Floor(parms.Length / 4);
+        var values = new List<bool>();
+        var symbols = new List<bool>();
 
-    // Go back if command was REPEAT
-    private void Return()
-    {
-        mode = 0;
-        // Undo previous lines until it gets to the return statement
-        while(processed.Peek().Length < 7 || processed.Peek().Substring(0, 8) != "* REPEAT")
+        // For each conditional statement recieve it is true or false
+        for ( var i = 0; i < numberOfConditions + 1; i++ )
         {
-            current.AddFirst(processed.Pop());
-        }
-        
-        // Makes sure to have the return statement added back into the list
-        current.AddFirst(processed.Pop());
-    }
-    
-    // Go back based on a label
-    private void Return(string label)
-    {
+            var condition = parms[0 + (3 * i) + i];
+            var isEqual = parms[1 + (3 * i) + i] == "=";
+            var value = parms[2 + (3 * i) + i];
 
-        while (processed.Peek().Length < 7 || processed.Peek() != "* LABEL " + label)
-        {
-            current.AddFirst(processed.Pop());
+            if ( i != 0)
+            {
+                symbols.Add(parms[3 + (4 * (i-1))] == "&");
+            }
+
+            values.Add(ConditonalStatement(condition, isEqual, value));
         }
 
-        current.AddFirst(processed.Pop());
+        // Check if only 1 conditional
+        if (symbols.Count == 0)
+        {
+            if (values[0]) ConditionTrue(); else ConditionFalse();
+            return;
+        }
+
+        // Compute the statement
+        var answer = values[0];
+        var index = 1;
+
+        foreach ( var symbol in symbols )
+        {
+            if (symbol)
+            {
+                answer &= values[index];
+            } 
+            else
+            {
+                answer |= values[index];
+            }
+
+            index++;
+        }
+
+        // Check if the answer is true or not
+        if (answer)
+        {
+            ConditionTrue();
+            return;
+        }
+
+        ConditionFalse();
     }
 
-    // Go futher in label is ahead
-    private void Forward(string label)
+    private bool ConditonalStatement(string condition, bool isEqual, string value)
     {
-        var line = Next();
-        while (line.Length < 7 + label.Length || line != "* LABEL " + label)
+        // Find the condition statement
+        switch (condition)
         {
-            line = Next();
+            case "name":
+                return NameCondition(isEqual, value);
+            default: throw new Exception("The condition in conditional statement (" + condition + ") is not valid!");
         }
     }
 
-    private string Next()
+    private bool NameCondition(bool isEqual, string value)
     {
-        var line = current.First.Value;
-        current.RemoveFirst();
-
-        processed.Push(line);
-        return line;
-    }
-
-    private LinkedList<string> Load(string path)
-    {
-        LinkedList<string> loaded = new();
-        
-        var reader = new StreamReader(path);
-        var line = reader.ReadLine();
-
-        while (line != null)
+        var name = UnityEngine.GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Movement>().playerName;
+        if (isEqual)
         {
-            loaded.AddLast(line);
-            line = reader.ReadLine();
+            if (name == value)
+            {
+                return true;
+            } 
+
+            return false;
         }
-       
 
-        return loaded;
-    }
-    
-    private void Debug(string message)
-    {
-        UnityEngine.Debug.Log(message);
-    }
+        if (name != value)
+        {
+            return true;
+        }
 
-    private void Label(string label)
-    {
-        currentLabel = label;
-        current.AddLast(label);
-
-        Start();
+        return false;
     }
 
-    private void Question(string question)
+    private void ConditionTrue()
     {
-        handler.canContinue = false;
+        Next();
+    }
 
-        dialogue.Enqueue(question);
+    private void ConditionFalse()
+    {
+        NextInstruction();
+        Next();
+    }
 
-        Play();
-
-        var alt = GenerateAlt(); // TODO - Use alt later
+    // Prints question and waits for the user to respond based on the available choices
+    private void Choices(int lines)
+    {
         var choices = new Dictionary<string, string>();
-        var line = Next();
 
-        while (line != "* END Q")
+        // Goes through the next X lines to generate the choices
+        for(int i = 0; i < lines; i++)
         {
-            var parsed = line.Split(' ');
-            var dest = parsed[2]; // Label if selected
+            var line = NextInstruction();
+            var label = line.Split(' ')[0];
+            var message = line.Substring(label.Length + 1);
 
-            choices.Add(CombinedParsed(parsed, 3), dest);
-
-            line = Next();
+            choices.Add(message, label);
         }
 
-        // Pass to handler to create inputs
+        // Grabs the nextl line which is used for the displayed message
+        UploadToDialogue(NextInstruction());
+        handler.Display(NextDialogue());
+
+        // Changes the mode to waiting so the player can not move onto the next instruction
+        mode = 2;
         handler.GenerateChoices(choices);
+
     }
 
-    private string CombinedParsed(string[] arr, int start)
-    {
-        string str = "";
-
-        for (int i = start; i < arr.Length; i++)
-        {
-            str += arr[i];
-        }
-
-        return str;
-    }
-
-    private string GenerateAlt()
-    {
-        var line = current.First.Value;
-        var alt = Default_Alt;
-
-        if (line.Length > 4 && line.Substring(2, 3) == "ALT")
-        {
-            alt = line[6..];
-            Next();
-        }
-
-        return alt;
-    }
-
-    private void Command(string command) 
-    {
-        var parsed = command.Split(' ');
-        switch (parsed[0])
-        {
-            case "CHAT":
-                Chat(command.Substring(parsed[0].Length + 1));
-                break;
-            case "REPEAT":
-                Repeat(command.Substring(parsed[0].Length + 1));
-                break;
-            case "LABEL":
-                Label (command.Substring(parsed[0].Length + 1));
-                break;
-            case "GOTO":
-                GoTo(command.Substring(parsed[0].Length + 1));
-                break;
-            case "Q":
-                Question(command.Substring(parsed[0].Length + 1));
-                break;
-            case "ALT":
-                break;
-            case "CHOICE":
-                break;
-            default: throw new Exception("The command inserted: " + parsed[0] + " is not a valid command!");
-        }
-    }
-
+    // Checks if the label is ahead or has already past
     private void GoTo(string label)
     {
-        Return(label);
-        Start();
+        if (label[0] > currentLabel[0])
+        {
+            // Check forward
+            Forward(label);
+            return;
+        }
+
+        // Check backward
+        Reverse(label);
     }
 
-    // Whenever player clicks on NPC, the same message will display forever
-    private void Repeat(string speaker)
+    // Reverts instructions until it reaches the inserted label
+    private void Reverse(string label)
     {
+        while (processed.Peek().ToLower() != "label " + label)
+        {
+            instructions.AddFirst(processed.Pop());
+        }
+    }
+
+    // Continues through the instructions until it reaches the inserted label
+    private void Forward(string label)
+    {
+        while(instructions.First.Value != "label " + label)
+        {
+            NextInstruction();
+        }
+    }
+
+    private void UploadToDialogue(string message)
+    {
+        dialogue.Enqueue(message);
+    }
+
+    private void Message(int numLines)
+    {
+        // Process the next number of lines and upload into dialogue
+        for (int i = 0; i < numLines; i++)
+        {
+            var line = NextInstruction();
+            UploadToDialogue(line);
+        }
+
         mode = 1;
-
-        handler.ChangeSpeaker(speaker); // TODO - implement this method
-
-        var dialogue = new Queue<string>();
-        var currentLine = Next();
-
-        while (currentLine != "* END REPEAT")
-        {
-            dialogue.Enqueue(currentLine);
-            currentLine = Next();
-        }
-
-        this.dialogue = dialogue;
-
-        Play();
+        handler.Display(NextDialogue());
     }
 
-    private Queue<string> CopyQueue(Queue<string> copy)
+    // Updates the current label
+    private void UpdateLabel(string label)
     {
-        var newQ = new Queue<string>();
-        var array = copy.ToArray();
-
-        foreach (var item in array)
-        {
-            newQ.Enqueue(item);
-        }
-
-        return newQ;
+        currentLabel = label;
     }
 
-    // Begins chat among the NPC and player
-    private void Chat(string speaker)
+    // Loads all instructions from a file into the list
+    private void Load(string path)
     {
-        handler.ChangeSpeaker(speaker); // TODO - implement this method
-
-        var dialogue = new Queue<string>();
-        var currentLine = Next();
-
-        while (currentLine != "* END CHAT")
+        try
         {
-            dialogue.Enqueue(currentLine);
-            currentLine = Next();
+            var reader = new StreamReader(path);
+            var line = reader.ReadLine();
+
+            while (line != null)
+            {
+                // Ignore line if blank or comment
+                if (line.Length == 0 || line[0] == '/') 
+                {
+                    line = reader.ReadLine();
+                    continue;
+                }
+
+                // Add the line into the instructions
+                instructions.AddLast(line);
+                line = reader.ReadLine();
+            }
         }
-
-        this.dialogue = dialogue;
-
-        Play();
+        catch (Exception e) 
+        {
+            throw e;
+        }
     }
-
-    
 }

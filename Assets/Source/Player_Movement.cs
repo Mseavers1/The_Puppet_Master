@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class Player_Movement : MonoBehaviour
 {
+    public string playerName;
+
     public float speed = 10;
     public GameObject walls;
 

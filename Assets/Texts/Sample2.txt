@@ -1,0 +1,33 @@
+label a
+
+speaker NPC Name
+
+// Testing for comments
+message 3
+Hello There!
+How are you doing today?
+Sounds cool, goodbye.
+
+choices 2
+a Good
+b Meh
+How are you today?
+
+label b
+end
+
+label c
+message 1
+...
+
+if name != Kale & name != Mike | name = Mikey
+goto d
+
+end
+goto c
+
+label d
+message 1
+You found the secret message!
+end
+goto d
