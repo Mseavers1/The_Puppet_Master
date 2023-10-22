@@ -1,0 +1,95 @@
+[
+  {
+    "id": 0,
+    "name": "Swordsmanship",
+    "flavor": "Learn the art of the sword to slice all your opponents.",
+    "combat": "Gain <color=red>5</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>3</color> <color=orange>slashing</color> damage.",
+    "nonCombat": "Able to use swords at the novice level.",
+    "levelCost": [
+      "1",
+      "2",
+      "4",
+      "6",
+      "8",
+      "10",
+      "15",
+      "25",
+      "36",
+      "50"
+    ],
+    "downgradeGains": [
+      "1",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "8",
+      "11",
+      "15",
+      "25"
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Archery",
+    "flavor": "Shoot arrows of various types at your enemies, but in style.",
+    "combat": "Gain 5 archery cards for normal arrows. Each card deals 3 piercing damage at a distance.",
+    "nonCombat": "Able to use bows at the novice level.",
+    "levelCost": [
+      "1",
+      "2",
+      "4",
+      "6",
+      "8",
+      "10",
+      "15",
+      "25",
+      "36",
+      "50"
+    ],
+    "downgradeGains": [
+      "1",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "8",
+      "11",
+      "15",
+      "25"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Spearmanship",
+    "flavor": "How hard could a stick with a sharp end be to use? Well, hard enough that you need a skill to do it.",
+    "combat": "Gain 5 spearmanship cards of the basic style. Each card deals 3 piercing damage.",
+    "nonCombat": "Able to use spears at the novice level.",
+    "levelCost": [
+      "1",
+      "2",
+      "4",
+      "6",
+      "8",
+      "10",
+      "15",
+      "25",
+      "36",
+      "50"
+    ],
+    "downgradeGains": [
+      "1",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "8",
+      "11",
+      "15",
+      "25"
+    ]
+  }
+]
