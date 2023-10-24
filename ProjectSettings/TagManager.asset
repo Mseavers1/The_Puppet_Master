@@ -6,6 +6,9 @@ TagManager:
   tags:
   - NPC
   - Chatbox
+  - SkillOption
+  - SoulCardUI
+  - AffinitiesIcon
   layers:
   - Default
   - TransparentFX

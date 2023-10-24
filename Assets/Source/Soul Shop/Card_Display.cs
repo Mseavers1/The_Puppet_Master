@@ -7,8 +7,11 @@ using UnityEngine;
 
 public class Card_Display : MonoBehaviour
 {
-    private int l = 3;
     private int nextCost, downGain;
+    private string selectedName;
+    private int selectedLevel;
+
+    private const string Default_Level_0_Text = "You currently do not have this skill yet!";
 
     public Soul_GM gm;
     public TMP_Text cardName, levelName, flavorText, combatText, noncombatText, upgradeText, downgradeText, unlockText;
@@ -16,44 +19,63 @@ public class Card_Display : MonoBehaviour
 
     private void Start()
     {
-        DisplayCard("Swordsmanship", l);
+        Unlock.SetActive(false);
+        Downgrade.SetActive(false);
+        Upgrade.SetActive(false);
     }
 
-    private void Update()
+    public int ClickUpgrade()
     {
-        if(Input.GetMouseButtonDown(2))
-        {
-            gm.Gain(10);
-        }
+        if (gm.GetSP() < nextCost) return selectedLevel;
+        
+        gm.Buy(nextCost);
+        selectedLevel++;
+        DisplayCard(selectedName, selectedLevel, false);
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            // Downgrade
-            gm.Gain(downGain);
-            l--;
-            DisplayCard("Swordsmanship", l);
-            gm.UpdateSPText();
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            // Upgrade
-            if (gm.GetSP() < nextCost) return;
-            gm.Buy(nextCost);
-            l++;
-            DisplayCard("Swordsmanship", l);
-            gm.UpdateSPText();
-        }
+        return selectedLevel;
     }
 
-    private void DisplayCard(string name, int level)
+    public int ClickDowngrade()
     {
+        gm.Gain(downGain);
+        selectedLevel--;
+        DisplayCard(selectedName, selectedLevel, false);
+
+        return selectedLevel;
+    }
+
+    public void DisplayCard(string name, int level, bool isHover)
+    {
+        combatText.fontStyle = FontStyles.Normal;
+        noncombatText.fontStyle = FontStyles.Normal;
+        levelName.fontStyle = FontStyles.Normal;
+
+        selectedName = name;
+        selectedLevel = level;
+
         var skill = LoadData(name);
         levelName.text = "Lv. " + level.ToString();
         cardName.text = skill.Name;
         flavorText.text = skill.Flavor;
-        combatText.text = skill.Combat;
-        noncombatText.text = skill.Noncombat;
+
+        if (level == 0)
+        {
+            combatText.text = Default_Level_0_Text;
+            noncombatText.text = Default_Level_0_Text;
+        } 
+        else
+        {
+            combatText.text = skill.Combat[level - 1];
+            noncombatText.text = skill.Noncombat;
+        }
+
+        if (isHover)
+        {
+            combatText.fontStyle = FontStyles.Italic;
+            noncombatText.fontStyle = FontStyles.Italic;
+            levelName.fontStyle = FontStyles.Italic;
+            return;
+        }
 
         if (level > 0 && level < 10) 
         {
@@ -105,7 +127,7 @@ internal class SkillType
     public int ID;
     public String Name;
     public String Flavor;
-    public String Combat;
+    public String[] Combat;
     public String Noncombat;
     public String[] LevelCost;
     public String[] DowngradeGains;

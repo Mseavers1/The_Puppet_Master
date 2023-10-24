@@ -8,6 +8,8 @@ public class Soul_GM : MonoBehaviour
     public TMP_Text spText;
     private int soulPoints = 10;
 
+    
+
     private void Start()
     {
         UpdateSPText();

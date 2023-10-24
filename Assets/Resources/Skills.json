@@ -3,7 +3,18 @@
     "id": 0,
     "name": "Swordsmanship",
     "flavor": "Learn the art of the sword to slice all your opponents.",
-    "combat": "Gain <color=red>5</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>3</color> <color=orange>slashing</color> damage.",
+    "combat": [
+      "Gain <color=red>5</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>4</color> <color=orange>slashing</color> damage.",
+      "Gain <color=red>6</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>5</color> <color=orange>slashing</color> damage.",
+      "Gain <color=red>6</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>6</color> <color=orange>slashing</color> damage.",
+      "Gain <color=red>7</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>7</color> <color=orange>slashing</color> damage.",
+      "Gain <color=red>7</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>8</color> <color=orange>slashing</color> damage.",
+      "Gain <color=red>8</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>9</color> <color=orange>slashing</color> damage.",
+      "Gain <color=red>8</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>10</color> <color=orange>slashing</color> damage.",
+      "Gain <color=red>9</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>11</color> <color=orange>slashing</color> damage.",
+      "Gain <color=red>9</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>12</color> <color=orange>slashing</color> damage.",
+      "Gain <color=red>10</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>13</color> <color=orange>slashing</color> damage."
+    ],
     "nonCombat": "Able to use swords at the novice level.",
     "levelCost": [
       "1",
@@ -34,7 +45,18 @@
     "id": 1,
     "name": "Archery",
     "flavor": "Shoot arrows of various types at your enemies, but in style.",
-    "combat": "Gain 5 archery cards for normal arrows. Each card deals 3 piercing damage at a distance.",
+    "combat": [
+      "Gain <color=red>5</color> archery cards for <color=red>normal</color> arrows. Each card deals <color=red>3</color> <color=orange>piercing</color> damage at a distance.",
+      "Gain <color=red>5</color> archery cards for <color=red>normal</color> arrows. Each card deals <color=red>3</color> <color=orange>piercing</color> damage at a distance.",
+      "Gain <color=red>5</color> archery cards for <color=red>normal</color> arrows. Each card deals <color=red>3</color> <color=orange>piercing</color> damage at a distance.",
+      "Gain <color=red>5</color> archery cards for <color=red>normal</color> arrows. Each card deals <color=red>3</color> <color=orange>piercing</color> damage at a distance.",
+      "Gain <color=red>5</color> archery cards for <color=red>normal</color> arrows. Each card deals <color=red>3</color> <color=orange>piercing</color> damage at a distance.",
+      "Gain <color=red>5</color> archery cards for <color=red>normal</color> arrows. Each card deals <color=red>3</color> <color=orange>piercing</color> damage at a distance.",
+      "Gain <color=red>5</color> archery cards for <color=red>normal</color> arrows. Each card deals <color=red>3</color> <color=orange>piercing</color> damage at a distance.",
+      "Gain <color=red>5</color> archery cards for <color=red>normal</color> arrows. Each card deals <color=red>3</color> <color=orange>piercing</color> damage at a distance.",
+      "Gain <color=red>5</color> archery cards for <color=red>normal</color> arrows. Each card deals <color=red>3</color> <color=orange>piercing</color> damage at a distance.",
+      "Gain <color=red>5</color> archery cards for <color=red>normal</color> arrows. Each card deals <color=red>3</color> <color=orange>piercing</color> damage at a distance."
+    ],
     "nonCombat": "Able to use bows at the novice level.",
     "levelCost": [
       "1",
@@ -65,7 +87,18 @@
     "id": 2,
     "name": "Spearmanship",
     "flavor": "How hard could a stick with a sharp end be to use? Well, hard enough that you need a skill to do it.",
-    "combat": "Gain 5 spearmanship cards of the basic style. Each card deals 3 piercing damage.",
+    "combat": [
+      "Gain <color=red>5</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>3</color> <color=orange>piercing</color> damage.",
+      "Gain <color=red>5</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>3</color> <color=orange>piercing</color> damage.",
+      "Gain <color=red>5</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>3</color> <color=orange>piercing</color> damage.",
+      "Gain <color=red>5</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>3</color> <color=orange>piercing</color> damage.",
+      "Gain <color=red>5</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>3</color> <color=orange>piercing</color> damage.",
+      "Gain <color=red>5</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>3</color> <color=orange>piercing</color> damage.",
+      "Gain <color=red>5</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>3</color> <color=orange>piercing</color> damage.",
+      "Gain <color=red>5</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>3</color> <color=orange>piercing</color> damage.",
+      "Gain <color=red>5</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>3</color> <color=orange>piercing</color> damage.",
+      "Gain <color=red>5</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>3</color> <color=orange>piercing</color> damage."
+    ],
     "nonCombat": "Able to use spears at the novice level.",
     "levelCost": [
       "1",
