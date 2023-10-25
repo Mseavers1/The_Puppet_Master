@@ -6,14 +6,19 @@ using UnityEngine;
 
 public class Card
 {
+    private string name;
     private float manaCost, staminaCost;
     private char type; // W - Weapon // S - Spell // D - Defense // M - Misc
     private string desc;
 
-    public Card(string name, int level)
+    public Card(string name, float manaCost, float staminaCost)
     {
-
+        this.manaCost = manaCost;
+        this.staminaCost = staminaCost;
+        this.name = name;
     }
+
+    public string GetName() { return name; }
 
 
     private void CheckType()

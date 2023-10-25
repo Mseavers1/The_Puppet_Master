@@ -11,12 +11,17 @@ public class BattleSimulator : MonoBehaviour
     // Get the nessessary info needed for the battle
     public void BattleSetup(GameObject[] playables, GameObject[] enemies)
     {
+        // Get playables and enemies
         this.playables = playables;
         this.enemies = enemies;
 
         // Restrict Player Movement
         playables[0].GetComponent<Player_Movement>().EnableMovement(false);
+
+        // Move playables to their spot TODO - Finish
         movePlayables = true;
+
+        // Generate Cards
     }
 
     // Move players and enemies to their location

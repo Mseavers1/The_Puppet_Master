@@ -6,11 +6,10 @@ using UnityEngine;
 public class Soul_GM : MonoBehaviour
 {
     public TMP_Text spText, affinitiesText;
+    public Card_Display display;
 
     private int availableAffinities = 30;
     private int soulPoints = 10;
-
-    
 
     private void Start()
     {
@@ -58,5 +57,35 @@ public class Soul_GM : MonoBehaviour
     {
         soulPoints += SP;
         UpdateSPText();
+    }
+
+    private Deck GenerateDeck()
+    {
+        Deck deck = new Deck();
+
+        var allSkills = GameObject.FindGameObjectsWithTag("SkillOption");
+
+        foreach (var skill in allSkills)
+        {
+            var div = skill.name.Split(' ');
+            var name = div[0];
+            var level = int.Parse(div[1]);
+
+            if (level <= 0) continue;
+
+            var card = display.CreateCard(name, level);
+            deck.AddCard(card);
+
+        }
+
+        return deck;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log(GenerateDeck());
+        }
     }
 }

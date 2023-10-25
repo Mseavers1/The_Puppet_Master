@@ -51,7 +51,8 @@ public class Card_Display : MonoBehaviour
         levelName.fontStyle = FontStyles.Normal;
 
         selectedName = name;
-        selectedLevel = level;
+
+        if(!isHover) selectedLevel = level;
 
         var skill = LoadData(name);
         levelName.text = "Lv. " + level.ToString();
@@ -119,6 +120,14 @@ public class Card_Display : MonoBehaviour
         }
 
         throw new Exception("Unable to find skill with the name of " + name);
+    }
+
+    public Card CreateCard(string name, int level)
+    {
+        var skill = LoadData(name);
+        Card card = new(name, skill.ManaCost[level - 1], skill.StaminaCost[level - 1]);
+
+        return card;
     }
 }
 
