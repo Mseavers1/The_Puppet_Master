@@ -20,6 +20,8 @@ public class SoulShop_Controls : MonoBehaviour
     private List<RaycastResult> pointerResults, hoveringResults;
     private GameObject selectedSkill;
 
+    private GameObject[] affinityUI;
+
     private byte hoveringItem = 0; // 0 = None, 1 = Upgrade, 2 = Downgrade, 3 = Unlock
 
     private void Awake()
@@ -27,6 +29,7 @@ public class SoulShop_Controls : MonoBehaviour
         controls = new PlayerControls();
         input = GetComponent<PlayerInput>();
         input.onActionTriggered += OnClick;
+        affinityUI = GameObject.FindGameObjectsWithTag("AffinitiesIcon");
     }
 
     private void Start()
@@ -148,8 +151,13 @@ public class SoulShop_Controls : MonoBehaviour
                 // Affinities
                 if (result.gameObject.CompareTag("AffinitiesIcon"))
                 {
-                    var color = result.gameObject.GetComponent<Image>().color;
-                    result.gameObject.GetComponent<Image>().color = new Color(color.r, color.g, color.b, 100);
+                    result.gameObject.GetComponent<AffinitiyUI>().OnClicked();
+
+                    // Check if other affinities are still valid
+                    foreach(var affinity in affinityUI)
+                    {
+                        affinity.GetComponent<AffinitiyUI>().CheckRequirementsSatisfaction();
+                    }
                 }
             }
 

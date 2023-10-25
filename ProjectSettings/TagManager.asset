@@ -9,6 +9,7 @@ TagManager:
   - SkillOption
   - SoulCardUI
   - AffinitiesIcon
+  - GameManager
   layers:
   - Default
   - TransparentFX
