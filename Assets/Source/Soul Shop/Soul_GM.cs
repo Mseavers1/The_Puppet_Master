@@ -59,9 +59,10 @@ public class Soul_GM : MonoBehaviour
         UpdateSPText();
     }
 
+    // Generate the player's deck based on the skills the player has selected
     private Deck GenerateDeck()
     {
-        Deck deck = new Deck();
+        Deck deck = new();
 
         var allSkills = GameObject.FindGameObjectsWithTag("SkillOption");
 
@@ -79,13 +80,5 @@ public class Soul_GM : MonoBehaviour
         }
 
         return deck;
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log(GenerateDeck());
-        }
     }
 }

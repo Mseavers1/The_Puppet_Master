@@ -20,6 +20,13 @@ public class Card
 
     public string GetName() { return name; }
 
+    public bool IsTypeOf(char type)
+    {
+        if (this.type == type) return true;
+
+        return false;
+    }
+
 
     private void CheckType()
     { 
