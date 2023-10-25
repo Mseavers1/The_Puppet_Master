@@ -10,6 +10,7 @@ TagManager:
   - SoulCardUI
   - AffinitiesIcon
   - GameManager
+  - Enemy
   layers:
   - Default
   - TransparentFX

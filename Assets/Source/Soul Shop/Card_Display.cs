@@ -131,5 +131,7 @@ internal class SkillType
     public String Noncombat;
     public String[] LevelCost;
     public String[] DowngradeGains;
+    public float[] ManaCost;
+    public float[] StaminaCost;
 }
 

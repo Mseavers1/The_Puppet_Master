@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class Mouse_Handler : MonoBehaviour
 {
     public PlayerInput input;
+    public GameObject[] temp;
 
     private PlayerControls controls;
 
@@ -37,9 +38,12 @@ public class Mouse_Handler : MonoBehaviour
                             handler.StartChat();
                         break;
                     case "Chatbox":
-                        if(detectedCollider.GetComponentInParent<Chatbox_Handler>().canContinue)
+                        if (detectedCollider.GetComponentInParent<Chatbox_Handler>().canContinue)
                             detectedCollider.transform.GetComponentInParent<Chatbox_Handler>().ContinueChat();
-                        
+                        break;
+                    case "Enemy":
+                        var enemy = detectedCollider.GetComponent<EnemyInfo>();
+                        enemy.StartBattle(temp);
                         break;
                 }
 
