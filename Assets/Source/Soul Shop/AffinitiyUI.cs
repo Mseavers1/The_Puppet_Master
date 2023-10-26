@@ -69,6 +69,7 @@ public class AffinitiyUI : MonoBehaviour
         gm.RemoveAffinity(cost);
         image.color = new Color(image.color.r, image.color.g, image.color.b, defaultAplha);
         hasBought = false;
+        UpdateCostText(false);
     }
 
     private bool SatisfyRequirements()

@@ -55,6 +55,8 @@ public class Card_Display : MonoBehaviour
         if(!isHover) selectedLevel = level;
 
         var skill = LoadData(name);
+
+        int maxUpgradedLevel = skill.Levels.Length;
         levelName.text = "Lv. " + level.ToString();
         cardName.text = skill.Name;
         flavorText.text = skill.Flavor;
@@ -66,8 +68,8 @@ public class Card_Display : MonoBehaviour
         } 
         else
         {
-            combatText.text = skill.Combat[level - 1];
-            noncombatText.text = skill.Noncombat;
+            combatText.text = skill.Levels[level - 1].Combat;
+            noncombatText.text = skill.Levels[level - 1].NonCombat;
         }
 
         if (isHover)
@@ -78,28 +80,28 @@ public class Card_Display : MonoBehaviour
             return;
         }
 
-        if (level > 0 && level < 10) 
+        if (level > 0 && level < maxUpgradedLevel) 
         {
             Unlock.SetActive(false);
             Downgrade.SetActive(true);
             Upgrade.SetActive(true);
-            upgradeText.text = "-" + skill.LevelCost[level] + " SP";
-            downgradeText.text = "+" + skill.DowngradeGains[level - 1] + " SP";
-            downGain = int.Parse(skill.DowngradeGains[level - 1]);
-            nextCost = int.Parse(skill.LevelCost[level]);
+            upgradeText.text = "-" + skill.Levels[level].LevelCost + " SP";
+            downgradeText.text = "+" + skill.Levels[level - 1].DowngradeGains + " SP";
+            downGain = skill.Levels[level - 1].DowngradeGains;
+            nextCost = skill.Levels[level].LevelCost;
         }
-        else if (level >= 10)
+        else if (level >= maxUpgradedLevel)
         {
             Unlock.SetActive(false);
             Downgrade.SetActive(true);
             Upgrade.SetActive(false);
-            downgradeText.text = "+" + skill.DowngradeGains[level - 1] + " SP";
-            downGain = int.Parse(skill.DowngradeGains[level - 1]);
+            downgradeText.text = "+" + skill.Levels[level - 1].DowngradeGains + " SP";
+            downGain = skill.Levels[level - 1].DowngradeGains;
         } 
         else 
         {
-            nextCost = int.Parse(skill.LevelCost[level]);
-            unlockText.text = "-" + skill.LevelCost[level] + " SP";
+            nextCost = skill.Levels[level].LevelCost;
+            unlockText.text = "-" + skill.Levels[level].LevelCost + " SP";
             Unlock.SetActive(true);
             Downgrade.SetActive(false);
             Upgrade.SetActive(false);
@@ -108,9 +110,7 @@ public class Card_Display : MonoBehaviour
 
     private SkillType LoadData(string name)
     {
-        // Find the mob being spawned
         TextAsset txt = (TextAsset)Resources.Load("Skills", typeof(TextAsset));
-        //string json = File.ReadAllText(".\\Assets\\Src\\Jsons\\Mobs.json");
         List<SkillType> skills = JsonConvert.DeserializeObject<List<SkillType>>(txt.text) ?? throw new Exception("Empty Json!");
 
         foreach (SkillType skill in skills)
@@ -125,7 +125,7 @@ public class Card_Display : MonoBehaviour
     public Card CreateCard(string name, int level)
     {
         var skill = LoadData(name);
-        Card card = new(name, skill.ManaCost[level - 1], skill.StaminaCost[level - 1]);
+        Card card = new(name, skill.Levels[level - 1].ManaCost, skill.Levels[level - 1].StaminaCost);
 
         return card;
     }
@@ -134,13 +134,18 @@ public class Card_Display : MonoBehaviour
 internal class SkillType
 {
     public int ID;
-    public String Name;
-    public String Flavor;
-    public String[] Combat;
-    public String Noncombat;
-    public String[] LevelCost;
-    public String[] DowngradeGains;
-    public float[] ManaCost;
-    public float[] StaminaCost;
+    public string Name;
+    public string Flavor;
+    public Level[] Levels;
+}
+
+internal class Level
+{
+    public string Combat;
+    public string NonCombat;
+    public float ManaCost;
+    public float StaminaCost;
+    public int LevelCost;
+    public int DowngradeGains;
 }
 
