@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class BattleSimulator : MonoBehaviour
 {
+    public GameObject DeckArea;
+    public GameObject[] Cards;
+
     private GameObject[] playables, enemies;
     private const float Smooth_Factor = 3f;
     private bool movePlayables = false;
     private Deck deck;
+    private Card[] hand;
 
     // Get the nessessary info needed for the battle
     public void BattleSetup(GameObject[] playables, GameObject[] enemies)
@@ -27,7 +31,15 @@ public class BattleSimulator : MonoBehaviour
         Debug.Log(deck);
 
         // Generate Hand
-        //var hand = deck.GenerateHand();
+        hand = deck.GenerateHand();
+        foreach(var card in hand) Debug.Log(card.GetName());
+
+        // Display Hand
+        DeckArea.SetActive(true);
+        for (int i = 0; i < hand.Length; i++)
+        {
+            Cards[i].GetComponent<CardDisplayInfo>().SetDesc(hand[i].GetDesc());
+        }
     }
 
     // Move players and enemies to their location
@@ -49,20 +61,6 @@ public class BattleSimulator : MonoBehaviour
         if (movePlayables)
         {
             MoveActors();
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            var hand = deck.GenerateHand();
-            int x = 1;
-            foreach (var c in hand)
-            {
-                Debug.Log("Card " + x + " in Hand - " + c.GetName());
-                x++;
-            }
         }
     }
 }

@@ -23,9 +23,13 @@ public class Card
 
         this.type = char.Parse(type);
         CheckType();
+
+        desc = "Deals " + totalDamage + " " + damageTypes[0] + " damage!";
     }
 
     public string GetName() { return name; }
+
+    public string GetDesc() { return desc; }
 
     public bool IsTypeOf(char type)
     {

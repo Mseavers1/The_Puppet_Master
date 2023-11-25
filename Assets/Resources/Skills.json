@@ -225,7 +225,7 @@
         "effects": [
           {
             "numberOfCards": 5,
-            "damageTypes": [ "Slashing" ],
+            "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 4,
             "AOE": "Single",
@@ -244,7 +244,7 @@
         "effects": [
           {
             "numberOfCards": 5,
-            "damageTypes": [ "Slashing" ],
+            "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 4,
             "AOE": "Single",
@@ -263,7 +263,7 @@
         "effects": [
           {
             "numberOfCards": 5,
-            "damageTypes": [ "Slashing" ],
+            "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 4,
             "AOE": "Single",
@@ -282,7 +282,7 @@
         "effects": [
           {
             "numberOfCards": 5,
-            "damageTypes": [ "Slashing" ],
+            "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 4,
             "AOE": "Single",
@@ -301,7 +301,7 @@
         "effects": [
           {
             "numberOfCards": 5,
-            "damageTypes": [ "Slashing" ],
+            "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 4,
             "AOE": "Single",
@@ -320,7 +320,7 @@
         "effects": [
           {
             "numberOfCards": 5,
-            "damageTypes": [ "Slashing" ],
+            "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 4,
             "AOE": "Single",
@@ -339,7 +339,7 @@
         "effects": [
           {
             "numberOfCards": 5,
-            "damageTypes": [ "Slashing" ],
+            "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 4,
             "AOE": "Single",
@@ -358,7 +358,7 @@
         "effects": [
           {
             "numberOfCards": 5,
-            "damageTypes": [ "Slashing" ],
+            "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 4,
             "AOE": "Single",
@@ -377,7 +377,7 @@
         "effects": [
           {
             "numberOfCards": 5,
-            "damageTypes": [ "Slashing" ],
+            "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 4,
             "AOE": "Single",
@@ -396,7 +396,7 @@
         "effects": [
           {
             "numberOfCards": 5,
-            "damageTypes": [ "Slashing" ],
+            "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 4,
             "AOE": "Single",
