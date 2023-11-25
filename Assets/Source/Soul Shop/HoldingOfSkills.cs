@@ -68,6 +68,7 @@ public static class HoldingOfSkills
 
         }
 
+        deck.RandomizeDeck();
         return deck;
     }
 }

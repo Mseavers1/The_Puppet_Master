@@ -10,6 +10,7 @@ public class Deck
     public Deck()
     {
         cards = new List<Card>();
+        dispile = new Stack<Card>();
     }
 
     public void AddCards(List<Card> c)
@@ -31,6 +32,19 @@ public class Deck
         return hand;
     }
 
+    public void RandomizeDeck()
+    {
+        var randDeck = new List<Card>();
+
+        while (cards.Count > 0)
+        {
+            randDeck.Add(GetRandomCard());
+        }
+
+        dispile.Clear();
+        cards = randDeck;
+    }
+
     private void DiscardCard(Card card)
     {
         cards.Remove(card);
@@ -47,8 +61,22 @@ public class Deck
 
     private Card PullCard(char type)
     {
+        // Checks if deck needs a reshuffle
+        if (cards.Count == 0)
+        {
+            while (dispile.Count > 0)
+            {
+                var card = dispile.Pop();
+                cards.Add(card);
+            }
+
+            UnityEngine.Debug.Log("Shuffling!");
+            RandomizeDeck();
+        }
+
         if (type == 'R') return GetRandomCard();
 
+        // Keeps going through the deck until it finds the same type of card
         foreach(var card in cards)
         {
             if (card.IsTypeOf(type))
@@ -58,8 +86,10 @@ public class Deck
             }
         }
 
-        // TODO - Reshuffle discard pile
-        throw new Exception("Not Implemented yet...");
+        // If type is not in the deck, select the next card
+        var nextCard = cards[0];
+        DiscardCard(nextCard);
+        return nextCard;
     }
 
     public override string ToString()

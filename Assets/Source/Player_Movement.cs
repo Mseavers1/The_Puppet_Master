@@ -33,9 +33,6 @@ public class Player_Movement : MonoBehaviour
         width = transform.localScale.x / 2;
         height = transform.localScale.y / 2;
         canMove = true;
-
-        var x = HoldingOfSkills.GenerateDeck();
-        Debug.Log(x);
     }
 
     private void OnEnable()

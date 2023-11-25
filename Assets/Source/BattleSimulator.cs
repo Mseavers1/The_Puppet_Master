@@ -7,6 +7,7 @@ public class BattleSimulator : MonoBehaviour
     private GameObject[] playables, enemies;
     private const float Smooth_Factor = 3f;
     private bool movePlayables = false;
+    private Deck deck;
 
     // Get the nessessary info needed for the battle
     public void BattleSetup(GameObject[] playables, GameObject[] enemies)
@@ -22,6 +23,11 @@ public class BattleSimulator : MonoBehaviour
         movePlayables = true;
 
         // Generate Cards
+        deck = HoldingOfSkills.GenerateDeck();
+        Debug.Log(deck);
+
+        // Generate Hand
+        //var hand = deck.GenerateHand();
     }
 
     // Move players and enemies to their location
@@ -43,6 +49,20 @@ public class BattleSimulator : MonoBehaviour
         if (movePlayables)
         {
             MoveActors();
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            var hand = deck.GenerateHand();
+            int x = 1;
+            foreach (var c in hand)
+            {
+                Debug.Log("Card " + x + " in Hand - " + c.GetName());
+                x++;
+            }
         }
     }
 }
