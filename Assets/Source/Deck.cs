@@ -12,9 +12,9 @@ public class Deck
         cards = new List<Card>();
     }
 
-    public void AddCard(Card card)
+    public void AddCards(List<Card> c)
     {
-        cards.Add(card);
+        foreach (var card in c) cards.Add(card);
     }
 
     // Generate 5 cards with the parm of W, D, S, S, R

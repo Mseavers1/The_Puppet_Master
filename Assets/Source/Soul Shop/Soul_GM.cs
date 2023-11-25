@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Soul_GM : MonoBehaviour
 {
@@ -59,12 +60,11 @@ public class Soul_GM : MonoBehaviour
         UpdateSPText();
     }
 
-    // Generate the player's deck based on the skills the player has selected
-    private Deck GenerateDeck()
+    // Method called when game starts (after selecting skills)
+    public void StartGame()
     {
-        Deck deck = new();
-
         var allSkills = GameObject.FindGameObjectsWithTag("SkillOption");
+        var skillNames = new List<string>();
 
         foreach (var skill in allSkills)
         {
@@ -74,11 +74,11 @@ public class Soul_GM : MonoBehaviour
 
             if (level <= 0) continue;
 
-            var card = display.CreateCard(name, level);
-            deck.AddCard(card);
 
+            skillNames.Add(name + " " + level);
         }
 
-        return deck;
+        HoldingOfSkills.StartOfGame(skillNames);
+        SceneManager.LoadScene(0);
     }
 }

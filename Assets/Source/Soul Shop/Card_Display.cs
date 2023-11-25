@@ -122,30 +122,28 @@ public class Card_Display : MonoBehaviour
         throw new Exception("Unable to find skill with the name of " + name);
     }
 
-    public Card CreateCard(string name, int level)
+    public List<Card> CreateCards(string name, int level)
     {
+        // Get Skill
         var skill = LoadData(name);
-        Card card = new(name, skill.Levels[level - 1].ManaCost, skill.Levels[level - 1].StaminaCost);
 
-        return card;
+        // Generate the cards
+        var cards = new List<Card>();
+        var currentLevel = level;
+        
+        while (currentLevel > 0)
+        {
+            var numCards = skill.Levels[currentLevel - 1].Effects[0].NumberOfCards;
+
+            for (var i = 0; i < numCards; i++)
+            {
+                var effect = skill.Levels[currentLevel - 1].Effects[0];
+                cards.Add(new Card(name, skill.Type, skill.Levels[currentLevel - 1].ManaCost, skill.Levels[currentLevel - 1].StaminaCost, effect.DamageTypes, effect.DamageRatio, effect.TotalDamage, effect.Special, effect.AOE));
+            }
+
+            currentLevel--;
+        }
+
+        return cards;
     }
 }
-
-internal class SkillType
-{
-    public int ID;
-    public string Name;
-    public string Flavor;
-    public Level[] Levels;
-}
-
-internal class Level
-{
-    public string Combat;
-    public string NonCombat;
-    public float ManaCost;
-    public float StaminaCost;
-    public int LevelCost;
-    public int DowngradeGains;
-}
-

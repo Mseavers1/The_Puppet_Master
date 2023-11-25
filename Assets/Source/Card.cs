@@ -1,21 +1,28 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using UnityEngine;
 
 public class Card
 {
     private string name;
     private float manaCost, staminaCost;
+    private string[] damageTypes;
+    private float[] damageRatio;
+    private float totalDamage;
     private char type; // W - Weapon // S - Spell // D - Defense // M - Misc
-    private string desc;
+    private string desc, special, AOE;
 
-    public Card(string name, float manaCost, float staminaCost)
+    public Card(string name, string type, float manaCost, float staminaCost, string[] damageTypes, float[] damageRatio, float totalDamage, string special, string aoe)
     {
         this.manaCost = manaCost;
         this.staminaCost = staminaCost;
         this.name = name;
+        this.damageTypes = damageTypes;
+        this.damageRatio = damageRatio;
+        this.totalDamage = totalDamage;
+        this.special = special;
+        AOE = aoe;
+
+        this.type = char.Parse(type);
+        CheckType();
     }
 
     public string GetName() { return name; }
