@@ -14,7 +14,7 @@ public class Mouse_Handler : MonoBehaviour
     public GameObject[] cards;
 
     private PlayerControls controls;
-    private bool battleMode = true;
+    private bool battleMode = true, clickedOnCard = false;
 
     private GraphicRaycaster uiCaster, clickCaster;
     private PointerEventData uiData, clickData;
@@ -53,7 +53,9 @@ public class Mouse_Handler : MonoBehaviour
                 {
                     if (result.gameObject.tag == "Card")
                     {
-                        Debug.Log(result.gameObject.name);
+                        clickedOnCard = true;
+                        var split = result.gameObject.name.Split(' ');
+                        SwitchHover(int.Parse(split[1]));
                     }
                 }
             }
@@ -92,7 +94,7 @@ public class Mouse_Handler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(battleMode)
+        if(battleMode && !clickedOnCard)
         {
             OnHover();
         }
