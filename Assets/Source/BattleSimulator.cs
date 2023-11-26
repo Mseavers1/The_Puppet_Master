@@ -68,15 +68,33 @@ public class BattleSimulator : MonoBehaviour
     {
         var last = order.Dequeue();
         order.Enqueue(last);
-        // TODO - Skip if person is dead
+        IBattleable currentUser;
+        var current = order.Peek();
 
-        if (IsPlayerTurn()) gm.Mode = "Battle Player";
-        else if (order.Peek().CompareTag("Enemy")) 
+        if (current.GetComponent<PlayableStats>() != null)
         {
-            gm.Mode = "Battle Mob";
-            order.Peek().GetComponent<EnemyInfo>().PlayTurn();
+            currentUser = current.GetComponent<PlayableStats>();
         }
-        else throw new Exception("Allies Turn - Not Implemented yet.");
+        else if (current.GetComponent<EnemyInfo>() != null)
+        {
+            currentUser = current.GetComponent<EnemyInfo>();
+        } 
+        else
+        {
+            currentUser = current.GetComponent<PlayerStats>();
+        }
+
+        // Check if person is dead, if so, skip there turn
+        if(currentUser.IsDead())
+        {
+            // Check for if one side is victorious first
+
+            // Skips turn
+            NextTurn();
+        }
+
+        gm.Mode = currentUser.ChangeMode();
+        currentUser.PlayTurn();
     }
 
     public Card DrawCard(char type)

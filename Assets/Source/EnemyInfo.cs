@@ -241,12 +241,14 @@ public class EnemyInfo : MonoBehaviour, IBattleable
     {
         Stat.CurrentHealth -= damage;
         UpdateHealthDisplay();
-        
-        if(Stat.CurrentHealth <= 0)
-        {
-            print(name + " is dead.");
-        }
     }
+
+    public string ChangeMode()
+    {
+        return "Battle Enemy";
+    }
+
+    public bool IsDead() { return Stat.CurrentHealth <= 0; }
 }
 
 internal class Mobs

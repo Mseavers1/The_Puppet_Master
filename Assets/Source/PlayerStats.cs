@@ -13,14 +13,19 @@ public class PlayerStats : MonoBehaviour, IBattleable
         playerStats.CurrentHealth -= damage;
         healthDisplay.UpdateText(playerStats.CurrentHealth + " / " + playerStats.MaxHealth + " HP");
 
-        // Death check
-        if (playerStats.CurrentHealth <= 0)
-            print("Player Died");
-
     }
+
+    public bool IsDead() { return playerStats.CurrentHealth <= 0; }
 
     private void Start()
     {
         playerStats = StaticHolder.PlayerStats;
     }
+
+    public string ChangeMode()
+    {
+        return "Battle Player";
+    }
+
+    public void PlayTurn() { } // Only for non player users
 }

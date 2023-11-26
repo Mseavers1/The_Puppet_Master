@@ -11,8 +11,17 @@ public class PlayableStats : MonoBehaviour, IBattleable
     {
         Stat.CurrentHealth -= damage;
         //healthDisplay.UpdateText(Stat.CurrentHealth + " / " + Stat.MaxHealth + " HP");
-        // Death check
-        print("Player Died");
+    }
 
+    public string ChangeMode()
+    {
+        return "Battle Ally";
+    }
+
+    public bool IsDead() { return Stat.CurrentHealth <= 0;}
+
+    public void PlayTurn()
+    {
+        throw new NotImplementedException();
     }
 }
