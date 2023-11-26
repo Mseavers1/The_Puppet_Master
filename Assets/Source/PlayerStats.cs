@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour, IComparable<GameObject>
 { 
-    public Stats Stat { get; private set; }
-
     public int CompareTo(GameObject other)
     {
+        var Stat = StaticHolder.PlayerStats;
         Stats otherStat;
         if (other.GetComponent<EnemyInfo>() != null) otherStat = other.GetComponent<PlayableStats>().Stat;
         else otherStat = other.GetComponent<EnemyInfo>().Stat;

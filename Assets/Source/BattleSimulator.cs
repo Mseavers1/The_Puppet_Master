@@ -50,7 +50,12 @@ public class BattleSimulator : MonoBehaviour
         }
 
         // Battle Order
-        //GenerateBattleOrder();
+        GenerateBattleOrder();
+
+        foreach(var x in order)
+        {
+            print(x.name);
+        }
     }
 
     private void GenerateBattleOrder()
