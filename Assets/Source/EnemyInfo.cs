@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyInfo : MonoBehaviour, IComparable<GameObject>
+public class EnemyInfo : MonoBehaviour
 {
     private const int Max_Level = 100;
     public Stats Stat { get; private set; }
@@ -118,18 +118,6 @@ public class EnemyInfo : MonoBehaviour, IComparable<GameObject>
     {
         GameObject[] x = {gameObject}; // TEMP
         battle.BattleSetup(playables, x);
-    }
-
-    public int CompareTo(GameObject other)
-    {
-        Stats otherStat;
-        if (other.GetComponent<EnemyInfo>() != null) otherStat = other.GetComponent<PlayableStats>().Stat;
-        else otherStat = other.GetComponent<EnemyInfo>().Stat;
-
-        if (Stat.Agility > otherStat.Agility) return 1;
-        if (Stat.Agility <= otherStat.Agility) return 0;
-
-        throw new Exception("Unable to determine Order...");
     }
 }
 

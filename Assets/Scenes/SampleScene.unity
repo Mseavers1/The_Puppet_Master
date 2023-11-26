@@ -857,6 +857,7 @@ GameObject:
   - component: {fileID: 233973913}
   - component: {fileID: 233973912}
   - component: {fileID: 233973911}
+  - component: {fileID: 233973920}
   - component: {fileID: 233973915}
   - component: {fileID: 233973914}
   - component: {fileID: 233973916}
@@ -1072,8 +1073,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 233973915}
-  temp:
-  - {fileID: 233973909}
   canvas: {fileID: 1628652490}
   cards:
   - {fileID: 1849432068}
@@ -1140,6 +1139,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smoothFactor: 7
   walls: {fileID: 1858783002}
+--- !u!114 &233973920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233973909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d81bc362fa1a8024ba51498368d7fb17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &253161862
 GameObject:
   m_ObjectHideFlags: 0
@@ -3199,7 +3210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  level: 100
+  level: 1
 --- !u!1 &1112889275
 GameObject:
   m_ObjectHideFlags: 0

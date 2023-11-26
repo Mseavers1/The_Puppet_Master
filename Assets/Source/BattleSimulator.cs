@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BattleSimulator : MonoBehaviour
@@ -52,10 +54,9 @@ public class BattleSimulator : MonoBehaviour
         // Battle Order
         GenerateBattleOrder();
 
-        foreach(var x in order)
-        {
-            print(x.name);
-        }
+        string x = "";
+        foreach (var o in order) x += o.name + " ";
+        Debug.Log(x);
     }
 
     private void GenerateBattleOrder()
@@ -75,10 +76,77 @@ public class BattleSimulator : MonoBehaviour
         }
 
         // Sort everyone based on agility
-        foreach (var person in order)
+        SortOrder();
+    }
+
+    private void SortOrder()
+    {
+        var newOrder = new GameObject[order.Count];
+
+        for (int i = 0; i < order.Count; i++)
         {
-            order.Sort();
+            if ((i + 1) > order.Count && Compare(GetAgility(order[i]), GetAgility(order[i + 1])) > 0)
+            {
+                Swap(i, i + 1, order);
+            }
+
+            if (i == 0) 
+                newOrder[i] = order[i]; 
+            else
+            {
+                newOrder[i] = order[i];
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    if (Compare(GetAgility(order[i]), GetAgility(order[j])) < 0)
+                    {
+                        Swap(i, j, newOrder);
+                        continue;
+                    }
+
+                    break;
+                }
+            }
+
         }
+
+        order.Clear();
+        foreach (var item in newOrder)
+        {
+            order.Add(item);
+        }
+    }
+
+    private int Compare(float x, float y)
+    {
+        if (x >= y) return -1;
+        if (x < y) return 1;
+
+        throw new Exception("Something weird happening when comparing... Shouldnt be here...");
+    }
+
+    private void Swap(int l, int r, List<GameObject> arr)
+    {
+        var element = arr[l];
+        arr[l] = arr[r];
+        arr[r] = element;
+    }
+
+    private void Swap(int l, int r, GameObject[] arr)
+    {
+        var element = arr[l];
+        arr[l] = arr[r];
+        arr[r] = element;
+    }
+
+    private float GetAgility(GameObject o)
+    {
+        if (o.GetComponent<EnemyInfo>() != null) return o.GetComponent<EnemyInfo>().Stat.Agility;
+        
+        if (o.GetComponent<PlayableStats>() != null) return o.GetComponent<PlayableStats>().Stat.Agility;
+
+        if (o.GetComponent<PlayerStats>()) return o.GetComponent<PlayerStats>().playerStats.Agility;
+
+        throw new Exception("Object does not have any stats");
     }
 
     // Move players and enemies to their location

@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class Mouse_Handler : MonoBehaviour
 {
     public PlayerInput input;
-    public GameObject[] temp;
     public Canvas canvas;
     public GameObject[] cards;
 
@@ -104,7 +103,9 @@ public class Mouse_Handler : MonoBehaviour
 
                         // Find enemy and starts a battle
                         var enemy = detectedCollider.GetComponent<EnemyInfo>();
-                        enemy.StartBattle(temp);
+                        var playables = new GameObject[1]; // Temp
+                        playables[0] = gameObject;
+                        enemy.StartBattle(playables);
 
                         gm.Mode = "Battle";
                         break;

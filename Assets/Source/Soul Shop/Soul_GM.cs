@@ -78,6 +78,7 @@ public class Soul_GM : MonoBehaviour
             skillNames.Add(name + " " + level);
         }
 
+        StaticHolder.StartOfGame();
         HoldingOfSkills.StartOfGame(skillNames);
         SceneManager.LoadScene(0);
     }
