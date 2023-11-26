@@ -9,8 +9,9 @@ public class Card
     private float totalDamage;
     private char type; // W - Weapon // S - Spell // D - Defense // M - Misc
     private string desc, special, AOE;
+    private int currentLevel;
 
-    public Card(string name, string type, float manaCost, float staminaCost, string[] damageTypes, float[] damageRatio, float totalDamage, string special, string aoe)
+    public Card(string name, string type, float manaCost, float staminaCost, string[] damageTypes, float[] damageRatio, float totalDamage, string special, string aoe, int currentLevel)
     {
         this.manaCost = manaCost;
         this.staminaCost = staminaCost;
@@ -19,6 +20,7 @@ public class Card
         this.damageRatio = damageRatio;
         this.totalDamage = totalDamage;
         this.special = special;
+        this.currentLevel = currentLevel;
         AOE = aoe;
 
         this.type = char.Parse(type);
@@ -26,6 +28,10 @@ public class Card
 
         desc = "Deals " + totalDamage + " " + damageTypes[0] + " damage!";
     }
+
+    public float GetDamage() { return totalDamage; }
+
+    public int GetLevel() { return currentLevel; }
 
     public string GetName() { return name; }
 

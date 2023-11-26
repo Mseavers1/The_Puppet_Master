@@ -27,7 +27,7 @@ public static class HoldingOfSkills
         throw new Exception("Unable to find skill with the name of " + name);
     }
 
-    private static List<Card> CreateCards(string name, int level)
+    public static List<Card> CreateCards(string name, int level)
     {
         // Get Skill
         var skill = LoadData(name);
@@ -43,7 +43,7 @@ public static class HoldingOfSkills
             for (var i = 0; i < numCards; i++)
             {
                 var effect = skill.Levels[currentLevel - 1].Effects[0];
-                cards.Add(new Card(name, skill.Type, skill.Levels[currentLevel - 1].ManaCost, skill.Levels[currentLevel - 1].StaminaCost, effect.DamageTypes, effect.DamageRatio, effect.TotalDamage, effect.Special, effect.AOE));
+                cards.Add(new Card(name, skill.Type, skill.Levels[currentLevel - 1].ManaCost, skill.Levels[currentLevel - 1].StaminaCost, effect.DamageTypes, effect.DamageRatio, effect.TotalDamage, effect.Special, effect.AOE, currentLevel));
             }
 
             currentLevel--;

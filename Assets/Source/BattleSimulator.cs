@@ -11,7 +11,7 @@ public class BattleSimulator : MonoBehaviour
     public GameObject[] Cards;
 
     private GameObject[] playables, enemies;
-    private List<GameObject> order;
+    private Queue<GameObject> order = new ();
     private const float Smooth_Factor = 3f;
     private bool movePlayables = false;
     private Deck deck;
@@ -48,56 +48,90 @@ public class BattleSimulator : MonoBehaviour
         DeckArea.SetActive(true);
         for (int i = 0; i < hand.Length; i++)
         {
-            Cards[i].GetComponent<CardDisplayInfo>().SetDesc(hand[i].GetDesc());
+            Cards[i].GetComponent<CardDisplayInfo>().SetDesc(hand[i]);
+            Cards[i].GetComponent<CardDisplayInfo>().SetCardType(deck.GetTypeIndex(i));
         }
 
         // Battle Order
         GenerateBattleOrder();
 
-        string x = "";
-        foreach (var o in order) x += o.name + " ";
-        Debug.Log(x);
+    }
+
+    public GameObject GetRandomPlayable()
+    {
+        int rand = UnityEngine.Random.Range(0, playables.Length);
+
+        return playables[rand];
+    }
+
+    public void NextTurn()
+    {
+        var last = order.Dequeue();
+        order.Enqueue(last);
+        // TODO - Skip if person is dead
+
+        if (IsPlayerTurn()) gm.Mode = "Battle Player";
+        else if (order.Peek().CompareTag("Enemy")) 
+        {
+            gm.Mode = "Battle Mob";
+            order.Peek().GetComponent<EnemyInfo>().PlayTurn();
+        }
+        else throw new Exception("Allies Turn - Not Implemented yet.");
+    }
+
+    public Card DrawCard(char type)
+    {
+        if (!deck.IsCorrectType(type)) throw new Exception(type + " is not a valid type! Has to be either W D S R");
+
+        return deck.PullCard(type);
+    }
+
+    public bool IsPlayerTurn()
+    {
+        if (order.Peek().CompareTag("Player")) return true;
+
+        return false;
     }
 
     private void GenerateBattleOrder()
     {
-        order = new List<GameObject>();
+        var list = new List<GameObject>();
         
         // Add all playables in the order
         foreach (var playable in playables)
         {
-            order.Add(playable);
+            list.Add(playable);
         }
 
         // Add all the enemies in the order
         foreach (var enemy in enemies)
         {
-            order.Add(enemy);
+            list.Add(enemy);
         }
 
         // Sort everyone based on agility
-        SortOrder();
+        SortOrder(list);
     }
 
-    private void SortOrder()
+    private void SortOrder(List<GameObject> list)
     {
-        var newOrder = new GameObject[order.Count];
+        var newOrder = new GameObject[list.Count];
 
-        for (int i = 0; i < order.Count; i++)
+        for (int i = 0; i < list.Count; i++)
         {
-            if ((i + 1) > order.Count && Compare(GetAgility(order[i]), GetAgility(order[i + 1])) > 0)
+            if ((i + 1) > list.Count && Compare(GetAgility(list[i]), GetAgility(list[i + 1])) > 0)
             {
-                Swap(i, i + 1, order);
+                Swap(i, i + 1, list);
             }
 
             if (i == 0) 
-                newOrder[i] = order[i]; 
+                newOrder[i] = list[i]; 
             else
             {
-                newOrder[i] = order[i];
+                newOrder[i] = list[i];
                 for (int j = i - 1; j >= 0; j--)
                 {
-                    if (Compare(GetAgility(order[i]), GetAgility(order[j])) < 0)
+                    if (Compare(GetAgility(list[i]), GetAgility(list[j])) < 0)
                     {
                         Swap(i, j, newOrder);
                         continue;
@@ -112,7 +146,7 @@ public class BattleSimulator : MonoBehaviour
         order.Clear();
         foreach (var item in newOrder)
         {
-            order.Add(item);
+            order.Enqueue(item);
         }
     }
 

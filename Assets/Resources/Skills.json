@@ -26,10 +26,10 @@
         "downgradeGains": 1,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 2,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ], // 100% towards slashing
-            "totalDamage": 4,
+            "totalDamage": 1,
             "AOE": "Single",
             "special": "none"
           }
@@ -45,10 +45,10 @@
         "downgradeGains": 1,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 2,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 1.5,
             "AOE": "Single",
             "special": "none"
           }
@@ -64,10 +64,10 @@
         "downgradeGains": 2,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 2,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 2,
             "AOE": "Single",
             "special": "none"
           }
@@ -83,10 +83,10 @@
         "downgradeGains": 4,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 3,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 2.5,
             "AOE": "Single",
             "special": "none"
           }
@@ -102,10 +102,10 @@
         "downgradeGains": 8,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 3,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 3,
             "AOE": "Single",
             "special": "none"
           }
@@ -121,10 +121,10 @@
         "downgradeGains": 16,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 3,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 3.5,
             "AOE": "Single",
             "special": "none"
           }
@@ -140,7 +140,7 @@
         "downgradeGains": 32,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 4,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 4,
@@ -159,10 +159,10 @@
         "downgradeGains": 64,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 4,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 4.5,
             "AOE": "Single",
             "special": "none"
           }
@@ -181,7 +181,7 @@
             "numberOfCards": 5,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 5,
             "AOE": "Single",
             "special": "none"
           }
@@ -200,7 +200,7 @@
             "numberOfCards": 5,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 6,
             "AOE": "Single",
             "special": "none"
           }
@@ -224,10 +224,10 @@
         "downgradeGains": 1,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 1,
             "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 1,
             "AOE": "Single",
             "special": "none"
           }
@@ -243,10 +243,10 @@
         "downgradeGains": 1,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 2,
             "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 1,
             "AOE": "Single",
             "special": "none"
           }
@@ -262,10 +262,10 @@
         "downgradeGains": 2,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 2,
             "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 2,
             "AOE": "Single",
             "special": "none"
           }
@@ -281,10 +281,10 @@
         "downgradeGains": 4,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 3,
             "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 2,
             "AOE": "Single",
             "special": "none"
           }
@@ -300,10 +300,10 @@
         "downgradeGains": 8,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 3,
             "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 3,
             "AOE": "Single",
             "special": "none"
           }
@@ -319,10 +319,10 @@
         "downgradeGains": 16,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 4,
             "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 3,
             "AOE": "Single",
             "special": "none"
           }
@@ -338,7 +338,7 @@
         "downgradeGains": 32,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 4,
             "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 4,
@@ -379,7 +379,7 @@
             "numberOfCards": 5,
             "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 5,
             "AOE": "Single",
             "special": "none"
           }
@@ -395,10 +395,10 @@
         "downgradeGains": 256,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 6,
             "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 6,
             "AOE": "Single",
             "special": "none"
           }
@@ -425,7 +425,7 @@
             "numberOfCards": 5,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 1,
             "AOE": "Single",
             "special": "none"
           }
@@ -441,10 +441,10 @@
         "downgradeGains": 1,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 3,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 3,
             "AOE": "Single",
             "special": "none"
           }
@@ -460,10 +460,10 @@
         "downgradeGains": 2,
         "effects": [
           {
-            "numberOfCards": 5,
+            "numberOfCards": 1,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ],
-            "totalDamage": 4,
+            "totalDamage": 6,
             "AOE": "Single",
             "special": "none"
           }

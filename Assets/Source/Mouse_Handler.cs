@@ -11,14 +11,17 @@ public class Mouse_Handler : MonoBehaviour
     public PlayerInput input;
     public Canvas canvas;
     public GameObject[] cards;
+    public BattleSimulator battleSimulator;
 
     private PlayerControls controls;
     private Gamemanager_World gm;
-    private bool battleMode = true, clickedOnCard = false;
+    private bool clickedOnCard = false;
 
     private GraphicRaycaster uiCaster, clickCaster;
     private PointerEventData uiData, clickData;
     private List<RaycastResult> uiResults, clickResults;
+
+    private CardDisplayInfo currentCard;
 
     private void Start()
     {
@@ -45,7 +48,7 @@ public class Mouse_Handler : MonoBehaviour
             var uiHit = false;
 
             // UI Clicking
-            if (battleMode)
+            if (gm.Mode == "Battle Player" || gm.Mode == "Card Target")
             {
                 clickData.position = pos;
                 clickResults.Clear();
@@ -61,6 +64,7 @@ public class Mouse_Handler : MonoBehaviour
                         SwitchHover(int.Parse(split[1]));
                         gm.Mode = "Card Target";
                         uiHit = true;
+                        currentCard = result.gameObject.GetComponent<CardDisplayInfo>();
                     }
                 }
             }
@@ -95,6 +99,10 @@ public class Mouse_Handler : MonoBehaviour
                         if (gm.Mode == "Card Target")
                         {
                             Debug.Log(detectedCollider.name); // TODO - Do card to the enemy
+                            detectedCollider.GetComponent<EnemyInfo>().TakeDamage(currentCard.GetCard().GetDamage());
+                            currentCard.SetDesc(battleSimulator.DrawCard(currentCard.GetCardType()));
+                            battleSimulator.NextTurn(); // Temp - Only end turn when player is ready
+                            SwitchHover(6);
                             break;
                         }
 
@@ -107,7 +115,9 @@ public class Mouse_Handler : MonoBehaviour
                         playables[0] = gameObject;
                         enemy.StartBattle(playables);
 
-                        gm.Mode = "Battle";
+                        if (battleSimulator.IsPlayerTurn()) gm.Mode = "Battle Player";
+                        else gm.Mode = "Battle Enemey";
+
                         break;
                 }
 
@@ -116,7 +126,7 @@ public class Mouse_Handler : MonoBehaviour
             // Remove card target if clicks on nothing
             if (!uiHit && gm.Mode == "Card Target")
             {
-                gm.Mode = "Battle";
+                gm.Mode = "Battle Player";
                 SwitchHover(6);
                 clickedOnCard = false;
             }
@@ -126,9 +136,11 @@ public class Mouse_Handler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(battleMode && !clickedOnCard)
+        // Hovering
+        if(gm.Mode == "Battle Player" && !clickedOnCard)
         {
-            OnHover();
+            if (battleSimulator.IsPlayerTurn())
+                OnHover();
         }
     }
 
@@ -143,7 +155,7 @@ public class Mouse_Handler : MonoBehaviour
 
         foreach(var result in uiResults)
         {
-            if (result.gameObject.tag == "Card")
+            if (result.gameObject.CompareTag("Card"))
             {
                 hasFound = true;
                 var split = result.gameObject.name.Split(' ');

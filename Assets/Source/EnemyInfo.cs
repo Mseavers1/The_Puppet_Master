@@ -1,9 +1,10 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
-public class EnemyInfo : MonoBehaviour
+public class EnemyInfo : MonoBehaviour, IBattleable
 {
     private const int Max_Level = 100;
     public Stats Stat { get; private set; }
@@ -15,6 +16,10 @@ public class EnemyInfo : MonoBehaviour
     private Dictionary<string, string> curveStats = new ();
     private Dictionary<string, float> baseStats = new();
     private Dictionary<string, float> maxstats = new();
+
+    private Deck deck;
+    private Card[] hand;
+    private Dictionary<string, float> skills = new ();
 
     private void Awake()
     {
@@ -63,6 +68,110 @@ public class EnemyInfo : MonoBehaviour
         // Generate and sets new stats based on current level
         GenerateNewStats();
         Debug.Log(Stat);
+
+        // Convert skills into list
+        GenerateSkillsList(mob);
+
+        // Generate Cards
+        deck = GenerateDeck();
+        Debug.Log("Enemy Deck: " + deck);
+
+        // Generate Hand
+        hand = deck.GenerateHand();
+        foreach (var card in hand) Debug.Log("Enemy Card in Hand: " + card.GetName());
+    }
+
+    public void PlayTurn()
+    {
+        // Need to make a reference since skills uses both level and the name in the key
+        Dictionary<string, string> dict = new ();
+        foreach (var ele in skills)
+        {
+            var split = ele.Key.Split(' ');
+            var name = split[0];
+
+            dict.Add(name, ele.Key);
+        }
+
+
+        // Calculate total from all chances in hand
+        float total = 0;
+        foreach (var card in hand)
+        {
+            total += skills[dict[card.GetName()]];
+        }
+
+        // Get Random number
+        float rand = UnityEngine.Random.Range(0, total);
+
+        // Find Card based on chances
+        float currentTotal = 0;
+        int index = 0;
+        foreach (var c in hand)
+        {
+            currentTotal += skills[dict[c.GetName()]];
+
+            // Find match
+            if(rand < currentTotal)
+            {
+                PlayCard(index);
+                break;
+            }
+
+            index++;
+        }
+        
+        // Progress order when move is done.
+        battle.NextTurn();
+    }
+
+    private void PlayCard(int cardIndex)
+    {
+        var card = hand[cardIndex];
+
+        // Replace card in there hand
+        hand[cardIndex] = deck.PullCard(deck.GetTypeIndex(cardIndex));
+        print(name + " used " + card.GetName() + " at level " + card.GetLevel() + " dealing a total of " + card.GetDamage() + " damage!");
+
+        // Find target (Random for now TODO - not random?)
+        var target = battle.GetRandomPlayable();
+       
+        // Check if player or playable
+        if (target.tag == "Player")
+        {
+            target.GetComponent<PlayerStats>().TakeDamage(card.GetDamage());
+        } 
+        else
+        {
+            target.GetComponent<PlayableStats>().TakeDamage(card.GetDamage());
+        }
+    }
+
+    private void GenerateSkillsList(Mobs mob)
+    {
+        foreach (var skill in mob.MobSkills)
+        {
+            skills.Add(skill.Name + " " + skill.Level, skill.Chance);
+        }
+    }
+
+    private Deck GenerateDeck()
+    {
+        Deck deck = new();
+
+        foreach (var skill in skills)
+        {
+            var div = skill.Key.Split(' ');
+            var name = div[0];
+            var level = int.Parse(div[1]);
+
+            var cards = HoldingOfSkills.CreateCards(name, level);
+            deck.AddCards(cards);
+
+        }
+
+        deck.RandomizeDeck();
+        return deck;
     }
 
     private void GenerateNewStats()
@@ -113,11 +222,30 @@ public class EnemyInfo : MonoBehaviour
 
         throw new Exception("Unable to find Mob with the id of " + id);
     }
+    
+    private void UpdateHealthDisplay()
+    {
+        var canvas = transform.GetChild(1);
+        canvas.gameObject.SetActive(true);
+        canvas.GetChild(0).GetComponent<DisplayStatTop>().UpdateText(Stat.CurrentHealth + " / " + Stat.MaxHealth + " HP");
+    }
 
     public void StartBattle(GameObject[] playables)
     {
+        UpdateHealthDisplay();
         GameObject[] x = {gameObject}; // TEMP
         battle.BattleSetup(playables, x);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        Stat.CurrentHealth -= damage;
+        UpdateHealthDisplay();
+        
+        if(Stat.CurrentHealth <= 0)
+        {
+            print(name + " is dead.");
+        }
     }
 }
 
@@ -155,4 +283,12 @@ internal class Mobs
     public float MDefense;
     public float MaxedMDefense;
     public string CurveMDefense;
+    public MobSkills[] MobSkills;
+}
+
+internal class MobSkills
+{
+    public string Name;
+    public int Level;
+    public float Chance;
 }

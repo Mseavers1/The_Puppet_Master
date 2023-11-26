@@ -32,6 +32,31 @@ public class Deck
         return hand;
     }
 
+    public char GetTypeIndex(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return 'W';
+            case 1:
+                return 'D';
+            case 2:
+                return 'S';
+            case 3:
+                return 'S';
+            case 4:
+                return 'R';
+            default: throw new Exception("The index [" + index + "] does not exsist!");
+        }
+    }
+
+    public bool IsCorrectType(char type)
+    {
+        if (type != 'W' && type != 'D' && type != 'S' && type != 'R') return false;
+
+        return true;
+    }
+
     public void RandomizeDeck()
     {
         var randDeck = new List<Card>();
@@ -59,7 +84,7 @@ public class Deck
         return card;
     }
 
-    private Card PullCard(char type)
+    public Card PullCard(char type)
     {
         // Checks if deck needs a reshuffle
         if (cards.Count == 0)

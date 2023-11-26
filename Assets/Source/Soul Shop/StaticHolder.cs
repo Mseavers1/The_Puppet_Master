@@ -4,6 +4,6 @@ public static class StaticHolder
 
     public static void StartOfGame()
     {
-        PlayerStats = new Stats(1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+        PlayerStats = new Stats(10, 10, 10, 12, 10, 10, 10, 10, 10, 10);
     }
 }

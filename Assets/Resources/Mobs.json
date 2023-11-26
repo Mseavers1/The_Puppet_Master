@@ -37,6 +37,18 @@
     "curvePDefense": "linear",
     "mDefense": 10,
     "maxedMDefense": 100,
-    "curveMDefense": "linear"
+    "curveMDefense": "linear",
+    "mobSkills": [
+      {
+        "name": "Swordsmanship",
+        "level": 5,
+        "chance": 0.5
+      },
+      {
+        "name": "Archery",
+        "level": 1,
+        "chance": 0.5
+      }
+    ]
   }
 ]
