@@ -14,6 +14,7 @@ public class Mouse_Handler : MonoBehaviour
     public GameObject[] cards;
 
     private PlayerControls controls;
+    private Gamemanager_World gm;
     private bool battleMode = true, clickedOnCard = false;
 
     private GraphicRaycaster uiCaster, clickCaster;
@@ -22,6 +23,7 @@ public class Mouse_Handler : MonoBehaviour
 
     private void Start()
     {
+        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Gamemanager_World>();
         controls = GetComponent<Player_Movement>().GetControls();
         input.onActionTriggered += OnClick;
 
@@ -37,9 +39,11 @@ public class Mouse_Handler : MonoBehaviour
 
     private void OnClick(InputAction.CallbackContext context)
     {
+        // Detect left clicks
         if (context.action.name.Equals("Left Click") && context.performed) 
         {
             var pos = Mouse.current.position.ReadValue();
+            var uiHit = false;
 
             // UI Clicking
             if (battleMode)
@@ -51,11 +55,13 @@ public class Mouse_Handler : MonoBehaviour
 
                 foreach (var result in clickResults) 
                 {
-                    if (result.gameObject.tag == "Card")
+                    if (result.gameObject.CompareTag("Card"))
                     {
                         clickedOnCard = true;
                         var split = result.gameObject.name.Split(' ');
                         SwitchHover(int.Parse(split[1]));
+                        gm.Mode = "Card Target";
+                        uiHit = true;
                     }
                 }
             }
@@ -72,21 +78,46 @@ public class Mouse_Handler : MonoBehaviour
                 switch (detectedCollider.tag)
                 {
                     case "NPC":
+                        // Prevents other actions occuring
+                        if (gm.Mode != "None") break;
+
                         var handler = detectedCollider.GetComponent<Chatbox_Handler>();
                         if(!handler.playing)
                             handler.StartChat();
+
+                        gm.Mode = "Chat";
                         break;
                     case "Chatbox":
                         if (detectedCollider.GetComponentInParent<Chatbox_Handler>().canContinue)
                             detectedCollider.transform.GetComponentInParent<Chatbox_Handler>().ContinueChat();
                         break;
                     case "Enemy":
+                        // Find target if looking for card target
+                        if (gm.Mode == "Card Target")
+                        {
+                            Debug.Log(detectedCollider.name); // TODO - Do card to the enemy
+                            break;
+                        }
+
+                        // Prevents battle starting if one is occuring
+                        if (gm.Mode != "None") break;
+
+                        // Find enemy and starts a battle
                         var enemy = detectedCollider.GetComponent<EnemyInfo>();
                         enemy.StartBattle(temp);
+
+                        gm.Mode = "Battle";
                         break;
                 }
 
+            }
 
+            // Remove card target if clicks on nothing
+            if (!uiHit && gm.Mode == "Card Target")
+            {
+                gm.Mode = "Battle";
+                SwitchHover(6);
+                clickedOnCard = false;
             }
 
         }

@@ -1,0 +1,42 @@
+/*
+ * ID - ID for the certain mob
+ * Name - Name of the mob
+ * Stats - MaxHealth, MaxMana, MaxStamina, Agility, Speed, Luck, PStrength, MStrength, PDefense, MDefense
+ * CurveStats - Linear, Pow, Log -> How the stats rise as the level goes up
+*/
+[
+  {
+    "id": 0,
+    "name": "slime",
+    "maxHealth": 10,
+    "maxedHealth": 100,
+    "curveHealth": "linear",
+    "maxMana": 10,
+    "maxedMana": 100,
+    "curveMana": "pow",
+    "maxStamina": 10,
+    "maxedStamina": 100,
+    "curveStamina": "log",
+    "agility": 10,
+    "maxedAgility": 100,
+    "curveAgility": "linear",
+    "speed": 10,
+    "maxedSpeed": 100,
+    "curveSpeed": "linear",
+    "luck": 10,
+    "maxedLuck": 100,
+    "curveLuck": "linear",
+    "pStrength": 10,
+    "maxedPStrength": 100,
+    "curvePStrength": "linear",
+    "mStrength": 10,
+    "maxedMStrength": 100,
+    "curveMStrength": "linear",
+    "pDefense": 10,
+    "maxedPDefense": 100,
+    "curvePDefense": "linear",
+    "mDefense": 10,
+    "maxedMDefense": 100,
+    "curveMDefense": "linear"
+  }
+]

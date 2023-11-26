@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class BattleSimulator : MonoBehaviour
@@ -8,10 +9,17 @@ public class BattleSimulator : MonoBehaviour
     public GameObject[] Cards;
 
     private GameObject[] playables, enemies;
+    private List<GameObject> order;
     private const float Smooth_Factor = 3f;
     private bool movePlayables = false;
     private Deck deck;
     private Card[] hand;
+    private Gamemanager_World gm;
+
+    private void Awake()
+    {
+        gm = gameObject.GetComponent<Gamemanager_World>();
+    }
 
     // Get the nessessary info needed for the battle
     public void BattleSetup(GameObject[] playables, GameObject[] enemies)
@@ -39,6 +47,32 @@ public class BattleSimulator : MonoBehaviour
         for (int i = 0; i < hand.Length; i++)
         {
             Cards[i].GetComponent<CardDisplayInfo>().SetDesc(hand[i].GetDesc());
+        }
+
+        // Battle Order
+        //GenerateBattleOrder();
+    }
+
+    private void GenerateBattleOrder()
+    {
+        order = new List<GameObject>();
+        
+        // Add all playables in the order
+        foreach (var playable in playables)
+        {
+            order.Add(playable);
+        }
+
+        // Add all the enemies in the order
+        foreach (var enemy in enemies)
+        {
+            order.Add(enemy);
+        }
+
+        // Sort everyone based on agility
+        foreach (var person in order)
+        {
+            order.Sort();
         }
     }
 

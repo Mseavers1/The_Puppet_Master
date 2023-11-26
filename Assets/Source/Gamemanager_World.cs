@@ -6,4 +6,5 @@ public class Gamemanager_World : MonoBehaviour
 {
     [Range(0.4f, 1.3f)]
     public float scale = 0.8f;
+    public string Mode = "None";
 }
