@@ -41,7 +41,7 @@
     "mobSkills": [
       {
         "name": "Swordsmanship",
-        "level": 5,
+        "level": 10,
         "chance": 0.5
       },
       {

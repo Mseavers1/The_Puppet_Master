@@ -88,6 +88,25 @@ public class BattleSimulator : MonoBehaviour
         if(currentUser.IsDead())
         {
             // Check for if one side is victorious first
+            if (IsBattleOver() == "Enemy")
+            {
+                gm.Mode = "None";
+                playables[0].GetComponent<Player_Movement>().EnableMovement(true);
+                DeckArea.SetActive(false);
+                foreach(var enemy in enemies)
+                {
+                    Destroy(enemy);
+                }
+
+                return;
+            }
+
+            if(IsBattleOver() == "Player")
+            {
+                print("Game Over"); // TODO -- Implement
+                return;
+            }
+
 
             // Skips turn
             NextTurn();
@@ -109,6 +128,40 @@ public class BattleSimulator : MonoBehaviour
         if (order.Peek().CompareTag("Player")) return true;
 
         return false;
+    }
+
+    // Returns who is all dead
+    private string IsBattleOver()
+    {
+        var playableCount = playables.Length;
+        var playableDead = 0;
+
+        var enemyCount = enemies.Length;
+        var enemyDead = 0;
+
+        // Count the number that are dead in both enemies and players
+        foreach (var p in playables)
+        {
+            if (p.name == "Player")
+            {
+                if (p.GetComponent<PlayerStats>().IsDead()) playableDead++;
+            } 
+            else
+            {
+                if (p.GetComponent<PlayableStats>().IsDead()) playableDead++;
+            }
+        }
+
+        foreach (var e in enemies)
+        {
+            if (e.GetComponent<EnemyInfo>().IsDead()) enemyDead++;
+        }
+
+        // Check
+        if (playableDead >= playableCount) return "Player";
+        if (enemyDead >= enemyCount) return "Enemy";
+
+        return "";
     }
 
     private void GenerateBattleOrder()
