@@ -13,7 +13,7 @@ TagManager:
   - Enemy
   - Card
   - StatIconBUY
-  - StatIconSell
+  - StatIconSELL
   layers:
   - Default
   - TransparentFX
