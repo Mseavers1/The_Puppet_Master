@@ -11,6 +11,7 @@ public class SoulShop_Controls : MonoBehaviour
 {
     public GameObject canvas;
     public Card_Display display;
+    public StatUI_Updater[] statsUI;
 
     private PlayerControls controls;
     private PlayerInput input;
@@ -158,6 +159,22 @@ public class SoulShop_Controls : MonoBehaviour
                     {
                         affinity.GetComponent<AffinitiyUI>().CheckRequirementsSatisfaction();
                     }
+                }
+
+                // Stats - Buy
+                if (result.gameObject.CompareTag("StatIconBUY"))
+                {
+                    var cost = result.gameObject.GetComponentInParent<StatUI_Updater>().BuyPoint(GetComponent<Soul_GM>().GetSP());
+
+                    if (cost > 0) GetComponent<Soul_GM>().Buy(cost);
+                }
+
+                // Stats - Sell
+                if (result.gameObject.CompareTag("StatIconSELL"))
+                {
+                    var gain = result.gameObject.GetComponentInParent<StatUI_Updater>().RemovePoint();
+
+                    if (gain > 0) GetComponent<Soul_GM>().Gain(gain);
                 }
             }
 

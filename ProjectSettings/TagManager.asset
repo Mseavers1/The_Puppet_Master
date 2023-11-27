@@ -12,6 +12,8 @@ TagManager:
   - GameManager
   - Enemy
   - Card
+  - StatIconBUY
+  - StatIconSell
   layers:
   - Default
   - TransparentFX
