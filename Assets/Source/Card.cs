@@ -48,6 +48,8 @@ public class Card
         return false;
     }
 
+    public char GetTypeName() { return type; }
+
 
     private void CheckType()
     { 

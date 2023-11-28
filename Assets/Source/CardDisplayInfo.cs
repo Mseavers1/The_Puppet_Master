@@ -17,7 +17,12 @@ public class CardDisplayInfo : MonoBehaviour
 
     public void SetDesc(Card card)
     {
+        transform.GetChild(0).GetComponent<TMP_Text>().text = card.GetName();
+        transform.GetChild(1).GetComponent<TMP_Text>().text = "Lv. " + card.GetLevel();
         transform.GetChild(2).GetComponent<TMP_Text>().text = card.GetDesc();
+        transform.GetChild(3).GetComponent<TMP_Text>().text = card.GetStaminaCost() + " SP";
+        transform.GetChild(4).GetComponent<TMP_Text>().text = card.GetManaCost() + " MP";
+        transform.GetChild(5).GetComponent<TMP_Text>().text = card.GetTypeName().ToString();
         this.card = card;
     }
 
