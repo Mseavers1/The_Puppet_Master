@@ -11,7 +11,7 @@ public class PlayerStats : MonoBehaviour, IBattleable
     public void TakeDamage(float damage)
     {
         playerStats.CurrentHealth -= damage;
-        healthDisplay.UpdateText(playerStats.CurrentHealth + " / " + playerStats.MaxHealth + " HP");
+        healthDisplay.UpdateText(playerStats.CurrentHealth + " / " + playerStats.GetStatValue("Health") + " HP");
 
     }
 

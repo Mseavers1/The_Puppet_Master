@@ -221,7 +221,7 @@ public class BattleSimulator : MonoBehaviour
         }
     }
 
-    private int Compare(float x, float y)
+    private int Compare(double x, double y)
     {
         if (x >= y) return -1;
         if (x < y) return 1;
@@ -243,13 +243,13 @@ public class BattleSimulator : MonoBehaviour
         arr[r] = element;
     }
 
-    private float GetAgility(GameObject o)
+    private double GetAgility(GameObject o)
     {
-        if (o.GetComponent<EnemyInfo>() != null) return o.GetComponent<EnemyInfo>().Stat.Agility;
+        if (o.GetComponent<EnemyInfo>() != null) return o.GetComponent<EnemyInfo>().Stat.GetStatValue("Agility");
         
-        if (o.GetComponent<PlayableStats>() != null) return o.GetComponent<PlayableStats>().Stat.Agility;
+        if (o.GetComponent<PlayableStats>() != null) return o.GetComponent<PlayableStats>().Stat.GetStatValue("Agility");
 
-        if (o.GetComponent<PlayerStats>()) return o.GetComponent<PlayerStats>().playerStats.Agility;
+        if (o.GetComponent<PlayerStats>()) return o.GetComponent<PlayerStats>().playerStats.GetStatValue("Agility");
 
         throw new Exception("Object does not have any stats");
     }

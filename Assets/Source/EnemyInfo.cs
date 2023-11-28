@@ -13,9 +13,9 @@ public class EnemyInfo : MonoBehaviour, IBattleable
 
     private BattleSimulator battle;
     private string mobName;
+
     private Dictionary<string, string> curveStats = new ();
-    private Dictionary<string, float> baseStats = new();
-    private Dictionary<string, float> maxstats = new();
+    private Dictionary<string, int> bonusStats = new();
 
     private Deck deck;
     private Card[] hand;
@@ -43,30 +43,19 @@ public class EnemyInfo : MonoBehaviour, IBattleable
         curveStats.Add("pDefense", CheckJSONName(mob.CurvePDefense, "pDefense"));
         curveStats.Add("mDefense", CheckJSONName(mob.CurveMDefense, "mDefense"));
 
-        baseStats.Add("health", mob.MaxHealth);
-        baseStats.Add("mana", mob.MaxMana);
-        baseStats.Add("stamina", mob.MaxStamina);
-        baseStats.Add("luck", mob.Luck);
-        baseStats.Add("speed", mob.Speed);
-        baseStats.Add("agility", mob.Agility);
-        baseStats.Add("pStrength", mob.PStrength);
-        baseStats.Add("mStrength", mob.MStrength);
-        baseStats.Add("pDefense", mob.PDefense);
-        baseStats.Add("mDefense", mob.MDefense);
-
-        maxstats.Add("health", mob.MaxedHealth);
-        maxstats.Add("mana", mob.MaxedMana);
-        maxstats.Add("stamina", mob.MaxedStamina);
-        maxstats.Add("luck", mob.MaxedLuck);
-        maxstats.Add("speed", mob.MaxedSpeed);
-        maxstats.Add("agility", mob.MaxedAgility);
-        maxstats.Add("pStrength", mob.MaxedPStrength);
-        maxstats.Add("mStrength", mob.MaxedMStrength);
-        maxstats.Add("pDefense", mob.MaxedPDefense);
-        maxstats.Add("mDefense", mob.MaxedMDefense);
+        bonusStats.Add("health", mob.MaxHealth);
+        bonusStats.Add("mana", mob.MaxMana);
+        bonusStats.Add("stamina", mob.MaxStamina);
+        bonusStats.Add("luck", mob.Luck);
+        bonusStats.Add("speed", mob.Speed);
+        bonusStats.Add("agility", mob.Agility);
+        bonusStats.Add("pStrength", mob.PStrength);
+        bonusStats.Add("mStrength", mob.MStrength);
+        bonusStats.Add("pDefense", mob.PDefense);
+        bonusStats.Add("mDefense", mob.MDefense);
 
         // Generate and sets new stats based on current level
-        GenerateNewStats();
+        Stat = new Stats(bonusStats["health"], bonusStats["mana"], bonusStats["stamina"], bonusStats["agility"], bonusStats["speed"], bonusStats["luck"], bonusStats["pStrength"], bonusStats["mStrength"], bonusStats["pDefense"], bonusStats["mDefense"], level);
         Debug.Log(Stat);
 
         // Convert skills into list
@@ -174,34 +163,6 @@ public class EnemyInfo : MonoBehaviour, IBattleable
         return deck;
     }
 
-    private void GenerateNewStats()
-    {
-        var newValues = new Dictionary<string, float>();
-        foreach (var item in baseStats)
-        {
-            newValues.Add(item.Key, GenerateNewValue(curveStats[item.Key], item.Value, maxstats[item.Key])); 
-        }
-
-        Stat = new Stats(newValues["health"], newValues["mana"], newValues["stamina"], newValues["luck"], newValues["speed"], newValues["agility"], newValues["pStrength"], newValues["mStrength"], newValues["pDefense"], newValues["mDefense"]);
-    }
-
-    private float GenerateNewValue(string type, float baseValue, float maxedValue)
-    {
-        float slope;
-        switch (type)
-        {
-            case "pow": // Power
-                slope = (float) ((maxedValue - baseValue) / (Math.Pow(Max_Level - 1f, 2)));
-                return (float) Math.Round((slope * Math.Pow(level - 1, 2)) + baseValue, 3);
-            case "log": // Logarithm 
-                slope = (float) ((maxedValue - baseValue) / (Math.Log10(Max_Level)));
-                return (float) Math.Round((slope * Math.Log10(level)) + baseValue, 3);
-            default: // Linear
-                slope = (maxedValue - baseValue) / (Max_Level - 1f);
-                return (float) Math.Round((slope * (level - 1)) + baseValue, 3);
-        }
-    }
-
     private string CheckJSONName(string name, string type)
     {
         if (name != "linear" && name != "pow" && name != "log") throw new Exception("Error in Mob JSON - The curve for [" + type + "] was named [" + name + "] instead of [linear, pow, log]!");
@@ -227,7 +188,7 @@ public class EnemyInfo : MonoBehaviour, IBattleable
     {
         var canvas = transform.GetChild(1);
         canvas.gameObject.SetActive(true);
-        canvas.GetChild(0).GetComponent<DisplayStatTop>().UpdateText(Stat.CurrentHealth + " / " + Stat.MaxHealth + " HP");
+        canvas.GetChild(0).GetComponent<DisplayStatTop>().UpdateText(Stat.CurrentHealth + " / " + Stat.GetStatValue("Health") + " HP");
     }
 
     public void StartBattle(GameObject[] playables)
@@ -255,35 +216,25 @@ internal class Mobs
 {
     public int ID;
     public string Name;
-    public float MaxHealth;
-    public float MaxedHealth;
+    public int MaxHealth;
     public string CurveHealth;
-    public float MaxMana;
-    public float MaxedMana;
+    public int MaxMana;
     public string CurveMana;
-    public float MaxStamina;
-    public float MaxedStamina;
+    public int MaxStamina;
     public string CurveStamina;
-    public float Agility;
-    public float MaxedAgility;
+    public int Agility;
     public string CurveAgility;
-    public float Speed;
-    public float MaxedSpeed;
+    public int Speed;
     public string CurveSpeed;
-    public float Luck;
-    public float MaxedLuck;
+    public int Luck;
     public string CurveLuck;
-    public float PStrength;
-    public float MaxedPStrength;
+    public int PStrength;
     public string CurvePStrength;
-    public float MStrength;
-    public float MaxedMStrength;
+    public int MStrength;
     public string CurveMStrength;
-    public float PDefense;
-    public float MaxedPDefense;
+    public int PDefense;
     public string CurvePDefense;
-    public float MDefense;
-    public float MaxedMDefense;
+    public int MDefense;
     public string CurveMDefense;
     public MobSkills[] MobSkills;
 }

@@ -13,8 +13,8 @@ public class Gamemanager_World : MonoBehaviour
     private void Start()
     {
         var stats = StaticHolder.PlayerStats;
-        displays[0].UpdateText(stats.CurrentHealth + " / " + stats.MaxHealth + " HP"); // Health
-        displays[1].UpdateText(stats.CurrentMana + " / " + stats.MaxMana + " MP"); // Mana
-        displays[2].UpdateText(stats.CurrentStamina + " / " + stats.MaxStamina + " S"); // Stamina
+        displays[0].UpdateText(stats.CurrentHealth + " / " + stats.GetStatValue("Health") + " HP"); // Health
+        displays[1].UpdateText(stats.CurrentMana + " / " + stats.GetStatValue("Mana") + " MP"); // Mana
+        displays[2].UpdateText(stats.CurrentStamina + " / " + stats.GetStatValue("Stamina") + " S"); // Stamina
     }
 }

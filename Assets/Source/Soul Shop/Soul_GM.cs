@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,7 @@ public class Soul_GM : MonoBehaviour
 {
     public TMP_Text spText, affinitiesText;
     public Card_Display display;
+    public TMP_Text[] pointText;
 
     private int availableAffinities = 30;
     private int soulPoints = 10;
@@ -78,7 +80,17 @@ public class Soul_GM : MonoBehaviour
             skillNames.Add(name + " " + level);
         }
 
-        StaticHolder.StartOfGame();
+        // Get points from pointTexts
+        int[] arr = new int[pointText.Length];
+        int index = 0;
+
+        foreach (var txt in pointText)
+        {
+            arr[index] = int.Parse(txt.text);
+            index++;
+        }
+
+        StaticHolder.StartOfGame(arr);
         HoldingOfSkills.StartOfGame(skillNames);
         SceneManager.LoadScene(0);
     }
