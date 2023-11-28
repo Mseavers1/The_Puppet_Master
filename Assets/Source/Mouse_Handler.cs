@@ -116,7 +116,11 @@ public class Mouse_Handler : MonoBehaviour
                         enemy.StartBattle(playables);
 
                         if (battleSimulator.IsPlayerTurn()) gm.Mode = "Battle Player";
-                        else gm.Mode = "Battle Enemey";
+                        else
+                        {
+                            gm.Mode = "Battle Enemey";
+                            enemy.PlayTurn();
+                        }
 
                         break;
                 }

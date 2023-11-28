@@ -11,7 +11,6 @@ public class SoulShop_Controls : MonoBehaviour
 {
     public GameObject canvas;
     public Card_Display display;
-    public StatUI_Updater[] statsUI;
 
     private PlayerControls controls;
     private PlayerInput input;

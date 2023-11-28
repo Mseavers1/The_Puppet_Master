@@ -5718,7 +5718,17 @@ MonoBehaviour:
   spText: {fileID: 1667479985}
   affinitiesText: {fileID: 1023778928}
   display: {fileID: 511698590}
-  pointText: []
+  pointText:
+  - {fileID: 271203288}
+  - {fileID: 668725380}
+  - {fileID: 1137635014}
+  - {fileID: 229986601}
+  - {fileID: 1632262250}
+  - {fileID: 1703399135}
+  - {fileID: 1798083015}
+  - {fileID: 1000066240}
+  - {fileID: 1695177935}
+  - {fileID: 137446622}
 --- !u!114 &511698593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5815,7 +5825,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1231472289}
   display: {fileID: 511698590}
-  statsUI: []
 --- !u!1 &516665722
 GameObject:
   m_ObjectHideFlags: 0

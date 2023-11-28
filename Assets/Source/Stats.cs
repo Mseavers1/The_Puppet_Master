@@ -106,15 +106,15 @@ public class Stats
             {
                 case "power":
                     slope = (maxValues - defaultValue) / Math.Pow(maxPoints - 1f, 2);
-                    StatValues[stat] = Math.Round((slope * Math.Pow(totalPoints - 1, 2)) + defaultValue, 3);
+                    StatValues[stat] = Math.Round((slope * Math.Pow(totalPoints - 1, 2)) + defaultValue, 1);
                     break;
                 case "log":
                     slope = (maxValues - defaultValue) / Math.Log10(maxPoints);
-                    StatValues[stat] = Math.Round((slope * Math.Log10(totalPoints)) + defaultValue, 3); ;
+                    StatValues[stat] = Math.Round((slope * Math.Log10(totalPoints)) + defaultValue, 1); ;
                     break;
                 default: // linear
                     slope = (maxValues - defaultValue) / (maxPoints - 1f);
-                    StatValues[stat] = Math.Round((slope * (totalPoints - 1)) + defaultValue, 3);
+                    StatValues[stat] = Math.Round((slope * (totalPoints - 1)) + defaultValue, 1);
                     break;
             }
         }
