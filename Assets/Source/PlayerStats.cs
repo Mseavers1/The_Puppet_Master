@@ -12,7 +12,6 @@ public class PlayerStats : MonoBehaviour, IBattleable
     {
         playerStats.CurrentHealth -= damage;
         healthDisplay.UpdateText(playerStats.CurrentHealth + " / " + playerStats.GetStatValue("Health") + " HP");
-
     }
 
     public bool IsDead() { return playerStats.CurrentHealth <= 0; }
@@ -27,5 +26,8 @@ public class PlayerStats : MonoBehaviour, IBattleable
         return "Battle Player";
     }
 
-    public void PlayTurn() { } // Only for non player users
+    public void PlayTurn() 
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<Gamemanager_World>().TurnButtonOn();
+    } 
 }

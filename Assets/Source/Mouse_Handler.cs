@@ -98,11 +98,7 @@ public class Mouse_Handler : MonoBehaviour
                         // Find target if looking for card target
                         if (gm.Mode == "Card Target")
                         {
-                            Debug.Log(detectedCollider.name); // TODO - Do card to the enemy
-                            detectedCollider.GetComponent<EnemyInfo>().TakeDamage(currentCard.GetCard().GetDamage());
-                            currentCard.SetDesc(battleSimulator.DrawCard(currentCard.GetCardType()));
-                            battleSimulator.NextTurn(); // Temp - Only end turn when player is ready
-                            SwitchHover(6);
+                            PlayCard(detectedCollider);
                             break;
                         }
 
@@ -136,6 +132,27 @@ public class Mouse_Handler : MonoBehaviour
             }
 
         }
+    }
+
+    private void PlayCard(Collider2D enemy)
+    {
+        var card = currentCard.GetCard();
+        var playerStats = StaticHolder.PlayerStats;
+        Debug.Log(enemy.name);
+
+        // Check if card is playable
+        if (!playerStats.PlayCard(card.GetManaCost(), card.GetStaminaCost())) return; // TODO - Animation that declines buying
+
+        enemy.GetComponent<EnemyInfo>().TakeDamage(card.GetDamage());
+        currentCard.SetDesc(battleSimulator.DrawCard(currentCard.GetCardType()));
+
+
+        //battleSimulator.NextTurn(); // Temp - Only end turn when player is ready
+        // Update top bar
+        gm.displays[1].UpdateText(playerStats.CurrentMana + " / " + playerStats.GetStatValue("Mana") + " MP");
+        gm.displays[2].UpdateText(playerStats.CurrentStamina + " / " + playerStats.GetStatValue("Stamina") + " SP");
+
+        SwitchHover(6);
     }
 
     private void FixedUpdate()

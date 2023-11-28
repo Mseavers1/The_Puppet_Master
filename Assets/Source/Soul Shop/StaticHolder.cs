@@ -8,6 +8,7 @@ public static class StaticHolder
 
     // Defaults
     public const int Max_Point_Size = 200, Max_Buyable_Point_Size = 100, Max_Level = 100;
+    public const float Default_Stamina_Rate = 0.1f, Default_Mana_Rate = 0.1f;
 
     // Linear, Power, or Log -- Used in the entire game
     public static readonly Dictionary<string, string> curves = new();

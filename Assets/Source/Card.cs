@@ -37,6 +37,10 @@ public class Card
 
     public string GetDesc() { return desc; }
 
+    public float GetManaCost() { return manaCost; }
+
+    public float GetStaminaCost() { return staminaCost; }
+
     public bool IsTypeOf(char type)
     {
         if (this.type == type) return true;

@@ -90,24 +90,38 @@ public class EnemyInfo : MonoBehaviour, IBattleable
             total += skills[dict[card.GetName()]];
         }
 
-        // Get Random number
-        float rand = UnityEngine.Random.Range(0, total);
+        var attempts = 0;
+        var matchFound = false;
 
-        // Find Card based on chances
-        float currentTotal = 0;
-        int index = 0;
-        foreach (var c in hand)
+        while (!matchFound && attempts < 3)
         {
-            currentTotal += skills[dict[c.GetName()]];
+            // Get Random number
+            float rand = UnityEngine.Random.Range(0, total);
 
-            // Find match
-            if(rand < currentTotal)
+            // Find Card based on chances
+            float currentTotal = 0;
+            int index = 0;
+            foreach (var c in hand)
             {
-                PlayCard(index);
-                break;
-            }
+                currentTotal += skills[dict[c.GetName()]];
 
-            index++;
+                // Find match
+                if (rand < currentTotal)
+                {
+                    // Check if card is playable
+                    if (!Stat.PlayCard(hand[index].GetManaCost(), hand[index].GetStaminaCost()))
+                    {
+                        print("Do not have enough stamina or mp");
+                        attempts++;
+                    }
+
+                    matchFound = true;
+                    PlayCard(index);
+                    break;
+                }
+
+                index++;
+            }
         }
         
         // Progress order when move is done.

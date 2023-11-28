@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine.InputSystem.Utilities;
 
 public class Stats
@@ -9,6 +10,9 @@ public class Stats
     public double CurrentMana { get; set; }
     public double CurrentStamina { get; set; }
     public int Level { get; private set; }
+
+    public float StaminaRecoveryRate { get; private set; }
+    public float ManaRecoveryRate { get; private set; }
 
     private Dictionary<string, int> StatPoints = new();
     public Dictionary<string, double> StatValues = new();
@@ -39,10 +43,20 @@ public class Stats
 
         Level = level;
 
+        StaminaRecoveryRate = StaticHolder.Default_Stamina_Rate;
+        ManaRecoveryRate = StaticHolder.Default_Mana_Rate;
+
         CalculatStats();
         Heal();
         RestoreMana();
         RestoreStamina();
+    }
+
+    public void StartOfTurn()
+    {
+        // Restore mana and stamina if applicable
+        if (CurrentMana < StatValues["Mana"]) RestoreMana(ManaRecoveryRate);
+        if (CurrentStamina < StatValues["Stamina"]) RestoreStamina(StaminaRecoveryRate);
     }
 
     public double GetStatValue(string name)
@@ -50,6 +64,16 @@ public class Stats
         if (!StatValues.ContainsKey(name)) throw new Exception(name + " is not a valid stat!");
 
         return StatValues[name];
+    }
+
+    public bool PlayCard(double manaCost, double staminaCost)
+    {
+        if (CurrentMana < manaCost || CurrentStamina < staminaCost) return false;
+
+        CurrentMana -= manaCost;
+        CurrentStamina -= staminaCost;
+
+        return true;
     }
 
     public void Heal()
@@ -61,7 +85,9 @@ public class Stats
     {
         if (percent >= 1) Heal();
 
-        CurrentHealth += Math.Round(StatValues["Health"] * percent, 3);
+        CurrentHealth += Math.Round(StatValues["Health"] * percent, 1);
+
+        Math.Clamp(CurrentHealth, 10, StatValues["Health"]);
     }
 
     public void RestoreMana()
@@ -73,7 +99,9 @@ public class Stats
     {
         if (percent >= 1) RestoreMana();
 
-        CurrentHealth += Math.Round(StatValues["Mana"] * percent, 3);
+        CurrentMana += Math.Round(StatValues["Mana"] * percent, 1);
+
+        Math.Clamp(CurrentMana, 10, StatValues["Mana"]);
     }
 
     public void RestoreStamina()
@@ -85,7 +113,9 @@ public class Stats
     {
         if (percent >= 1) RestoreStamina();
 
-        CurrentHealth += Math.Round(StatValues["Stamina"] * percent, 3);
+        CurrentStamina += Math.Round(StatValues["Stamina"] * percent, 1);
+
+        Math.Clamp(CurrentStamina, 10, StatValues["Stamina"]);
     }
 
     public void CalculatStats()

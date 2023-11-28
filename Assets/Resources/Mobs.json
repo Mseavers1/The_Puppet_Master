@@ -12,7 +12,7 @@
     "curveHealth": "linear",
     "maxMana": 10,
     "curveMana": "pow",
-    "maxStamina": 10,
+    "maxStamina": 0,
     "curveStamina": "log",
     "agility": 10,
     "curveAgility": "linear",
