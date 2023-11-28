@@ -153,6 +153,7 @@ public class Mouse_Handler : MonoBehaviour
         gm.displays[2].UpdateText(playerStats.CurrentStamina + " / " + playerStats.GetStatValue("Stamina") + " SP");
 
         SwitchHover(6);
+        if (enemy.GetComponent<EnemyInfo>().IsDead()) { battleSimulator.NextTurn(); }
     }
 
     private void FixedUpdate()
