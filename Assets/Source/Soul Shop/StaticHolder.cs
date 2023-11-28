@@ -43,7 +43,7 @@ public static class StaticHolder
 
     private static void SetDefaultValues()
     {
-        defaultStatValues.Add("Health", 10);
+        defaultStatValues.Add("Health", 100000);
         defaultStatValues.Add("Mana", 10);
         defaultStatValues.Add("Stamina", 10);
         defaultStatValues.Add("Luck", 10);

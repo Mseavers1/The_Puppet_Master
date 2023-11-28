@@ -72,6 +72,9 @@ public class EnemyInfo : MonoBehaviour, IBattleable
 
     public void PlayTurn()
     {
+        // Restore Mana/Stamina
+        Stat.StartOfTurn();
+
         // Need to make a reference since skills uses both level and the name in the key
         Dictionary<string, string> dict = new ();
         foreach (var ele in skills)
@@ -91,16 +94,21 @@ public class EnemyInfo : MonoBehaviour, IBattleable
         }
 
         var attempts = 0;
-        var matchFound = false;
+        var target = battle.GetRandomPlayable(); // Find target (Random for now TODO - not random?)
 
-        while (!matchFound && attempts < 3)
+        while (attempts < 3 && !target.GetComponent<PlayerStats>().IsDead())
         {
+            float chanceToStop = UnityEngine.Random.Range(0, 100);
+            if (chanceToStop > 70) break;
+            
+
             // Get Random number
             float rand = UnityEngine.Random.Range(0, total);
 
             // Find Card based on chances
             float currentTotal = 0;
             int index = 0;
+
             foreach (var c in hand)
             {
                 currentTotal += skills[dict[c.GetName()]];
@@ -113,10 +121,12 @@ public class EnemyInfo : MonoBehaviour, IBattleable
                     {
                         print("Do not have enough stamina or mp");
                         attempts++;
+                        break;
                     }
 
-                    matchFound = true;
-                    PlayCard(index);
+                    PlayCard(index, target);
+                    target = battle.GetRandomPlayable();
+
                     break;
                 }
 
@@ -128,7 +138,7 @@ public class EnemyInfo : MonoBehaviour, IBattleable
         battle.NextTurn();
     }
 
-    private void PlayCard(int cardIndex)
+    private void PlayCard(int cardIndex, GameObject target)
     {
         var card = hand[cardIndex];
 
@@ -136,8 +146,6 @@ public class EnemyInfo : MonoBehaviour, IBattleable
         hand[cardIndex] = deck.PullCard(deck.GetTypeIndex(cardIndex));
         print(name + " used " + card.GetName() + " at level " + card.GetLevel() + " dealing a total of " + card.GetDamage() + " damage!");
 
-        // Find target (Random for now TODO - not random?)
-        var target = battle.GetRandomPlayable();
        
         // Check if player or playable
         if (target.tag == "Player")
