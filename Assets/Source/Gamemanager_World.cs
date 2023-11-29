@@ -8,7 +8,8 @@ using static UnityEditor.Progress;
 public class Gamemanager_World : MonoBehaviour
 {
     public GameObject itemPrefab;
-    public Dictionary<string, GameObject> ItemIcons = new();
+    public Dictionary<int, GameObject> ItemIcons = new();
+    public Sprite[] allItemSprites;
 
     public DisplayStatTop[] displays;
     public GameObject InventoryPanel;
@@ -34,27 +35,19 @@ public class Gamemanager_World : MonoBehaviour
         // Create empty spots based on physical strength
         ExpandInventoryDisplay();
 
-        //StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon");
+        StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon", GetNextAvailableSlot());
     }
 
-    public GameObject SpawnItem(Item item)
+    public void SpawnItem(Item item)
     {
-        for (int i = 0; i < 11; i++)
-        {
-            for (int j = 0; j < 6; j++)
-            {
-                var l = Instantiate(itemPrefab, Vector2.zero, Quaternion.identity);
-                l.name = item.Name;
-                l.transform.SetParent(InventoryPanel.transform);
-                l.GetComponent<RectTransform>().anchoredPosition = StaticHolder.InventoryManagement.FindSpawningPosition(i, j);
-            }
-        }
-        var obj = Instantiate(itemPrefab, Vector2.zero, Quaternion.identity);
-        obj.name = item.Name;
-        obj.transform.SetParent(InventoryPanel.transform);
-        //obj.GetComponent<RectTransform>().anchoredPosition = StaticHolder.InventoryManagement.FindSpawningPosition();
+        var freeSlot = GetNextAvailableSlot();
+        var slot = ItemIcons[freeSlot].GetComponent<SlotContainer>();
 
-        return obj;
+        slot.CurrentItem = item;
+        slot.SlotIndex = freeSlot;
+        slot.transform.GetChild(1).GetComponent<Image>().sprite = FindItemPicture(item.Name);
+        slot.transform.GetChild(1).gameObject.SetActive(true);
+        slot.name = item.Name;
     }
 
     public void UpdateIconsText()
@@ -125,6 +118,31 @@ public class Gamemanager_World : MonoBehaviour
 
     }
 
+    private int GetNextAvailableSlot()
+    {
+        foreach (var icon in ItemIcons)
+        {
+            var slot = icon.Value.GetComponent<SlotContainer>();
+            if (slot.CurrentItem != null) continue;
+
+            
+            return icon.Key;
+        }
+
+        return -1;
+    }
+
+    private Sprite FindItemPicture(string name)
+    {
+        foreach (var sprite in allItemSprites)
+        {
+            //print(sprite.name);
+            if (sprite.name == name) return sprite;
+        }
+
+        throw new System.Exception("Unable to location the item picture for " + name);
+    }
+
     private void ExpandInventoryDisplay()
     {
         var iv = StaticHolder.InventoryManagement;
@@ -137,6 +155,7 @@ public class Gamemanager_World : MonoBehaviour
             l.name = "Empty Slot";
             l.transform.SetParent(InventoryPanel.transform);
             l.GetComponent<RectTransform>().anchoredPosition = StaticHolder.InventoryManagement.FindSpawningPosition(currentI, currentJ);
+            ItemIcons.Add(i, l);
 
             var nextSpot = (currentI + 1) % 11;
             currentI = nextSpot;

@@ -2,11 +2,12 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryManagement
 {
-    private Dictionary<string, Item> inventory = new ();
+    private Dictionary<int, Item> inventory = new ();
     private const int Total_Slots = 66, Min_Slots = 3;
     private int currentMaxSlots = 0;
 
@@ -22,26 +23,35 @@ public class InventoryManagement
         return sub;
     }
 
-    public void AddItem(string name, string type)
+    public bool IsSlotAvailable()
     {
+        return inventory.Count < currentMaxSlots;
+    }
+
+    public void AddItem(string name, string type, int slot)
+    {
+        if (!IsSlotAvailable()) 
+        {
+            Debug.Log("No Slots Available!");
+            return;
+        }; // TODO - show there is no room
+
         switch (type)
         {
             case "Consumable":
-                inventory.Add(name, FindConsumable(name));
+                inventory.Add(slot, FindConsumable(name));
                 break;
             case "Weapon":
-                inventory.Add(name, FindWeapon(name));
+                inventory.Add(slot, FindWeapon(name));
                 break;
             case "Armor":
-                inventory.Add(name, FindArmor(name));
+                inventory.Add(slot, FindArmor(name));
                 break;
             default: throw new Exception(type + " is not a registered type! Maybe " + name + " is under a different type?");
         }
 
         var gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Gamemanager_World>();
-        var icon = gm.SpawnItem(inventory[name]);
-
-        gm.ItemIcons.Add(name, icon);
+        gm.SpawnItem(inventory[slot]);
     }
 
     public Vector2 FindSpawningPosition(int i, int j)
@@ -50,17 +60,17 @@ public class InventoryManagement
         return pos;
     }
 
-    public void RemoveItem(string name)
+    public void RemoveItem(int slot)
     {
-        inventory.Remove(name);
+        inventory.Remove(slot);
     }
 
-    public void UseItem(string name)
+    public void UseItem(int splot)
     {
         // Use item
 
 
-        RemoveItem(name);
+        RemoveItem(splot);
     }
 
     private Item FindConsumable(string name)
