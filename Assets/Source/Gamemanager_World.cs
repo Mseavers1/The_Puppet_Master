@@ -22,7 +22,7 @@ public class Gamemanager_World : MonoBehaviour
     public float scale = 0.8f;
     public string Mode = "None";
 
-    private int currentI = 0, currentJ = 0;
+    private int currentI = 0, currentJ = 0, totalSlots = 0;
 
     private void Start()
     {
@@ -44,7 +44,6 @@ public class Gamemanager_World : MonoBehaviour
         var slot = ItemIcons[freeSlot].GetComponent<SlotContainer>();
 
         slot.CurrentItem = item;
-        slot.SlotIndex = freeSlot;
         slot.transform.GetChild(1).GetComponent<Image>().sprite = FindItemPicture(item.Name);
         slot.transform.GetChild(1).gameObject.SetActive(true);
         slot.name = item.Name;
@@ -155,7 +154,10 @@ public class Gamemanager_World : MonoBehaviour
             l.name = "Empty Slot";
             l.transform.SetParent(InventoryPanel.transform);
             l.GetComponent<RectTransform>().anchoredPosition = StaticHolder.InventoryManagement.FindSpawningPosition(currentI, currentJ);
-            ItemIcons.Add(i, l);
+            l.GetComponent<SlotContainer>().SlotIndex = totalSlots;
+
+            ItemIcons.Add(totalSlots, l);
+            totalSlots++;
 
             var nextSpot = (currentI + 1) % 11;
             currentI = nextSpot;

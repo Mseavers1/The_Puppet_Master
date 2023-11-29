@@ -13,6 +13,9 @@ public class Mouse_Handler : MonoBehaviour
     public GameObject[] cards;
     public BattleSimulator battleSimulator;
 
+    public Color defaultItemBackgroundColor;
+    public Color hoverItemSlot;
+
     private PlayerControls controls;
     private Gamemanager_World gm;
     private bool clickedOnCard = false;
@@ -162,11 +165,13 @@ public class Mouse_Handler : MonoBehaviour
         if(gm.Mode == "Battle Player" && !clickedOnCard)
         {
             if (battleSimulator.IsPlayerTurn())
-                OnHover();
+                OnHover(0);
         }
+
+        if (gm.InventoryPanel.activeSelf) OnHover(1);
     }
 
-    private void OnHover()
+    private void OnHover(int type)
     {
         var pos = Mouse.current.position.ReadValue();
         uiData.position = pos;
@@ -174,18 +179,44 @@ public class Mouse_Handler : MonoBehaviour
 
         uiCaster.Raycast(uiData, uiResults);
         var hasFound = false;
+        var hasFoundSlot = false;
 
         foreach(var result in uiResults)
         {
-            if (result.gameObject.CompareTag("Card"))
+            if (type == 0 && result.gameObject.CompareTag("Card"))
             {
                 hasFound = true;
                 var split = result.gameObject.name.Split(' ');
                 SwitchHover(int.Parse(split[1]));
             }
+
+            if (type == 1 && result.gameObject.CompareTag("InventorySlot"))
+            {
+                //print("found!");
+                hasFoundSlot = true;
+                SwitchHoverSlots(result.gameObject.GetComponentInParent<SlotContainer>().SlotIndex);
+            }
+
+            //if (result.gameObject != null) print (result.gameObject.name);
         }
 
         if (!hasFound) SwitchHover(6);
+        if (!hasFoundSlot) SwitchHoverSlots(-1);
+    }
+
+    private void SwitchHoverSlots(int id)
+    {
+        foreach (var slot in gm.ItemIcons)
+        {
+            if (slot.Key == id)
+            {
+                slot.Value.transform.GetChild(0).GetComponent<Image>().color = hoverItemSlot;
+            } 
+            else
+            {
+                slot.Value.transform.GetChild(0).GetComponent<Image>().color = defaultItemBackgroundColor;
+            }
+        }
     }
 
     private void SwitchHover(int cardID)

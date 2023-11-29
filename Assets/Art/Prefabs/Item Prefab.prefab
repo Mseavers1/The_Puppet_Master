@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4047122576669876003}
   m_Layer: 5
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: InventorySlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 7971018375573929417}
   m_Layer: 5
   m_Name: Item Prefab
-  m_TagString: Untagged
+  m_TagString: InventorySlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

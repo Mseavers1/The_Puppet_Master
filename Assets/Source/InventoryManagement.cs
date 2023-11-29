@@ -23,6 +23,8 @@ public class InventoryManagement
         return sub;
     }
 
+    public int GetNumberMaxSlots () { return currentMaxSlots; }
+
     public bool IsSlotAvailable()
     {
         return inventory.Count < currentMaxSlots;
