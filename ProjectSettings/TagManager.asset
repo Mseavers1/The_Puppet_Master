@@ -15,6 +15,7 @@ TagManager:
   - StatIconBUY
   - StatIconSELL
   - InventorySlot
+  - BackgroundSlot
   layers:
   - Default
   - TransparentFX

@@ -18,7 +18,8 @@ public class Mouse_Handler : MonoBehaviour
 
     private PlayerControls controls;
     private Gamemanager_World gm;
-    private bool clickedOnCard = false;
+    private bool clickedOnCard = false, clickedOnSlot = false;
+    private GameObject selectedSlot;
 
     private GraphicRaycaster uiCaster, clickCaster;
     private PointerEventData uiData, clickData;
@@ -49,16 +50,17 @@ public class Mouse_Handler : MonoBehaviour
         {
             var pos = Mouse.current.position.ReadValue();
             var uiHit = false;
+            clickedOnSlot = false;
 
             // UI Clicking
-            if (gm.Mode == "Battle Player" || gm.Mode == "Card Target")
+            clickData.position = pos;
+            clickResults.Clear();
+
+            clickCaster.Raycast(clickData, clickResults);
+
+            foreach (var result in clickResults) 
             {
-                clickData.position = pos;
-                clickResults.Clear();
-
-                clickCaster.Raycast(clickData, clickResults);
-
-                foreach (var result in clickResults) 
+                if (gm.Mode == "Battle Player" || gm.Mode == "Card Target")
                 {
                     if (result.gameObject.CompareTag("Card"))
                     {
@@ -70,6 +72,47 @@ public class Mouse_Handler : MonoBehaviour
                         currentCard = result.gameObject.GetComponent<CardDisplayInfo>();
                     }
                 }
+
+                if (gm.InventoryPanel.activeSelf)
+                {
+                    if (result.gameObject.CompareTag("InventorySlot"))
+                    {
+
+                        foreach (var ic in gm.ItemIcons.Values)
+                        {
+                            if (ic.GetComponent<SlotContainer>().SlotIndex != result.gameObject.transform.parent.gameObject.GetComponent<SlotContainer>().SlotIndex)
+                                ic.transform.GetChild(3).gameObject.SetActive(false);
+                        }
+
+                        if (result.gameObject.transform.parent.gameObject.GetComponent<SlotContainer>().CurrentItem == null) return;
+
+                        clickedOnSlot = true;
+                        var menu = result.gameObject.transform.parent.GetChild(3);
+                        menu.gameObject.SetActive(true);
+
+                        if (selectedSlot != menu.gameObject)
+                        {
+                            result.gameObject.transform.parent.SetParent(result.gameObject.transform.parent.parent.parent);
+                            result.gameObject.transform.parent.SetParent(gm.InventoryPanel.transform);
+                        }
+
+                        selectedSlot = menu.gameObject;
+                    }
+
+                    if (result.gameObject.CompareTag("BackgroundSlot"))
+                    {
+                        clickedOnSlot = true;
+                    }
+
+                    //if (result.gameObject != null) print(result.gameObject.name);
+                }
+            }
+
+            if (!clickedOnSlot && selectedSlot != null)
+            {
+                clickedOnSlot = false;
+                selectedSlot.SetActive(false);
+                SwitchHoverSlots(-1);
             }
 
             // Non UI Clicking
@@ -190,7 +233,7 @@ public class Mouse_Handler : MonoBehaviour
                 SwitchHover(int.Parse(split[1]));
             }
 
-            if (type == 1 && result.gameObject.CompareTag("InventorySlot"))
+            if (type == 1 && !clickedOnSlot && result.gameObject.CompareTag("InventorySlot"))
             {
                 //print("found!");
                 hasFoundSlot = true;
@@ -201,10 +244,10 @@ public class Mouse_Handler : MonoBehaviour
         }
 
         if (!hasFound) SwitchHover(6);
-        if (!hasFoundSlot) SwitchHoverSlots(-1);
+        if (!hasFoundSlot && !clickedOnSlot) SwitchHoverSlots(-1);
     }
 
-    private void SwitchHoverSlots(int id)
+    public void SwitchHoverSlots(int id)
     {
         foreach (var slot in gm.ItemIcons)
         {

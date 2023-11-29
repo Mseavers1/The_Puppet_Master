@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,7 +37,12 @@ public class Gamemanager_World : MonoBehaviour
         // Create empty spots based on physical strength
         ExpandInventoryDisplay();
 
-        StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon", GetNextAvailableSlot());
+        //StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon", GetNextAvailableSlot());
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(2)) StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon", GetNextAvailableSlot());
     }
 
     public void SpawnItem(Item item)
@@ -58,6 +64,21 @@ public class Gamemanager_World : MonoBehaviour
         displays[0].UpdateText(stats.CurrentHealth + " / " + stats.GetStatValue("Health") + " HP"); // Health
         displays[1].UpdateText(stats.CurrentMana + " / " + stats.GetStatValue("Mana") + " MP"); // Mana
         displays[2].UpdateText(stats.CurrentStamina + " / " + stats.GetStatValue("Stamina") + " SP"); // Stamina
+    }
+
+    public void UseItem(int index)
+    {
+        StaticHolder.InventoryManagement.UseItem(index);
+        ItemIcons[index].GetComponent<SlotContainer>().CurrentItem = null;
+        ItemIcons[index].GetComponent<SlotContainer>().transform.GetChild(1).gameObject.SetActive(false);
+
+        foreach (var ic in ItemIcons.Values)
+        {
+            ic.transform.GetChild(3).gameObject.SetActive(false);
+            ic.transform.GetChild(2).gameObject.SetActive(false);
+        }
+
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Mouse_Handler>().SwitchHoverSlots(-1);
     }
 
     public void EndTurn()

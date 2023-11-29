@@ -67,12 +67,12 @@ public class InventoryManagement
         inventory.Remove(slot);
     }
 
-    public void UseItem(int splot)
+    public void UseItem(int slot)
     {
         // Use item
+        Debug.Log("You used the item -> " + inventory[slot].Name);
 
-
-        RemoveItem(splot);
+        RemoveItem(slot);
     }
 
     private Item FindConsumable(string name)
