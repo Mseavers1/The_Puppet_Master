@@ -12,7 +12,7 @@ public class Soul_GM : MonoBehaviour
     public TMP_Text[] pointText;
 
     private int availableAffinities = 30;
-    private int soulPoints = 10;
+    private int soulPoints = 10000000;
 
     private void Start()
     {

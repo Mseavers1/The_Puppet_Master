@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Gamemanager_World : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class Gamemanager_World : MonoBehaviour
     public float scale = 0.8f;
     public string Mode = "None";
 
+    private int currentI = 0, currentJ = 0;
+
     private void Start()
     {
         topSizes = new double[icons.Length];
@@ -28,15 +31,28 @@ public class Gamemanager_World : MonoBehaviour
 
         if (bar.gameObject.activeSelf) UpdateIconsText();
 
-        StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon");
+        // Create empty spots based on physical strength
+        ExpandInventoryDisplay();
+
+        //StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon");
     }
 
     public GameObject SpawnItem(Item item)
     {
+        for (int i = 0; i < 11; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                var l = Instantiate(itemPrefab, Vector2.zero, Quaternion.identity);
+                l.name = item.Name;
+                l.transform.SetParent(InventoryPanel.transform);
+                l.GetComponent<RectTransform>().anchoredPosition = StaticHolder.InventoryManagement.FindSpawningPosition(i, j);
+            }
+        }
         var obj = Instantiate(itemPrefab, Vector2.zero, Quaternion.identity);
         obj.name = item.Name;
         obj.transform.SetParent(InventoryPanel.transform);
-        obj.GetComponent<RectTransform>().anchoredPosition = StaticHolder.InventoryManagement.FindSpawningPosition();
+        //obj.GetComponent<RectTransform>().anchoredPosition = StaticHolder.InventoryManagement.FindSpawningPosition();
 
         return obj;
     }
@@ -107,5 +123,25 @@ public class Gamemanager_World : MonoBehaviour
             i++;
         }
 
+    }
+
+    private void ExpandInventoryDisplay()
+    {
+        var iv = StaticHolder.InventoryManagement;
+        var newSlots = iv.ExpandSlots();
+
+        // Spawn new slots
+        for (int i = 0; i < newSlots;  i++)
+        {
+            var l = Instantiate(itemPrefab, Vector2.zero, Quaternion.identity);
+            l.name = "Empty Slot";
+            l.transform.SetParent(InventoryPanel.transform);
+            l.GetComponent<RectTransform>().anchoredPosition = StaticHolder.InventoryManagement.FindSpawningPosition(currentI, currentJ);
+
+            var nextSpot = (currentI + 1) % 11;
+            currentI = nextSpot;
+
+            if (nextSpot == 0) currentJ++;
+        }
     }
 }

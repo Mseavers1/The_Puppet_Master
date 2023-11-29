@@ -39,6 +39,8 @@ public class StatUI_Updater : MonoBehaviour
 
     public int BuyPoint(int SP)
     {
+        if (currentPoint >= StaticHolder.Max_Buyable_Point_Size) return 0; // TODO - Remove buying icon
+
         var cost = CalcCost();
         if (SP >= cost)
         {

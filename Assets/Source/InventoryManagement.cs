@@ -7,7 +7,20 @@ using UnityEngine;
 public class InventoryManagement
 {
     private Dictionary<string, Item> inventory = new ();
+    private const int Total_Slots = 66, Min_Slots = 3;
+    private int currentMaxSlots = 0;
 
+
+    public int ExpandSlots()
+    {
+        var stats = StaticHolder.PlayerStats;
+        var slope = (Total_Slots - Min_Slots) / (StaticHolder.maxValues["PStrength"] - StaticHolder.defaultStatValues["PStrength"]);
+        var totalSlots = Mathf.RoundToInt((float) (slope * (stats.GetStatValue("PStrength") - StaticHolder.defaultStatValues["PStrength"]) + Min_Slots));
+        var sub = totalSlots - currentMaxSlots;
+        currentMaxSlots += sub;
+
+        return sub;
+    }
 
     public void AddItem(string name, string type)
     {
@@ -31,9 +44,9 @@ public class InventoryManagement
         gm.ItemIcons.Add(name, icon);
     }
 
-    public Vector2 FindSpawningPosition()
+    public Vector2 FindSpawningPosition(int i, int j)
     {
-        Vector2 pos = new (-529, 208);
+        Vector2 pos = new (-503 + 100 * i, 229 - 100 * j);
         return pos;
     }
 
