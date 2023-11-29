@@ -87,7 +87,7 @@ public class Stats
 
         CurrentHealth += Math.Round(StatValues["Health"] * percent, 1);
 
-        Math.Clamp(CurrentHealth, 10, StatValues["Health"]);
+        if (CurrentHealth > StatValues["Health"]) Heal();
     }
 
     public void RestoreMana()
@@ -101,7 +101,7 @@ public class Stats
 
         CurrentMana += Math.Round(StatValues["Mana"] * percent, 1);
 
-        Math.Clamp(CurrentMana, 10, StatValues["Mana"]);
+        if (CurrentMana > StatValues["Mana"]) RestoreMana();
     }
 
     public void RestoreStamina()
@@ -115,7 +115,7 @@ public class Stats
 
         CurrentStamina += Math.Round(StatValues["Stamina"] * percent, 1);
 
-        Math.Clamp(CurrentStamina, 10, StatValues["Stamina"]);
+        if (CurrentStamina > StatValues["Stamina"]) RestoreStamina();
     }
 
     public void CalculatStats()

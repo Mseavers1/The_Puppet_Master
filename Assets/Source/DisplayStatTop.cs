@@ -2,18 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DisplayStatTop : MonoBehaviour
 {
-    private TMP_Text text;
-
-    private void Awake()
-    {
-        text = GetComponent<TMP_Text>();
-    }
+    public Image goodIcon;
 
     public void UpdateText(string text)
     {
-        this.text.text = text;
+        GetComponent<TMP_Text>().text = text;
+
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<Gamemanager_World>().UpdateIcon();
     }
 }
