@@ -6,7 +6,11 @@ using UnityEngine.UI;
 
 public class Gamemanager_World : MonoBehaviour
 {
+    public GameObject itemPrefab;
+    public Dictionary<string, GameObject> ItemIcons = new();
+
     public DisplayStatTop[] displays;
+    public GameObject InventoryPanel;
     public Button endOfTurn;
     public GameObject bar;
     public Image[] icons;
@@ -23,6 +27,18 @@ public class Gamemanager_World : MonoBehaviour
 
 
         if (bar.gameObject.activeSelf) UpdateIconsText();
+
+        StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon");
+    }
+
+    public GameObject SpawnItem(Item item)
+    {
+        var obj = Instantiate(itemPrefab, Vector2.zero, Quaternion.identity);
+        obj.name = item.Name;
+        obj.transform.SetParent(InventoryPanel.transform);
+        obj.GetComponent<RectTransform>().anchoredPosition = StaticHolder.InventoryManagement.FindSpawningPosition();
+
+        return obj;
     }
 
     public void UpdateIconsText()

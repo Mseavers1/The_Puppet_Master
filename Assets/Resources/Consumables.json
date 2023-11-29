@@ -1,0 +1,14 @@
+/*
+ * Weight - How heavy the item is
+ * Recovery - How much the item restores health, mana, and stamina (%)
+*/
+[
+  {
+    "id": 0,
+    "name": "Poor Health Potion",
+    "weight": 1,
+    "healthRecovery": 0.1,
+    "staminaRecovery": 0,
+    "manaRecovery": 0
+  }
+]

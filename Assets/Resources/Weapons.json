@@ -1,0 +1,14 @@
+/*
+ * Weight - How heavy the item is
+ * PotentialDamage - Most damage the weapon does if uses the correct level of skill
+*/
+[
+  {
+    "id": 0,
+    "name": "Bambo Sword",
+    "weight": 1,
+    "potentialDamage": 10,
+    "skillLevel": 3,
+    "skillName": "Swordsmanship"
+  }
+]

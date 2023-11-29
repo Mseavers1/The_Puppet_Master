@@ -5,6 +5,7 @@ public static class StaticHolder
 {
     // Player Stuff
     public static Stats PlayerStats { get; private set; }
+    public static InventoryManagement InventoryManagement { get; private set; }
 
     // Defaults
     public const int Max_Point_Size = 200, Max_Buyable_Point_Size = 100, Max_Level = 100;
@@ -25,6 +26,8 @@ public static class StaticHolder
         foreach (var curve in curves) if (curve.Value != "linear" && curve.Value != "power" && curve.Value != "log") throw new Exception("Curve array contains something that is not LINEAR, POWER, or LOG!! -> " + curve);
 
         PlayerStats = new Stats(points[0], points[1], points[2], points[3], points[4], points[5], points[6], points[7], points[8], points[9], 1);
+
+        InventoryManagement = new InventoryManagement();
     }
 
     private static void SetCurves()

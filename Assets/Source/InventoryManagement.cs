@@ -1,0 +1,121 @@
+using Newtonsoft.Json;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InventoryManagement
+{
+    private Dictionary<string, Item> inventory = new ();
+
+
+    public void AddItem(string name, string type)
+    {
+        switch (type)
+        {
+            case "Consumable":
+                inventory.Add(name, FindConsumable(name));
+                break;
+            case "Weapon":
+                inventory.Add(name, FindWeapon(name));
+                break;
+            case "Armor":
+                inventory.Add(name, FindArmor(name));
+                break;
+            default: throw new Exception(type + " is not a registered type! Maybe " + name + " is under a different type?");
+        }
+
+        var gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Gamemanager_World>();
+        var icon = gm.SpawnItem(inventory[name]);
+
+        gm.ItemIcons.Add(name, icon);
+    }
+
+    public Vector2 FindSpawningPosition()
+    {
+        Vector2 pos = new (-529, 208);
+        return pos;
+    }
+
+    public void RemoveItem(string name)
+    {
+        inventory.Remove(name);
+    }
+
+    public void UseItem(string name)
+    {
+        // Use item
+
+
+        RemoveItem(name);
+    }
+
+    private Item FindConsumable(string name)
+    {
+        TextAsset txt = (TextAsset)Resources.Load("Consumables", typeof(TextAsset));
+        List<ConsumableItem> items = JsonConvert.DeserializeObject<List<ConsumableItem>>(txt.text) ?? throw new Exception("Empty Json!");
+
+        foreach (ConsumableItem item in items)
+        {
+            if (item.Name == name)
+                return new Consumable(name, item.Weight);
+        }
+
+        throw new Exception("Unable to find the consumable item with the name of " + name);
+    }
+
+    private Item FindWeapon(string name)
+    {
+        TextAsset txt = (TextAsset)Resources.Load("Weapons", typeof(TextAsset));
+        List<WeaponItem> items = JsonConvert.DeserializeObject<List<WeaponItem>>(txt.text) ?? throw new Exception("Empty Json!");
+
+        foreach (WeaponItem item in items)
+        {
+            if (item.Name == name)
+                return new Weapon(name, item.Weight);
+        }
+
+        throw new Exception("Unable to find the weapon item with the name of " + name);
+    }
+
+    private Item FindArmor(string name)
+    {
+        TextAsset txt = (TextAsset)Resources.Load("Armors", typeof(TextAsset));
+        List<ArmorItem> items = JsonConvert.DeserializeObject<List<ArmorItem>>(txt.text) ?? throw new Exception("Empty Json!");
+
+        foreach (ArmorItem item in items)
+        {
+            if (item.Name == name)
+                return new Armor(name, item.Weight);
+        }
+
+        throw new Exception("Unable to find the armor item with the name of " + name);
+    }
+}
+
+internal class ConsumableItem
+{
+    public int ID;
+    public string Name;
+    public double Weight;
+    public double HealthRecovery, StaminaRecovery, ManaRecovery;
+}
+
+internal class WeaponItem
+{
+    public int ID;
+    public string Name;
+    public double Weight;
+    public double PotentialDamage;
+    public int SkillLevel;
+    public string SkillName;
+}
+
+internal class ArmorItem
+{
+    public int ID;
+    public string Name;
+    public double Weight;
+    public string[] Resistances;
+    public double[] ResistancesValues;
+}

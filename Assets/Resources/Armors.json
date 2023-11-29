@@ -1,0 +1,13 @@
+/*
+ * Weight - How heavy the item is
+ * Name - Name of the mob
+*/
+[
+  {
+    "id": 0,
+    "name": "Iron Helmet",
+    "weight": 1,
+    "resistances": [ "Slash", "Blunt" ],
+    "resistancesValues":  [0.1, 0.05]
+  }
+]
