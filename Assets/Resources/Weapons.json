@@ -6,6 +6,7 @@
   {
     "id": 0,
     "name": "Bambo Sword",
+    "description": "A old wooden sword.",
     "weight": 1,
     "potentialDamage": 10,
     "skillLevel": 3,

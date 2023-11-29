@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : Item
 {
-    public Weapon(string name, double weight) : base(name, weight, "Weapon")
+    public Weapon(string name, double weight, string description) : base(name, weight, "Weapon", description)
     {
 
     }

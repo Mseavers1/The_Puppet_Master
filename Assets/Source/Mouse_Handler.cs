@@ -208,13 +208,21 @@ public class Mouse_Handler : MonoBehaviour
     {
         foreach (var slot in gm.ItemIcons)
         {
+            var box = slot.Value.transform.GetChild(2);
             if (slot.Key == id)
             {
                 slot.Value.transform.GetChild(0).GetComponent<Image>().color = hoverItemSlot;
+
+                if (slot.Value.GetComponent<SlotContainer>().CurrentItem != null)
+                    box.gameObject.SetActive(true);
+                
             } 
             else
             {
                 slot.Value.transform.GetChild(0).GetComponent<Image>().color = defaultItemBackgroundColor;
+
+                if (slot.Value.GetComponent<SlotContainer>().CurrentItem != null)
+                    box.gameObject.SetActive(false);
             }
         }
     }

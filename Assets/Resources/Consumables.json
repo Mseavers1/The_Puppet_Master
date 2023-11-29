@@ -6,6 +6,7 @@
   {
     "id": 0,
     "name": "Poor Health Potion",
+    "description":  "Recovers 10% of your health.",
     "weight": 1,
     "healthRecovery": 0.1,
     "staminaRecovery": 0,

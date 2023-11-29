@@ -83,7 +83,7 @@ public class InventoryManagement
         foreach (ConsumableItem item in items)
         {
             if (item.Name == name)
-                return new Consumable(name, item.Weight);
+                return new Consumable(name, item.Weight, item.Description);
         }
 
         throw new Exception("Unable to find the consumable item with the name of " + name);
@@ -97,7 +97,7 @@ public class InventoryManagement
         foreach (WeaponItem item in items)
         {
             if (item.Name == name)
-                return new Weapon(name, item.Weight);
+                return new Weapon(name, item.Weight, item.Description);
         }
 
         throw new Exception("Unable to find the weapon item with the name of " + name);
@@ -111,7 +111,7 @@ public class InventoryManagement
         foreach (ArmorItem item in items)
         {
             if (item.Name == name)
-                return new Armor(name, item.Weight);
+                return new Armor(name, item.Weight, item.Description);
         }
 
         throw new Exception("Unable to find the armor item with the name of " + name);
@@ -122,6 +122,7 @@ internal class ConsumableItem
 {
     public int ID;
     public string Name;
+    public string Description;
     public double Weight;
     public double HealthRecovery, StaminaRecovery, ManaRecovery;
 }
@@ -131,6 +132,7 @@ internal class WeaponItem
     public int ID;
     public string Name;
     public double Weight;
+    public string Description;
     public double PotentialDamage;
     public int SkillLevel;
     public string SkillName;
@@ -141,6 +143,7 @@ internal class ArmorItem
     public int ID;
     public string Name;
     public double Weight;
+    public string Description;
     public string[] Resistances;
     public double[] ResistancesValues;
 }

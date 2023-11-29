@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,6 +43,8 @@ public class Gamemanager_World : MonoBehaviour
     {
         var freeSlot = GetNextAvailableSlot();
         var slot = ItemIcons[freeSlot].GetComponent<SlotContainer>();
+        slot.transform.GetChild(2).GetChild(0).GetComponent<TMP_Text>().text = item.Name;
+        slot.transform.GetChild(2).GetChild(1).GetComponent<TMP_Text>().text = item.Description;
 
         slot.CurrentItem = item;
         slot.transform.GetChild(1).GetComponent<Image>().sprite = FindItemPicture(item.Name);
