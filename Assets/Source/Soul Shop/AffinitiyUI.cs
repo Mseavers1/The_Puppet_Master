@@ -39,6 +39,7 @@ public class AffinitiyUI : MonoBehaviour
             image.color = new Color(image.color.r, image.color.g, image.color.b, 100);
             hasBought = true;
             UpdateCostText(true);
+            transform.GetChild(2).GetComponent<Image>().color = new Color(0, 0, 0, 100);
             return;
         }
 
@@ -70,6 +71,7 @@ public class AffinitiyUI : MonoBehaviour
         image.color = new Color(image.color.r, image.color.g, image.color.b, defaultAplha);
         hasBought = false;
         UpdateCostText(false);
+        transform.GetChild(2).GetComponent<Image>().color = new Color(0, 0, 0, defaultAplha);
     }
 
     private bool SatisfyRequirements()
