@@ -13,6 +13,7 @@ public class Gamemanager_World : MonoBehaviour
     public GameObject itemPrefab;
     public Dictionary<int, GameObject> ItemIcons = new();
     public Sprite[] allItemSprites;
+    public TMP_Text inventoryTextClose, inventoryTextOpen;
 
     public DisplayStatTop[] displays;
     public GameObject InventoryPanel;
@@ -49,6 +50,13 @@ public class Gamemanager_World : MonoBehaviour
             StaticHolder.InventoryManagement.AddItem("Iron Sword", "Weapon", GetNextAvailableSlot());
             StaticHolder.InventoryManagement.AddItem("Ninja Sword", "Weapon", GetNextAvailableSlot());
         }
+    }
+
+    public void ClickInventoryButton()
+    {
+        if (InventoryPanel.gameObject.activeSelf) CloseInventory();
+        else OpenInventory();
+
     }
 
     public void SpawnItem(Item item)
@@ -152,6 +160,22 @@ public class Gamemanager_World : MonoBehaviour
     {
         StaticHolder.InventoryManagement.RemoveItem(index);
         ClearSlot(index);
+    }
+
+    private void OpenInventory()
+    {
+        inventoryTextClose.text = "Close Inventory";
+        inventoryTextOpen.text = "Close Inventory";
+        InventoryPanel.SetActive(true);
+    }
+
+    private void CloseInventory()
+    {
+        inventoryTextClose.text = "Open Inventory";
+        inventoryTextOpen.text = "Open Inventory";
+        InventoryPanel.SetActive(false);
+
+        GetComponent<BattleSimulator>().UpdateHandDisplay();
     }
 
     private void ClearSlot(int index)

@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class Weapon : Item
 {
+    public double MaxDamage { get; private set; }
+    public int SkillLevel { get; private set; }
+
     private bool isEquipped { get; set; }
 
-    public Weapon(string name, double weight, string description, string subType) : base(name, weight, "Weapon", description, false, true, subType)
+    public Weapon(string name, double weight, string description, string subType, double maxDamage, int skillLevel) : base(name, weight, "Weapon", description, false, true, subType)
     {
-
+        MaxDamage = maxDamage;
+        SkillLevel = skillLevel;
     }
 
     public override void UseItem() {}

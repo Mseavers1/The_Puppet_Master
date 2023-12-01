@@ -17,6 +17,8 @@ public class CardDisplayInfo : MonoBehaviour
 
     public void SetDesc(Card card)
     {
+        card.SetDesc("Deal <color=yellow>" + CalculateCardDamage(card) + "</color> " + card.GetDamageTypes()[0] + " damage.");
+
         transform.GetChild(0).GetComponent<TMP_Text>().text = card.GetName();
         transform.GetChild(1).GetComponent<TMP_Text>().text = "Lv. " + card.GetLevel();
         transform.GetChild(2).GetComponent<TMP_Text>().text = card.GetDesc();
@@ -27,4 +29,19 @@ public class CardDisplayInfo : MonoBehaviour
     }
 
     public Card GetCard() { return card; }
+
+    public float CalculateCardDamage(Card card)
+    {
+        var iv = StaticHolder.InventoryManagement;
+
+        if (!iv.CheckEquipment(card.GetRequiredWeapon())) return 0;
+
+        var weapon = (Weapon)iv.GetEquipment(card.GetRequiredWeapon());
+
+        if (card.GetLevel() >= weapon.SkillLevel) return (float)weapon.MaxDamage;
+
+        var slope = weapon.MaxDamage / weapon.SkillLevel;
+
+        return (float)Math.Round(slope * card.GetLevel(), 1);
+    }
 }

@@ -15,6 +15,7 @@
     "name": "Swordsmanship",
     "flavor": "Learn the art of the sword to slice all your opponents.",
     "type": "W",
+    "weapon": "Sword",
     "levels": [
       // Level 1
       {
@@ -213,6 +214,7 @@
     "name": "Archery",
     "flavor": "Shoot arrows of various types at your enemies, but in style.",
     "type": "W",
+    "weapon": "Bow",
     "levels": [
       // Level 1
       {
@@ -411,6 +413,7 @@
     "name": "Spearmanship",
     "flavor": "How hard could a stick with a sharp end be to use? Well, hard enough that you need a skill to do it.",
     "type": "W",
+    "weapon": "Spear",
     "levels": [
       // Level 1
       {

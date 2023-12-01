@@ -141,20 +141,21 @@ public class EnemyInfo : MonoBehaviour, IBattleable
     private void PlayCard(int cardIndex, GameObject target)
     {
         var card = hand[cardIndex];
+        var damage = card.GetDamage();
 
         // Replace card in there hand
         hand[cardIndex] = deck.PullCard(deck.GetTypeIndex(cardIndex));
-        print(name + " used " + card.GetName() + " at level " + card.GetLevel() + " dealing a total of " + card.GetDamage() + " damage!");
+        print(name + " used " + card.GetName() + " at level " + card.GetLevel() + " dealing a total of " + damage + " damage!");
 
        
         // Check if player or playable
         if (target.tag == "Player")
         {
-            target.GetComponent<PlayerStats>().TakeDamage(card.GetDamage());
+            target.GetComponent<PlayerStats>().TakeDamage(damage);
         } 
         else
         {
-            target.GetComponent<PlayableStats>().TakeDamage(card.GetDamage());
+            target.GetComponent<PlayableStats>().TakeDamage(damage);
         }
     }
 

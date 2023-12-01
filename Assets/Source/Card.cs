@@ -10,8 +10,9 @@ public class Card
     private char type; // W - Weapon // S - Spell // D - Defense // M - Misc
     private string desc, special, AOE;
     private int currentLevel;
+    private string requiredWeaponSlot;
 
-    public Card(string name, string type, float manaCost, float staminaCost, string[] damageTypes, float[] damageRatio, float totalDamage, string special, string aoe, int currentLevel)
+    public Card(string name, string type, float manaCost, float staminaCost, string[] damageTypes, float[] damageRatio, float totalDamage, string special, string aoe, int currentLevel, string requiredWeaponSlot)
     {
         this.manaCost = manaCost;
         this.staminaCost = staminaCost;
@@ -21,6 +22,7 @@ public class Card
         this.totalDamage = totalDamage;
         this.special = special;
         this.currentLevel = currentLevel;
+        this.requiredWeaponSlot = requiredWeaponSlot;
         AOE = aoe;
 
         this.type = char.Parse(type);
@@ -30,15 +32,14 @@ public class Card
     }
 
     public float GetDamage() { return totalDamage; }
-
+    public string[] GetDamageTypes() {  return damageTypes; }
+    public float[] GetDamageRatio() { return damageRatio; }
+    public string GetRequiredWeapon() { return requiredWeaponSlot; }
     public int GetLevel() { return currentLevel; }
-
     public string GetName() { return name; }
-
     public string GetDesc() { return desc; }
-
+    public void SetDesc(string desc) { this.desc = desc; }
     public float GetManaCost() { return manaCost; }
-
     public float GetStaminaCost() { return staminaCost; }
 
     public bool IsTypeOf(char type)

@@ -206,7 +206,11 @@ public class Mouse_Handler : MonoBehaviour
         // Check if card is playable
         if (!playerStats.PlayCard(card.GetManaCost(), card.GetStaminaCost())) return; // TODO - Animation that declines buying
 
-        enemy.GetComponent<EnemyInfo>().TakeDamage(card.GetDamage());
+        // Calculate Damage of card
+        var damage = currentCard.CalculateCardDamage(card);
+
+        enemy.GetComponent<EnemyInfo>().TakeDamage(damage);
+
         currentCard.SetDesc(battleSimulator.DrawCard(currentCard.GetCardType()));
 
 

@@ -57,6 +57,14 @@ public class BattleSimulator : MonoBehaviour
 
     }
 
+    public void UpdateHandDisplay()
+    {
+        for (int i = 0; i < hand.Length; i++)
+        {
+            Cards[i].GetComponent<CardDisplayInfo>().SetDesc(hand[i]);
+        }
+    }
+
     public GameObject GetRandomPlayable()
     {
         int rand = UnityEngine.Random.Range(0, playables.Length);

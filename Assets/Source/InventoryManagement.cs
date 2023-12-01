@@ -100,6 +100,16 @@ public class InventoryManagement
         gm.SpawnItem(inventory[slot]);
     }
 
+    public bool CheckEquipment(string type)
+    {
+        return equippedItems[type] != null;
+    }
+
+    public Item GetEquipment(string type)
+    {
+        return equippedItems[type];
+    }
+
     public Vector2 FindSpawningPosition(int i, int j)
     {
         Vector2 pos = new (-503 + 100 * i, 229 - 100 * j);
@@ -148,7 +158,7 @@ public class InventoryManagement
         foreach (WeaponItem item in items)
         {
             if (item.Name == name)
-                return new Weapon(name, item.Weight, item.Description, item.SubType);
+                return new Weapon(name, item.Weight, item.Description, item.SubType, item.PotentialDamage, item.SkillLevel);
         }
 
         throw new Exception("Unable to find the weapon item with the name of " + name);

@@ -858,6 +858,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bb899f165d27fdc4c8418698e90671ea, type: 3}
   - {fileID: 21300000, guid: 5b95457268d3dea42b8c808e37b60818, type: 3}
   - {fileID: 21300000, guid: 0c57e9b2e01f5624299246852ad53f59, type: 3}
+  inventoryTextClose: {fileID: 1962979359}
+  inventoryTextOpen: {fileID: 986348179}
   displays:
   - {fileID: 495427130}
   - {fileID: 1108900826}
@@ -5504,7 +5506,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Inventory
+  m_text: Open Inventory
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7324,8 +7326,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 901.2, y: 117.9}
-  m_SizeDelta: {x: 103.1691, y: 30}
+  m_AnchoredPosition: {x: 866.0157, y: 115.8646}
+  m_SizeDelta: {x: 173.5379, y: 34.0709}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1534608346
 MonoBehaviour:
@@ -7370,7 +7372,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1534608347}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 130851943}
+        m_TargetAssemblyTypeName: Gamemanager_World, Assembly-CSharp
+        m_MethodName: ClickInventoryButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1534608347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7537,8 +7551,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 901.19995, y: -66.2}
-  m_SizeDelta: {x: 103.1691, y: 30}
+  m_AnchoredPosition: {x: 867.7604, y: -64.60069}
+  m_SizeDelta: {x: 170.0484, y: 33.1986}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1580090415
 MonoBehaviour:
@@ -7583,7 +7597,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1580090416}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 130851943}
+        m_TargetAssemblyTypeName: Gamemanager_World, Assembly-CSharp
+        m_MethodName: ClickInventoryButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1580090416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8656,7 +8682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1859930645
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9203,7 +9229,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Inventory
+  m_text: Open Inventory
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
