@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -42,7 +43,12 @@ public class Gamemanager_World : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(2)) StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon", GetNextAvailableSlot());
+        if (Input.GetMouseButtonDown(2))
+        {
+            StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon", GetNextAvailableSlot());
+            StaticHolder.InventoryManagement.AddItem("Iron Sword", "Weapon", GetNextAvailableSlot());
+            StaticHolder.InventoryManagement.AddItem("Ninja Sword", "Weapon", GetNextAvailableSlot());
+        }
     }
 
     public void SpawnItem(Item item)
@@ -66,19 +72,20 @@ public class Gamemanager_World : MonoBehaviour
         displays[2].UpdateText(stats.CurrentStamina + " / " + stats.GetStatValue("Stamina") + " SP"); // Stamina
     }
 
-    public void UseItem(int index)
+    public void UseItem(int index, bool isEquipment)
     {
-        StaticHolder.InventoryManagement.UseItem(index);
-        ItemIcons[index].GetComponent<SlotContainer>().CurrentItem = null;
-        ItemIcons[index].GetComponent<SlotContainer>().transform.GetChild(1).gameObject.SetActive(false);
-
-        foreach (var ic in ItemIcons.Values)
+        var iv = StaticHolder.InventoryManagement;
+        if (isEquipment)
         {
-            ic.transform.GetChild(3).gameObject.SetActive(false);
-            ic.transform.GetChild(2).gameObject.SetActive(false);
+            // Either equips or unequips the item
+            iv.EquipeItem(index);
+            iv.PrintAllEquipment();
+            return;
         }
 
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Mouse_Handler>().SwitchHoverSlots(-1);
+
+        iv.UseItem(index);
+        ClearSlot(index);
     }
 
     public void EndTurn()
@@ -139,6 +146,26 @@ public class Gamemanager_World : MonoBehaviour
             i++;
         }
 
+    }
+
+    public void DisgardItem(int index)
+    {
+        StaticHolder.InventoryManagement.RemoveItem(index);
+        ClearSlot(index);
+    }
+
+    private void ClearSlot(int index)
+    {
+        ItemIcons[index].GetComponent<SlotContainer>().CurrentItem = null;
+        ItemIcons[index].GetComponent<SlotContainer>().transform.GetChild(1).gameObject.SetActive(false);
+
+        foreach (var ic in ItemIcons.Values)
+        {
+            ic.transform.GetChild(3).gameObject.SetActive(false);
+            ic.transform.GetChild(2).gameObject.SetActive(false);
+        }
+
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Mouse_Handler>().SwitchHoverSlots(-1);
     }
 
     private int GetNextAvailableSlot()

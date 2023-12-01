@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class InventoryManagement
 {
@@ -11,6 +12,49 @@ public class InventoryManagement
     private const int Total_Slots = 66, Min_Slots = 3;
     private int currentMaxSlots = 0;
 
+    private Dictionary<string, Item> equippedItems = new ();
+
+    public InventoryManagement()
+    {
+        equippedItems.Add("Helmet", null);
+        equippedItems.Add("Body", null);
+        equippedItems.Add("Boots", null);
+        equippedItems.Add("Sword", null);
+        equippedItems.Add("Spear", null);
+        equippedItems.Add("Bow", null);
+    }
+
+    public void PrintAllEquipment()
+    {
+        string x = "Equipment: ";
+        foreach (var item in equippedItems.Values)
+        {
+            if (item != null) { x += item.Name + " "; }
+        }
+
+        Debug.Log(x);
+    }
+
+    public void EquipeItem(int slotID)
+    {
+        var item = inventory[slotID];
+        if (item.ItemType != "Weapon" && item.ItemType != "Armor") throw new Exception("An error occured... " + item.ItemType + " are not equipable!");
+
+        if (item.IsEquipped())
+        {
+            UnEquip(slotID);
+            return;
+        }
+
+        if (equippedItems[item.SubType] != null)
+        {
+            var otherItem = equippedItems[item.SubType];
+            otherItem.UnEquip();
+        }
+
+        item.Equip();
+        equippedItems[item.SubType] = item;
+    }
 
     public int ExpandSlots()
     {
@@ -75,6 +119,13 @@ public class InventoryManagement
         RemoveItem(slot);
     }
 
+    private void UnEquip(int slotID)
+    {
+        var item = inventory[slotID];
+        item.UnEquip();
+        equippedItems[item.SubType] = null;
+    }
+
     private Item FindConsumable(string name)
     {
         TextAsset txt = (TextAsset)Resources.Load("Consumables", typeof(TextAsset));
@@ -97,7 +148,7 @@ public class InventoryManagement
         foreach (WeaponItem item in items)
         {
             if (item.Name == name)
-                return new Weapon(name, item.Weight, item.Description);
+                return new Weapon(name, item.Weight, item.Description, item.SubType);
         }
 
         throw new Exception("Unable to find the weapon item with the name of " + name);
@@ -111,7 +162,7 @@ public class InventoryManagement
         foreach (ArmorItem item in items)
         {
             if (item.Name == name)
-                return new Armor(name, item.Weight, item.Description);
+                return new Armor(name, item.Weight, item.Description, item.SubType);
         }
 
         throw new Exception("Unable to find the armor item with the name of " + name);
@@ -136,6 +187,7 @@ internal class WeaponItem
     public double PotentialDamage;
     public int SkillLevel;
     public string SkillName;
+    public string SubType;
 }
 
 internal class ArmorItem
@@ -146,4 +198,5 @@ internal class ArmorItem
     public string Description;
     public string[] Resistances;
     public double[] ResistancesValues;
+    public string SubType;
 }

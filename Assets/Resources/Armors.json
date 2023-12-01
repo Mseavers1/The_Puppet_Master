@@ -9,6 +9,7 @@
     "description": "Regular old helmet.",
     "weight": 1,
     "resistances": [ "Slash", "Blunt" ],
-    "resistancesValues": [ 0.1, 0.05 ]
+    "resistancesValues": [ 0.1, 0.05 ],
+    "subType": "Helmet"
   }
 ]

@@ -8,8 +8,29 @@
     "name": "Bambo Sword",
     "description": "A old wooden sword.",
     "weight": 1,
+    "potentialDamage": 4,
+    "skillLevel": 2,
+    "skillName": "Swordsmanship",
+    "subType": "Sword"
+  },
+  {
+    "id": 1,
+    "name": "Iron Sword",
+    "description": "A old iron sword.",
+    "weight": 1,
     "potentialDamage": 10,
-    "skillLevel": 3,
-    "skillName": "Swordsmanship"
+    "skillLevel": 5,
+    "skillName": "Swordsmanship",
+    "subType": "Sword"
+  },
+  {
+    "id": 2,
+    "name": "Ninja Sword",
+    "description": "A cool Ninja sword.",
+    "weight": 1,
+    "potentialDamage": 30,
+    "skillLevel": 8,
+    "skillName": "Swordsmanship",
+    "subType": "Sword"
   }
 ]

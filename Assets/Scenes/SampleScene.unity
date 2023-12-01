@@ -856,6 +856,8 @@ MonoBehaviour:
   itemPrefab: {fileID: 4620043978480627617, guid: dc064881bde8d1d478d23d69ff23f542, type: 3}
   allItemSprites:
   - {fileID: 21300000, guid: bb899f165d27fdc4c8418698e90671ea, type: 3}
+  - {fileID: 21300000, guid: 5b95457268d3dea42b8c808e37b60818, type: 3}
+  - {fileID: 21300000, guid: 0c57e9b2e01f5624299246852ad53f59, type: 3}
   displays:
   - {fileID: 495427130}
   - {fileID: 1108900826}

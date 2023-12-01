@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -89,11 +90,17 @@ public class Mouse_Handler : MonoBehaviour
                         clickedOnSlot = true;
                         var menu = result.gameObject.transform.parent.GetChild(3);
                         menu.gameObject.SetActive(true);
+                        var item = result.gameObject.transform.parent.gameObject.GetComponent<SlotContainer>().CurrentItem;
 
-                        if (!result.gameObject.transform.parent.gameObject.GetComponent<SlotContainer>().CurrentItem.CanUse)
-                            menu.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-                        else 
+
+                        // Move to slotcontainer?
+                        if (item.CanUse)
+                        {
                             menu.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+                        }
+                        else if (item.CanEquip) menu.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+                        else 
+                            menu.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
 
                         if (selectedSlot != menu.gameObject)
                         {
