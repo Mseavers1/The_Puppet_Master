@@ -244,6 +244,8 @@ public class Mouse_Handler : MonoBehaviour
         gm.displays[2].UpdateText(playerStats.CurrentStamina + " / " + playerStats.GetStatValue("Stamina") + " S");
 
         SwitchHover(6);
+
+        if (target.CompareTag("Enemy") && target.GetComponent<EnemyInfo>().IsDead()) battleSimulator.NextTurn();
     }
 
     private void FixedUpdate()
