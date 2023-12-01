@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class Gamemanager_World : MonoBehaviour
 {
@@ -21,6 +20,7 @@ public class Gamemanager_World : MonoBehaviour
     public GameObject bar;
     public Image[] icons;
     private double[] topSizes;
+    private bool showTutorial;
 
     [Range(0.4f, 1.3f)]
     public float scale = 0.8f;
@@ -167,6 +167,7 @@ public class Gamemanager_World : MonoBehaviour
         inventoryTextClose.text = "Close Inventory";
         inventoryTextOpen.text = "Close Inventory";
         InventoryPanel.SetActive(true);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Movement>().EnableMovement(false);
     }
 
     private void CloseInventory()
@@ -175,7 +176,10 @@ public class Gamemanager_World : MonoBehaviour
         inventoryTextOpen.text = "Open Inventory";
         InventoryPanel.SetActive(false);
 
-        GetComponent<BattleSimulator>().UpdateHandDisplay();
+        if (Mode == "Battle Player" || Mode == "Battle" || Mode == "Battle Enemy")
+            GetComponent<BattleSimulator>().UpdateHandDisplay();
+
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Movement>().EnableMovement(true);
     }
 
     private void ClearSlot(int index)

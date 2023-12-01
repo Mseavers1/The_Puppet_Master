@@ -93,6 +93,6 @@ public class Soul_GM : MonoBehaviour
         StaticHolder.StartOfGame(arr);
         HoldingOfSkills.StartOfGame(skillNames);
 
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

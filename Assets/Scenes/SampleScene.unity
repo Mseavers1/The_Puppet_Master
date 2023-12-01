@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a375f52e4daf35b45b24828b20424858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textInput: {fileID: 4900000, guid: 9d211e6de15ad294d807d3d6f7eb1b40, type: 3}
+  textInput: Sample2
   playing: 0
 --- !u!23 &42610569
 MeshRenderer:

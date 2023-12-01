@@ -90,6 +90,8 @@ public class BattleSimulator : MonoBehaviour
         else
         {
             currentUser = current.GetComponent<PlayerStats>();
+            hand = deck.GenerateHand();
+            UpdateHandDisplay();
         }
 
         // Check if person is dead, if so, skip there turn

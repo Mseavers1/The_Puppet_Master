@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Chatbox_Handler : MonoBehaviour
 {
-    public TextAsset textInput;
+    public string textInput;
     public bool playing;
     public bool canContinue { set; get; }
 
@@ -95,7 +95,7 @@ public class Chatbox_Handler : MonoBehaviour
     private void Start()
     {
         //reader = new Chatbox_Reader(AssetDatabase.GetAssetPath(textInput), text, this);
-        reader = new Chatbox_Reader(AssetDatabase.GetAssetPath(textInput), this);
+        reader = new Chatbox_Reader("Assets/Resources/Texts/" + textInput + ".txt", this);
     }
 
     private void Awake()

@@ -61,6 +61,12 @@ public class Deck
     {
         var randDeck = new List<Card>();
 
+        // Add dispile cards back into the card
+        foreach(var card in dispile)
+        {
+            cards.Add(card);
+        }
+
         while (cards.Count > 0)
         {
             randDeck.Add(GetRandomCard());
