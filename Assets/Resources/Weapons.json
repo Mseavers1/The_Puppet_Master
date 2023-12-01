@@ -32,5 +32,15 @@
     "skillLevel": 8,
     "skillName": "Swordsmanship",
     "subType": "Sword"
+  },
+  {
+    "id": 3,
+    "name": "Beginning Bow",
+    "description": "A normal bow.",
+    "weight": 1,
+    "potentialDamage": 5,
+    "skillLevel": 2,
+    "skillName": "Archery",
+    "subType": "Bow"
   }
 ]

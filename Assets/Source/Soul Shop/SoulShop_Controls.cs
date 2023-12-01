@@ -21,6 +21,7 @@ public class SoulShop_Controls : MonoBehaviour
     private GameObject selectedSkill;
 
     private GameObject[] affinityUI;
+    private string nameSkill = "";
 
     private byte hoveringItem = 0; // 0 = None, 1 = Upgrade, 2 = Downgrade, 3 = Unlock
 
@@ -122,6 +123,8 @@ public class SoulShop_Controls : MonoBehaviour
                     var skillName = skill[0];
                     var skillLevel = skill[1];
 
+                    nameSkill = skillName;
+
                     display.DisplayCard(skillName, int.Parse(skillLevel), false);
                     return;
                 }
@@ -140,6 +143,22 @@ public class SoulShop_Controls : MonoBehaviour
                             newLevel = display.ClickDowngrade();
                             break;
                         case "Unlock":
+
+                            // See if player has the affinity
+                            print(nameSkill);
+                            var requirements = HoldingOfSkills.LoadData(nameSkill).Requirements;
+
+                            foreach (var requirement in requirements)
+                            {
+                                foreach (var affinity in affinityUI)
+                                {
+                                    if (affinity.name == requirement)
+                                    {
+                                        if (!affinity.GetComponent<AffinitiyUI>().HasBought()) return;
+                                    }
+                                }
+                            }
+
                             newLevel = display.ClickUpgrade();
                             break;
                         default: throw new Exception("I don't know how you got here... But you are here since [" + result.gameObject.name + "] is not a button...");

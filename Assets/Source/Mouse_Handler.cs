@@ -131,10 +131,18 @@ public class Mouse_Handler : MonoBehaviour
 
             if (detectedCollider != null)
             {
-                //Debug.Log(detectedCollider.name);
-
                 switch (detectedCollider.tag)
                 {
+                    case "Player":
+
+                        print("player");
+                        if (gm.Mode == "Card Target" && currentCard.GetCard().IsAllyOnly())
+                        {
+                            print("test");
+                            PlayCard(detectedCollider);
+                        }
+
+                        break;
                     case "NPC":
                         // Prevents other actions occuring
                         if (gm.Mode != "None") break;
@@ -151,7 +159,7 @@ public class Mouse_Handler : MonoBehaviour
                         break;
                     case "Enemy":
                         // Find target if looking for card target
-                        if (gm.Mode == "Card Target")
+                        if (gm.Mode == "Card Target" && !currentCard.GetCard().IsAllyOnly())
                         {
                             PlayCard(detectedCollider);
                             break;
@@ -197,30 +205,45 @@ public class Mouse_Handler : MonoBehaviour
         selectedSlot = null;
     }
 
-    private void PlayCard(Collider2D enemy)
+    private void PlayCard(Collider2D target)
     {
         var card = currentCard.GetCard();
         var playerStats = StaticHolder.PlayerStats;
-        Debug.Log(enemy.name);
+        Debug.Log(target.name);
 
         // Check if card is playable
         if (!playerStats.PlayCard(card.GetManaCost(), card.GetStaminaCost())) return; // TODO - Animation that declines buying
 
-        // Calculate Damage of card
-        var damage = currentCard.CalculateCardDamage(card);
+        // Check if there is combat
+        if (!card.IsNoCombat())
+        {
+            // Calculate Damage of card
+            var damage = currentCard.CalculateCardDamage(card);
+            target.GetComponent<EnemyInfo>().TakeDamage(damage);
+        }
 
-        enemy.GetComponent<EnemyInfo>().TakeDamage(damage);
+        // Do Specials
+        foreach(var c in card.GetSpellAttributes())
+        {
+            var command = c.Split(' ');
+            switch (command[0])
+            {
+                case "HEAL":
+                    StaticHolder.PlayerStats.Heal(float.Parse(command[1])); // TODO - Change for allies
+
+                    break;
+            }
+        }
 
         currentCard.SetDesc(battleSimulator.DrawCard(currentCard.GetCardType()));
 
-
         //battleSimulator.NextTurn(); // Temp - Only end turn when player is ready
         // Update top bar
+        gm.displays[0].UpdateText(playerStats.CurrentHealth + " / " + playerStats.GetStatValue("Health") + " HP");
         gm.displays[1].UpdateText(playerStats.CurrentMana + " / " + playerStats.GetStatValue("Mana") + " MP");
-        gm.displays[2].UpdateText(playerStats.CurrentStamina + " / " + playerStats.GetStatValue("Stamina") + " SP");
+        gm.displays[2].UpdateText(playerStats.CurrentStamina + " / " + playerStats.GetStatValue("Stamina") + " S");
 
         SwitchHover(6);
-        if (enemy.GetComponent<EnemyInfo>().IsDead()) { battleSimulator.NextTurn(); }
     }
 
     private void FixedUpdate()

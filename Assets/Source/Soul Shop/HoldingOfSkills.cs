@@ -13,7 +13,7 @@ public static class HoldingOfSkills
         skills = s;
     }
 
-    private static SkillType LoadData(string name)
+    public static SkillType LoadData(string name)
     {
         TextAsset txt = (TextAsset)Resources.Load("Skills", typeof(TextAsset));
         List<SkillType> skills = JsonConvert.DeserializeObject<List<SkillType>>(txt.text) ?? throw new Exception("Empty Json!");

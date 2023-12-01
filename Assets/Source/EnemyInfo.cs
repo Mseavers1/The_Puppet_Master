@@ -146,17 +146,36 @@ public class EnemyInfo : MonoBehaviour, IBattleable
         // Replace card in there hand
         hand[cardIndex] = deck.PullCard(deck.GetTypeIndex(cardIndex));
         print(name + " used " + card.GetName() + " at level " + card.GetLevel() + " dealing a total of " + damage + " damage!");
-
-       
-        // Check if player or playable
-        if (target.tag == "Player")
+        
+        // No combat
+        if (!card.IsNoCombat())
         {
-            target.GetComponent<PlayerStats>().TakeDamage(damage);
-        } 
-        else
-        {
-            target.GetComponent<PlayableStats>().TakeDamage(damage);
+            // Check if player or playable
+            if (target.tag == "Player")
+            {
+                target.GetComponent<PlayerStats>().TakeDamage(damage);
+            }
+            else
+            {
+                target.GetComponent<PlayableStats>().TakeDamage(damage);
+            }
         }
+
+        // If ally
+        if (card.IsAllyOnly()) target = gameObject;
+
+        // Specials
+        foreach (var c in card.GetSpellAttributes())
+        {
+            var command = c.Split(' ');
+            switch (command[0])
+            {
+                case "HEAL":
+                    target.GetComponent<EnemyInfo>().Stat.Heal(float.Parse(command[1])); // TODO - Change for enemies allies
+                    break;
+            }
+        }
+
     }
 
     private void GenerateSkillsList(Mobs mob)

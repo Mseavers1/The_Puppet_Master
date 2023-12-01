@@ -4,6 +4,7 @@ public class SkillType
     public string Name;
     public string Flavor;
     public string Type;
+    public string[] Requirements;
     public string Weapon;
     public Level[] Levels;
 }

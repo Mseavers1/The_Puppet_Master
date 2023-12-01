@@ -26,7 +26,7 @@ public class AffinitiyUI : MonoBehaviour
         UpdateCostText(false);
     }
 
-    protected bool HasBought() { return hasBought; }
+    public bool HasBought() { return hasBought; }
 
     public void OnClicked()
     {

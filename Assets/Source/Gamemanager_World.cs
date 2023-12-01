@@ -47,8 +47,8 @@ public class Gamemanager_World : MonoBehaviour
         if (Input.GetMouseButtonDown(2))
         {
             StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon", GetNextAvailableSlot());
-            StaticHolder.InventoryManagement.AddItem("Iron Sword", "Weapon", GetNextAvailableSlot());
-            StaticHolder.InventoryManagement.AddItem("Ninja Sword", "Weapon", GetNextAvailableSlot());
+            StaticHolder.InventoryManagement.AddItem("Beginning Bow", "Weapon", GetNextAvailableSlot());
+            StaticHolder.InventoryManagement.AddItem("Iron Helmet", "Armor", GetNextAvailableSlot());
         }
     }
 

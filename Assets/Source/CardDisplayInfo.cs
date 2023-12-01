@@ -17,7 +17,19 @@ public class CardDisplayInfo : MonoBehaviour
 
     public void SetDesc(Card card)
     {
-        card.SetDesc("Deal <color=yellow>" + CalculateCardDamage(card) + "</color> " + card.GetDamageTypes()[0] + " damage.");
+        if (!card.IsNoCombat())
+            card.SetDesc("Deal <color=yellow>" + CalculateCardDamage(card) + "</color> " + card.GetDamageTypes()[0] + " damage.");
+        else
+        {
+            var description = card.SpecialType;
+
+            switch (description)
+            {
+                case "Heals":
+                    card.SetDesc("Recover " + CalculateHealing(card) + "% of HP.");
+                    break;
+            }
+        }
 
         transform.GetChild(0).GetComponent<TMP_Text>().text = card.GetName();
         transform.GetChild(1).GetComponent<TMP_Text>().text = "Lv. " + card.GetLevel();
@@ -43,5 +55,19 @@ public class CardDisplayInfo : MonoBehaviour
         var slope = weapon.MaxDamage / weapon.SkillLevel;
 
         return (float)Math.Round(slope * card.GetLevel(), 1);
+    }
+    
+    public float CalculateHealing(Card card)
+    {
+        float healAmount = 0;
+        foreach (var x in card.GetSpellAttributes())
+        {
+            if (x.Split(' ')[0] != "HEAL") continue;
+
+            healAmount = float.Parse(x.Split(' ')[1]);
+            break;
+        }
+
+        return healAmount * 100;
     }
 }
