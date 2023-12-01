@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Weapon : Item
 {
-    public Weapon(string name, double weight, string description) : base(name, weight, "Weapon", description)
+    public Weapon(string name, double weight, string description) : base(name, weight, "Weapon", description, false)
     {
 
     }
+
+    public override void UseItem() {}
 }

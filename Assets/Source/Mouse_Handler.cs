@@ -90,6 +90,11 @@ public class Mouse_Handler : MonoBehaviour
                         var menu = result.gameObject.transform.parent.GetChild(3);
                         menu.gameObject.SetActive(true);
 
+                        if (!result.gameObject.transform.parent.gameObject.GetComponent<SlotContainer>().CurrentItem.CanUse)
+                            menu.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+                        else 
+                            menu.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+
                         if (selectedSlot != menu.gameObject)
                         {
                             result.gameObject.transform.parent.SetParent(result.gameObject.transform.parent.parent.parent);
@@ -97,6 +102,8 @@ public class Mouse_Handler : MonoBehaviour
                         }
 
                         selectedSlot = menu.gameObject;
+
+                        SwitchHoverSlots(result.gameObject.GetComponentInParent<SlotContainer>().SlotIndex);
                     }
 
                     if (result.gameObject.CompareTag("BackgroundSlot"))
@@ -108,12 +115,7 @@ public class Mouse_Handler : MonoBehaviour
                 }
             }
 
-            if (!clickedOnSlot && selectedSlot != null)
-            {
-                clickedOnSlot = false;
-                selectedSlot.SetActive(false);
-                SwitchHoverSlots(-1);
-            }
+            if (!clickedOnSlot && selectedSlot != null) RemoveSlotHoverClick();
 
             // Non UI Clicking
             var worldPos = Camera.main.ScreenToWorldPoint(pos);
@@ -178,6 +180,14 @@ public class Mouse_Handler : MonoBehaviour
             }
 
         }
+    }
+
+    private void RemoveSlotHoverClick()
+    {
+        clickedOnSlot = false;
+        selectedSlot.SetActive(false);
+        SwitchHoverSlots(-1);
+        selectedSlot = null;
     }
 
     private void PlayCard(Collider2D enemy)
