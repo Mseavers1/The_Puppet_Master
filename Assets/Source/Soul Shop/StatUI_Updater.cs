@@ -6,7 +6,7 @@ using UnityEngine;
 public class StatUI_Updater : MonoBehaviour
 {
     public TMP_Text mainDisplay, removeCost, buyingCost;
-    public GameObject negitive;
+    public GameObject negitive, positive;
 
     private int currentPoint = 0;
 
@@ -39,13 +39,16 @@ public class StatUI_Updater : MonoBehaviour
 
     public int BuyPoint(int SP)
     {
-        if (currentPoint >= StaticHolder.Max_Buyable_Point_Size) return 0; // TODO - Remove buying icon
+        if (currentPoint >= StaticHolder.Max_Buyable_Point_Size) return 0;
 
         var cost = CalcCost();
         if (SP >= cost)
         {
             currentPoint++;
             UpdateDisplay();
+
+            if (currentPoint >= StaticHolder.Max_Buyable_Point_Size) if (positive.activeSelf) positive.SetActive(false);
+            
 
             return cost;
         }
@@ -56,6 +59,8 @@ public class StatUI_Updater : MonoBehaviour
     public int RemovePoint()
     {
         if (currentPoint <= 0) return 0;
+
+        if (!positive.activeSelf) positive.SetActive(true);
 
         var cost = CalcGain();
         currentPoint--;
