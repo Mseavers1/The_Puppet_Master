@@ -19,6 +19,7 @@ public class Chatbox_Handler : MonoBehaviour
 
     public void StartChat()
     {
+        Debug.Log("test");
         canContinue = true;
         playing = true;
 
@@ -35,6 +36,11 @@ public class Chatbox_Handler : MonoBehaviour
     public void QDebug(string msg)
     {
         Debug.Log(msg);
+    }
+
+    public void GenerateItem(string itemName, string itemType)
+    {
+        StaticHolder.InventoryManagement.AddItem(itemName, itemType, GameObject.FindGameObjectWithTag("GameManager").GetComponent<Gamemanager_World>().GetNextAvailableSlot());
     }
 
     public void ContinueChat()
@@ -63,6 +69,7 @@ public class Chatbox_Handler : MonoBehaviour
 
         chatbox.SetActive(false);
         player.GetComponent<Player_Movement>().EnableMovement();
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<Gamemanager_World>().Mode = "None";
     }
 
     public void ChangeSpeaker(string speaker)

@@ -206,7 +206,7 @@ public class Gamemanager_World : MonoBehaviour
         GameObject.FindGameObjectWithTag("Player").GetComponent<Mouse_Handler>().SwitchHoverSlots(-1);
     }
 
-    private int GetNextAvailableSlot()
+    public int GetNextAvailableSlot()
     {
         foreach (var icon in ItemIcons)
         {

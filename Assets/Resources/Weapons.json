@@ -42,5 +42,15 @@
     "skillLevel": 2,
     "skillName": "Archery",
     "subType": "Bow"
+  },
+  {
+    "id": 4,
+    "name": "Wood Pike",
+    "description": "The starting spear.",
+    "weight": 1,
+    "potentialDamage": 5,
+    "skillLevel": 2,
+    "skillName": "Spearmanship",
+    "subType": "Spear"
   }
 ]

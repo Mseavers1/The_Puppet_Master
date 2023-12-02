@@ -100,9 +100,22 @@ public class Chatbox_Reader
                 // Conditional statements
                 If(instruct);
                 break;
+            case "give":
+                Give(instruct);
+                Next();
+                break;
             default: throw new Exception("Command is not defined: " + command + " in instruction " + instruction);
         }
 
+    }
+
+    private void Give(string parm)
+    {
+        var parms = parm.Split(' ');
+        var itemName = parms[0].Replace("_", " ");
+        var itemType = parms[1];
+
+        handler.GenerateItem(itemName, itemType);
     }
 
     private void If(string parm)
@@ -169,8 +182,28 @@ public class Chatbox_Reader
         {
             case "name":
                 return NameCondition(isEqual, value);
+            case "skill":
+                return SkillCondition(isEqual, value);
             default: throw new Exception("The condition in conditional statement (" + condition + ") is not valid!");
         }
+    }
+
+    private bool SkillCondition(bool isEqual, string value)
+    {
+        //UnityEngine.Debug.Log(value);
+        var hasSkill = HoldingOfSkills.ContainSkill(value);
+        // UnityEngine.Debug.Log("Has? " + hasSkill);
+
+        return hasSkill;
+
+        if (isEqual)
+        {
+            if (hasSkill) return true;
+
+            return false;
+        }
+
+        return false;
     }
 
     private bool NameCondition(bool isEqual, string value)

@@ -1,0 +1,49 @@
+label a
+
+speaker NPC Name
+
+// Testing for comments
+message 5
+Hello There!
+I don't remember seeing you around these parts...
+Oh, you seem like a good fellow...
+I have an used weapon that has long been abandoned. 
+Here, how about you take it.
+
+if skill == Swordsmanship
+goto b
+
+if skill == Archery
+goto c
+
+if skill == Spearmanship
+goto d
+
+goto g
+
+label b
+give Bambo_Sword Weapon
+goto e
+
+label c
+give Beginning_Bow Weapon
+goto e
+
+label d
+give Wood_Pike Weapon
+
+label e
+end
+
+label f
+message 1
+That is all I have... Good luck in your journey!
+end
+goto f
+
+label g
+message 2
+Oh, you don't have any weapon skills...
+Sorry, I don't have anything for you then.
+end
+goto g

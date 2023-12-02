@@ -13,6 +13,23 @@ public static class HoldingOfSkills
         skills = s;
     }
 
+    public static bool ContainSkill(string skillName)
+    {
+        foreach(string s in skills)
+        {
+            var split = s.Split (' ');
+            Debug.Log("Check:");
+            Debug.Log(split[0]);
+            Debug.Log(skillName);
+            Debug.Log(split[0] == skillName);
+            Debug.Log("_______");
+
+            if (split[0] == skillName) return true;
+        }
+
+        return false;
+    }
+
     public static SkillType LoadData(string name)
     {
         TextAsset txt = (TextAsset)Resources.Load("Skills", typeof(TextAsset));
