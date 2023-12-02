@@ -10,6 +10,7 @@ public class Soul_GM : MonoBehaviour
     public TMP_Text spText, affinitiesText;
     public Card_Display display;
     public TMP_Text[] pointText;
+    private bool OnTutorial = true;
 
     private int availableAffinities = 30;
     private int soulPoints = 10000000;
@@ -19,6 +20,13 @@ public class Soul_GM : MonoBehaviour
         UpdateSPText();
         UpdateAffinityText();
     }
+
+    public void ExitTutorial()
+    {
+        OnTutorial = false;
+    }
+
+    public bool IsTutorialOn() { return OnTutorial; }
 
     public int GetSP() { return soulPoints; }
     public int GetAffinityCount() { return availableAffinities; }
@@ -65,6 +73,8 @@ public class Soul_GM : MonoBehaviour
     // Method called when game starts (after selecting skills)
     public void StartGame()
     {
+        if (OnTutorial) return;
+
         var allSkills = GameObject.FindGameObjectsWithTag("SkillOption");
         var skillNames = new List<string>();
 

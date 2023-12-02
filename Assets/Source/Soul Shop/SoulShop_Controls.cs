@@ -45,6 +45,8 @@ public class SoulShop_Controls : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GetComponent<Soul_GM>().IsTutorialOn()) return;
+
         // Hovering
         hoveringData.position = Mouse.current.position.ReadValue();
         hoveringResults.Clear();
@@ -104,6 +106,8 @@ public class SoulShop_Controls : MonoBehaviour
     }
     private void OnClick(InputAction.CallbackContext context)
     {
+        if (GetComponent<Soul_GM>().IsTutorialOn()) return;
+
         if (context.action.name.Equals("Left Click") && context.performed)
         {
             // Raycast for UI

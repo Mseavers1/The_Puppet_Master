@@ -8,6 +8,8 @@ public class UI_Handler : MonoBehaviour
 
     public void Open()
     {
+        if (GameObject.FindGameObjectWithTag("GameManager").GetComponent<Gamemanager_World>().IsTutorialOn()) return;
+
         openedObj.SetActive(true);
         closedObj.SetActive(false);
     }

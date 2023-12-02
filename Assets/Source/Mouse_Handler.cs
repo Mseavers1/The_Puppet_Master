@@ -46,6 +46,8 @@ public class Mouse_Handler : MonoBehaviour
 
     private void OnClick(InputAction.CallbackContext context)
     {
+        if (gm.IsTutorialOn()) return;
+
         // Detect left clicks
         if (context.action.name.Equals("Left Click") && context.performed) 
         {
@@ -251,7 +253,7 @@ public class Mouse_Handler : MonoBehaviour
     private void FixedUpdate()
     {
         // Hovering
-        if(gm.Mode == "Battle Player" && !clickedOnCard)
+        if (gm.Mode == "Battle Player" && !clickedOnCard)
         {
             if (battleSimulator.IsPlayerTurn())
                 OnHover(0);
@@ -262,6 +264,8 @@ public class Mouse_Handler : MonoBehaviour
 
     private void OnHover(int type)
     {
+        if (gm.IsTutorialOn()) return;
+
         var pos = Mouse.current.position.ReadValue();
         uiData.position = pos;
         uiResults.Clear();

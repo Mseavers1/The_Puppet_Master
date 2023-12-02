@@ -32,7 +32,9 @@ public class Player_Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         width = transform.localScale.x / 2;
         height = transform.localScale.y / 2;
-        canMove = true;
+
+        if (!GameObject.FindGameObjectWithTag("GameManager").GetComponent<Gamemanager_World>().IsTutorialOn())
+            canMove = true;
     }
 
     private void OnEnable()

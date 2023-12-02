@@ -20,7 +20,7 @@ public class Gamemanager_World : MonoBehaviour
     public GameObject bar;
     public Image[] icons;
     private double[] topSizes;
-    private bool showTutorial;
+    private bool showTutorial = true;
 
     [Range(0.4f, 1.3f)]
     public float scale = 0.8f;
@@ -52,8 +52,18 @@ public class Gamemanager_World : MonoBehaviour
         }
     }
 
+    public void ExitTutorial()
+    {
+        showTutorial = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Movement>().EnableMovement(true);
+    }
+
+    public bool IsTutorialOn() { return showTutorial; }
+
     public void ClickInventoryButton()
     {
+        if (IsTutorialOn()) return;
+
         if (InventoryPanel.gameObject.activeSelf) CloseInventory();
         else OpenInventory();
 
