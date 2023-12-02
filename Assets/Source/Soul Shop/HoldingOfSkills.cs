@@ -11,6 +11,7 @@ public static class HoldingOfSkills
     public static void StartOfGame(List<string> s)
     {
         skills = s;
+        skills.Add("Hand 1");
     }
 
     public static bool ContainSkill(string skillName)

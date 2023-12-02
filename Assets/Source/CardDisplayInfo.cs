@@ -44,6 +44,8 @@ public class CardDisplayInfo : MonoBehaviour
 
     public float CalculateCardDamage(Card card)
     {
+        if (card.GetRequiredWeapon() == "None") return card.GetDamage();
+
         var iv = StaticHolder.InventoryManagement;
 
         if (!iv.CheckEquipment(card.GetRequiredWeapon())) return 0;

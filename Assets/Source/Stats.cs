@@ -51,6 +51,7 @@ public class Stats
         RestoreMana();
         RestoreStamina();
     }
+    
 
     public void StartOfTurn()
     {

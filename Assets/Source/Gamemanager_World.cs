@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Gamemanager_World : MonoBehaviour
@@ -21,15 +22,24 @@ public class Gamemanager_World : MonoBehaviour
     public Image[] icons;
     private double[] topSizes;
     private bool showTutorial = true;
+    public GameObject tutorialPrefab;
 
     [Range(0.4f, 1.3f)]
     public float scale = 0.8f;
     public string Mode = "None";
 
+    public int NextSP { get; set; } = 0;
+
     private int currentI = 0, currentJ = 0, totalSlots = 0;
 
     private void Start()
     {
+        if (!StaticHolder.ShowTutorialGame)
+        {
+            ExitTutorial();
+            tutorialPrefab.SetActive(false);
+        }
+
         topSizes = new double[icons.Length];
         for (int i = 0; i < icons.Length; i++) topSizes[i] = icons[i].rectTransform.sizeDelta.y;
 
@@ -42,20 +52,23 @@ public class Gamemanager_World : MonoBehaviour
         //StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon", GetNextAvailableSlot());
     }
 
-    private void Update()
+    public void GameOver()
     {
-        if (Input.GetMouseButtonDown(2))
-        {
-            StaticHolder.InventoryManagement.AddItem("Bambo Sword", "Weapon", GetNextAvailableSlot());
-            StaticHolder.InventoryManagement.AddItem("Beginning Bow", "Weapon", GetNextAvailableSlot());
-            StaticHolder.InventoryManagement.AddItem("Iron Helmet", "Armor", GetNextAvailableSlot());
-        }
+        StaticHolder.SP += NextSP;
+        StaticHolder.HasDied = true;
+        SceneManager.LoadScene(1);
+    }
+
+    public void TurnOnTutorial()
+    {
+        showTutorial = true;
     }
 
     public void ExitTutorial()
     {
         showTutorial = false;
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Movement>().EnableMovement(true);
+        StaticHolder.ShowTutorialGame = false;
     }
 
     public bool IsTutorialOn() { return showTutorial; }

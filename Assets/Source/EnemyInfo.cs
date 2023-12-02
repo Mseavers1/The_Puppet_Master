@@ -10,6 +10,7 @@ public class EnemyInfo : MonoBehaviour, IBattleable
     public Stats Stat { get; private set; }
     public int ID;
     [Range(1, Max_Level)] public int level;
+    public int holdingSP;
 
     private BattleSimulator battle;
     private string mobName;
@@ -68,6 +69,10 @@ public class EnemyInfo : MonoBehaviour, IBattleable
         // Generate Hand
         hand = deck.GenerateHand();
         foreach (var card in hand) Debug.Log("Enemy Card in Hand: " + card.GetName());
+
+        // Calculate SP
+        var slope = (mob.MaxSP - mob.BaseSP) / (99);
+        holdingSP = Mathf.RoundToInt(slope * (level-1) + mob.BaseSP);
     }
 
     public void PlayTurn()
@@ -258,6 +263,8 @@ internal class Mobs
 {
     public int ID;
     public string Name;
+    public int BaseSP;
+    public int MaxSP;
     public int MaxHealth;
     public string CurveHealth;
     public int MaxMana;

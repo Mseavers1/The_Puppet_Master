@@ -11,12 +11,22 @@ public class Soul_GM : MonoBehaviour
     public Card_Display display;
     public TMP_Text[] pointText;
     private bool OnTutorial = true;
+    public GameObject TutorialPrefab;
 
     private int availableAffinities = 30;
-    private int soulPoints = 10000000;
+    private int soulPoints = 20;
 
     private void Start()
     {
+        soulPoints += StaticHolder.SP;
+
+        print(StaticHolder.ShowTutorialSoul);
+        if(!StaticHolder.ShowTutorialSoul)
+        {
+            ExitTutorial();
+            TutorialPrefab.SetActive(false);
+        }
+
         UpdateSPText();
         UpdateAffinityText();
     }
@@ -24,6 +34,8 @@ public class Soul_GM : MonoBehaviour
     public void ExitTutorial()
     {
         OnTutorial = false;
+
+        StaticHolder.ShowTutorialSoul = false;
     }
 
     public bool IsTutorialOn() { return OnTutorial; }
@@ -103,6 +115,6 @@ public class Soul_GM : MonoBehaviour
         StaticHolder.StartOfGame(arr);
         HoldingOfSkills.StartOfGame(skillNames);
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 }

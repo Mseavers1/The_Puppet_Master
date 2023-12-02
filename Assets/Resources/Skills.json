@@ -27,7 +27,7 @@
         "downgradeGains": 1,
         "effects": [
           {
-            "numberOfCards": 2,
+            "numberOfCards": 5,
             "damageTypes": [ "Slashing" ],
             "damageRatio": [ 1 ], // 100% towards slashing
             "totalDamage": 1,
@@ -226,7 +226,7 @@
         "downgradeGains": 1,
         "effects": [
           {
-            "numberOfCards": 1,
+            "numberOfCards": 5,
             "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 1,
@@ -397,7 +397,7 @@
         "downgradeGains": 256,
         "effects": [
           {
-            "numberOfCards": 6,
+            "numberOfCards": 5,
             "damageTypes": [ "Peircing" ],
             "damageRatio": [ 1 ],
             "totalDamage": 6,
@@ -479,7 +479,7 @@
     "name": "Healing",
     "flavor": "Allows you to heal inside combat.",
     "type": "S",
-    "requirements": ["Recovery"],
+    "requirements": [ "Recovery" ],
     "weapon": "None",
     "levels": [
       // Level 1
@@ -536,6 +536,34 @@
             "totalDamage": 0,
             "AOE": "Single",
             "special": "HEAL 0.6,ALLY,NO COMBAT"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Hand",
+    "flavor": "Use your fists to punch everyone you can!",
+    "type": "W",
+    "weapon": "None",
+    "levels": [
+      // Level 1
+      {
+        "combat": "Use your fists if you have nothing left.",
+        "nonCombat": "",
+        "manaCost": 0,
+        "staminaCost": 1,
+        "levelCost": 1,
+        "downgradeGains": 1,
+        "effects": [
+          {
+            "numberOfCards": 5,
+            "damageTypes": ["Blunt"],
+            "damageRatio": [1],
+            "totalDamage": 1,
+            "AOE": "Single",
+            "special": ""
           }
         ]
       }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -105,8 +106,14 @@ public class BattleSimulator : MonoBehaviour
                 DeckArea.SetActive(false);
                 foreach(var enemy in enemies)
                 {
+                    // Calculate Earned SP
+                    gm.NextSP += enemy.GetComponent<EnemyInfo>().holdingSP;
+
                     Destroy(enemy);
                 }
+
+                
+                
 
                 return;
             }
@@ -114,6 +121,12 @@ public class BattleSimulator : MonoBehaviour
             if(IsBattleOver() == "Player")
             {
                 print("Game Over"); // TODO -- Implement
+                gm.InventoryPanel.transform.parent.GetChild(7).gameObject.SetActive(true);
+                gm.InventoryPanel.transform.parent.GetChild(7).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = "You gained <color=red>" + gm.NextSP + "</color> SP!";
+                gm.Mode = "Dead";
+                gm.TurnOnTutorial();
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Movement>().EnableMovement(false);
+
                 return;
             }
 

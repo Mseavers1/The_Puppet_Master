@@ -8,6 +8,8 @@
   {
     "id": 0,
     "name": "slime",
+    "baseSP": 1,
+    "maxSP": 100,
     "maxHealth": 0,
     "curveHealth": "linear",
     "maxMana": 0,
@@ -37,6 +39,44 @@
       {
         "name": "Archery",
         "level": 1,
+        "chance": 0.5
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "golem",
+    "baseSP": 10,
+    "maxSP": 5000,
+    "maxHealth": 20,
+    "curveHealth": "linear",
+    "maxMana": 0,
+    "curveMana": "pow",
+    "maxStamina": 0,
+    "curveStamina": "log",
+    "agility": 0,
+    "curveAgility": "linear",
+    "speed": 0,
+    "curveSpeed": "linear",
+    "luck": 0,
+    "curveLuck": "linear",
+    "pStrength": 0,
+    "curvePStrength": "linear",
+    "mStrength": 0,
+    "curveMStrength": "linear",
+    "pDefense": 0,
+    "curvePDefense": "linear",
+    "mDefense": 0,
+    "curveMDefense": "linear",
+    "mobSkills": [
+      {
+        "name": "Swordsmanship",
+        "level": 8,
+        "chance": 0.5
+      },
+      {
+        "name": "Archery",
+        "level": 8,
         "chance": 0.5
       }
     ]

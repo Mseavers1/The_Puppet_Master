@@ -1,10 +1,16 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class StaticHolder
 {
     // Player Stuff
     public static Stats PlayerStats { get; private set; }
+    public static bool HasDied { get; set; } = false;
+    public static bool ShowTutorialSoul { get; set; } = true;
+    public static bool ShowTutorialGame { get; set; } = true;
+
+    public static int SP { get; set; }
     public static InventoryManagement InventoryManagement { get; private set; }
 
     // Defaults
@@ -18,6 +24,15 @@ public static class StaticHolder
 
     public static void StartOfGame(int[] points)
     {
+        if (HasDied)
+        {
+            PlayerStats = null; InventoryManagement = null;
+            PlayerStats = new Stats(points[0], points[1], points[2], points[3], points[4], points[5], points[6], points[7], points[8], points[9], 1);
+
+            InventoryManagement = new InventoryManagement();
+            return;
+        }
+
         SetCurves();
         SetDefaultValues();
         SetMaxValues();

@@ -2436,7 +2436,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Swordsmanship <color=red>Lv. 5
+  m_text: Swordsmanship <color=red>Lv. 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6141,7 +6141,7 @@ GameObject:
   - component: {fileID: 388488217}
   - component: {fileID: 388488216}
   m_Layer: 5
-  m_Name: Archery 10
+  m_Name: Archery 0
   m_TagString: SkillOption
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7502,6 +7502,7 @@ MonoBehaviour:
   - {fileID: 1000066240}
   - {fileID: 1695177935}
   - {fileID: 137446622}
+  TutorialPrefab: {fileID: 776254844}
 --- !u!114 &511698593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12273,7 +12274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Archery <color=red>Lv. 10
+  m_text: Archery <color=red>Lv. 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14987,7 +14988,7 @@ GameObject:
   - component: {fileID: 1125043776}
   - component: {fileID: 1125043775}
   m_Layer: 5
-  m_Name: Swordsmanship 5
+  m_Name: Swordsmanship 1
   m_TagString: SkillOption
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
