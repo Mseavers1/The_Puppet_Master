@@ -12,11 +12,12 @@ namespace Source.Visual_Novel
 {
     public class VisualGameManager : MonoBehaviour
     {
-        public TMP_Text textBox;
+        public TMP_Text textBox, nameBox;
         public GameObject[] buttons;
         public Canvas canvas;
         public string textFile;
         public Color defaultTextColor, highlightedTextColor;
+        public GameObject historyObj;
 
         [Range(0, 1)]
         public float textSpeed;
@@ -26,9 +27,12 @@ namespace Source.Visual_Novel
         public bool isSkimming, isAuto;
 
         private readonly Queue<string> _loadedTexts = new();
+        private readonly Queue<string> _previousTexts = new();
+        private readonly Queue<string> _previousNames = new();
+
         private double _timer, _autoTimer;
         private float _savedTextSpeed, _savedAutoSpeed;
-        private bool _isRunning, _isOverButton, _savedIsAuto;
+        private bool _isRunning, _isOverButton, _savedIsAuto, _isOnHistory;
         private int _currentIndex;
 
         private PlayerInput _input;
@@ -36,6 +40,9 @@ namespace Source.Visual_Novel
         private PointerEventData _pointerEventData;
         private List<RaycastResult> _results;
         private int _currentHoverButton;
+
+        public Queue<string> GetPreviousText() { return _previousTexts; }
+        public Queue<string> GetPreviousNames() { return _previousNames; }
 
         private void Awake()
         {
@@ -136,13 +143,34 @@ namespace Source.Visual_Novel
                 switch (_currentHoverButton)
                 {
                     case 0:
+                        if (isSkimming) return;
+                        
                         // History
+                        _isOnHistory = !_isOnHistory;
+
+                        if (_isOnHistory)
+                        {
+                            historyObj.SetActive(true);
+                            historyObj.GetComponent<HistoryController>().GenerateHistory();
+                            _savedIsAuto = isAuto;
+                            isAuto = false;
+                        }
+                        else
+                        {
+                            historyObj.SetActive(false);
+                            isAuto = _savedIsAuto;
+                        }
+                        
                         break;
                     case 1:
+                        if (historyObj.activeSelf) return;
+                        
                         // Auto
                         isAuto = !isAuto;
                         break;
                     case 2:
+                        if (historyObj.activeSelf) return;
+                        
                         // Skim
                         isSkimming = !isSkimming;
                         SkimmingUpdate();
@@ -154,6 +182,8 @@ namespace Source.Visual_Novel
                 }
                 return;
             }
+
+            if (historyObj.activeSelf) return;
             
             // Checks if text is running, if so, skips to the end.
             if (_isRunning)
@@ -190,7 +220,11 @@ namespace Source.Visual_Novel
         // Loads the next set of text into the system
         private void PlayText()
         {
-            if (_loadedTexts.Count <= 0) return;
+            if (_loadedTexts.Count <= 0)
+            {
+                isSkimming = false;
+                return;
+            }
             
             _timer = 0;
             _autoTimer = 0;
@@ -224,7 +258,8 @@ namespace Source.Visual_Novel
         private void EndText()
         {
             _isRunning = false;
-            _loadedTexts.Dequeue();
+            _previousTexts.Enqueue(_loadedTexts.Dequeue());
+            _previousNames.Enqueue(nameBox.text);
         }
     }
 }
