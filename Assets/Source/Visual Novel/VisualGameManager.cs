@@ -17,7 +17,7 @@ namespace Source.Visual_Novel
         public Canvas canvas;
         public string textFile;
         public Color defaultTextColor, highlightedTextColor;
-        public GameObject historyObj;
+        public GameObject historyObj, conObj;
 
         [Range(0, 1)]
         public float textSpeed;
@@ -217,9 +217,15 @@ namespace Source.Visual_Novel
                 textBox.text = _loadedTexts.Peek();
                 EndText();
             }
-            
+
             // Checks if no text is running, if so, moves to the next line
-            else PlayText();
+            else
+            {
+                conObj.GetComponent<ConAnimation>().AnimationOff();
+                conObj.SetActive(false);
+                
+                PlayText();
+            }
         }
 
         private void SkimmingUpdate()
@@ -248,6 +254,9 @@ namespace Source.Visual_Novel
         {
             if (_loadedTexts.Count <= 0)
             {
+                conObj.GetComponent<ConAnimation>().AnimationOff();
+                conObj.SetActive(false);
+                
                 isSkimming = false;
                 return;
             }
@@ -288,6 +297,9 @@ namespace Source.Visual_Novel
             _previousTexts.Enqueue(_loadedTexts.Dequeue());
             _previousNames.Enqueue(_loadedNames.First());
             _loadedNames.RemoveFirst();
+            
+            conObj.SetActive(true);
+            conObj.GetComponent<ConAnimation>().AnimationOn();
         }
     }
 }
