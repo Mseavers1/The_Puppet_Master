@@ -33,7 +33,7 @@ namespace Source.Visual_Novel
                 var objText = obj.transform.GetChild(0).GetComponent<TMP_Text>();
                 objText.text = "";
 
-                for (var i = 0; i < names[index].Length * 2; i++) objText.text += " ";
+                for (var i = 0; i < (names[index].Length + 2) * 1.73f; i++) objText.text += " ";
                 
                 obj.transform.GetChild(0).GetComponent<TMP_Text>().text += text;
                 obj.transform.GetChild(1).GetComponent<TMP_Text>().text = names[index++] + ": ";
@@ -42,7 +42,7 @@ namespace Source.Visual_Novel
                 _previousPrefabs.Add(obj);
             }
             
-            slider.maxValue = _previousPrefabs.Count;
+            slider.maxValue = _previousPrefabs.Count + 8;
             slider.value = slider.maxValue;
             
             SliderMovement();

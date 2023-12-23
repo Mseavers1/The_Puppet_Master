@@ -27,6 +27,7 @@ namespace Source.Visual_Novel
         public bool isSkimming, isAuto;
 
         private readonly Queue<string> _loadedTexts = new();
+        private readonly LinkedList<string> _loadedNames = new ();
         private readonly Queue<string> _previousTexts = new();
         private readonly Queue<string> _previousNames = new();
 
@@ -117,10 +118,35 @@ namespace Source.Visual_Novel
                 var path = "Assets/Resources/VisualNovel Texts/" + textFile + ".txt";
                 var reader = new StreamReader(path);
                 var line = reader.ReadLine();
+                var speaker = "None";
 
                 while (line != null)
                 {
+                    if (line.Length == 0 || line[0] == '/')
+                    {
+                        line = reader.ReadLine();
+                        continue;
+                    }
+
+                    if (line[0] == '*')
+                    {
+                        var lines = line.Split(' ');
+                        speaker = "";
+
+                        for (var i = 1; i < lines.Length; i++)
+                        {
+                            speaker += lines[i];
+
+                            if (i + 1 < lines.Length) speaker += " ";
+
+                        }
+                        
+                        line = reader.ReadLine();
+                        continue;
+                    }
+                    
                     _loadedTexts.Enqueue(line);
+                    _loadedNames.AddLast(speaker);
                     line = reader.ReadLine();
                 }
             }
@@ -232,6 +258,7 @@ namespace Source.Visual_Novel
             _isRunning = true;
 
             textBox.text = "";
+            nameBox.text = _loadedNames.First();
             
             NextCharacter();
         }
@@ -259,7 +286,8 @@ namespace Source.Visual_Novel
         {
             _isRunning = false;
             _previousTexts.Enqueue(_loadedTexts.Dequeue());
-            _previousNames.Enqueue(nameBox.text);
+            _previousNames.Enqueue(_loadedNames.First());
+            _loadedNames.RemoveFirst();
         }
     }
 }
