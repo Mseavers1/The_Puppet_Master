@@ -16,6 +16,7 @@ TagManager:
   - StatIconSELL
   - InventorySlot
   - BackgroundSlot
+  - Button
   layers:
   - Default
   - TransparentFX
