@@ -17,13 +17,8 @@ namespace Source.Visual_Novel
         public Canvas canvas;
         public string textFile;
         public Color defaultTextColor, highlightedTextColor;
-        public GameObject historyObj, conObj;
-
-        [Range(0, 1)]
-        public float textSpeed;
-
-        [Range(0.001f, 3)]
-        public float autoSpeed;
+        public GameObject historyObj, conObj, settingObj;
+        
         public bool isSkimming, isAuto;
 
         private readonly Queue<string> _loadedTexts = new();
@@ -33,7 +28,7 @@ namespace Source.Visual_Novel
 
         private double _timer, _autoTimer;
         private float _savedTextSpeed, _savedAutoSpeed;
-        private bool _isRunning, _isOverButton, _savedIsAuto, _isOnHistory;
+        private bool _isRunning, _isOverButton, _savedIsAuto, _isOnHistory, _isOnSettings;
         private int _currentIndex;
 
         private PlayerInput _input;
@@ -68,7 +63,7 @@ namespace Source.Visual_Novel
             {
                 _autoTimer += Time.deltaTime;
                 
-                if (_autoTimer >= autoSpeed) PlayText();
+                if (_autoTimer >= PlayerPrefs.GetFloat("AutoSpeed")) PlayText();
             }
             
             // Checks if the system is running
@@ -76,7 +71,7 @@ namespace Source.Visual_Novel
             
             _timer += Time.deltaTime;
 
-            if (_timer >= textSpeed) NextCharacter();
+            if (_timer >= PlayerPrefs.GetFloat("TextSpeed")) NextCharacter();
         }
 
         private void FixedUpdate()
@@ -169,7 +164,7 @@ namespace Source.Visual_Novel
                 switch (_currentHoverButton)
                 {
                     case 0:
-                        if (isSkimming) return;
+                        if (isSkimming || _isOnSettings) return;
                         
                         // History
                         _isOnHistory = !_isOnHistory;
@@ -189,13 +184,13 @@ namespace Source.Visual_Novel
                         
                         break;
                     case 1:
-                        if (historyObj.activeSelf) return;
+                        if (historyObj.activeSelf || _isOnSettings) return;
                         
                         // Auto
                         isAuto = !isAuto;
                         break;
                     case 2:
-                        if (historyObj.activeSelf) return;
+                        if (historyObj.activeSelf || _isOnSettings) return;
                         
                         // Skim
                         isSkimming = !isSkimming;
@@ -205,11 +200,17 @@ namespace Source.Visual_Novel
                     case 3:
                         // Skip
                         break;
+                    case 4:
+                        // Settings
+                        _isOnSettings = !_isOnSettings;
+                        settingObj.SetActive(!settingObj.activeSelf);
+
+                        break;
                 }
                 return;
             }
 
-            if (historyObj.activeSelf) return;
+            if (historyObj.activeSelf || _isOnSettings) return;
             
             // Checks if text is running, if so, skips to the end.
             if (_isRunning)
@@ -232,19 +233,19 @@ namespace Source.Visual_Novel
         {
             if (isSkimming)
             {
-                _savedTextSpeed = textSpeed;
-                _savedAutoSpeed = autoSpeed;
+                _savedTextSpeed = PlayerPrefs.GetFloat("TextSpeed");
+                _savedAutoSpeed = PlayerPrefs.GetFloat("AutoSpeed");
                 _savedIsAuto = isAuto;
 
-                textSpeed = 0;
-                autoSpeed = 0.001f;
+                PlayerPrefs.SetFloat("TextSpeed", 0);
+                PlayerPrefs.SetFloat("AutoSpeed", 0.001f);
 
                 isAuto = true;
             }
             else
             {
-                textSpeed = _savedTextSpeed;
-                autoSpeed = _savedAutoSpeed;
+                PlayerPrefs.SetFloat("TextSpeed", _savedTextSpeed);
+                PlayerPrefs.SetFloat("AutoSpeed", _savedAutoSpeed);
                 isAuto = _savedIsAuto;
             }
         }
@@ -275,7 +276,7 @@ namespace Source.Visual_Novel
         // Loads the current char of the loaded text into the text box
         private void NextCharacter()
         {
-            if (textSpeed == 0)
+            if (PlayerPrefs.GetFloat("TextSpeed") == 0)
             {
                 textBox.text += _loadedTexts.Peek();
                 EndText();
