@@ -1839,12 +1839,12 @@ MonoBehaviour:
   - {fileID: 377633953}
   - {fileID: 1874836667}
   canvas: {fileID: 1112517228}
-  textFile: Scene Intro
+  textFile: Introduction_Male
   defaultTextColor: {r: 1, g: 1, b: 1, a: 1}
   highlightedTextColor: {r: 0.5518868, g: 0.97369957, b: 1, a: 1}
   historyObj: {fileID: 418914893}
   conObj: {fileID: 2083784400}
-  textSpeed: 0.179
+  textSpeed: 0.038
   autoSpeed: 0.59
   isSkimming: 0
   isAuto: 0
