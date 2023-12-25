@@ -21,7 +21,8 @@ namespace Source.Visual_Novel
 
         private void Start()
         {
-            _holderOrigPosY = holder.transform.position.y;
+            //_holderOrigPosY = holder.transform.position.y;
+            //print(_holderOrigPosY);
         }
 
         private void OnDisable()
@@ -57,7 +58,7 @@ namespace Source.Visual_Novel
                 _lastYPos = obj.transform.position.y;
             }
             
-            slider.value = slider.minValue;
+            slider.value = slider.maxValue;
             SliderMovement();
         }
 
@@ -70,6 +71,8 @@ namespace Source.Visual_Novel
 
         private float CalcSliderPos()
         {
+            print("Holder: " + _holderOrigPosY);
+            print("LastY: " + _lastYPos);
             var slope = -_holderOrigPosY + (-_lastYPos + 500);
             //var slope = _holderOrigPosY + (-_lastYPos + 500);
             return slope * slider.value;
@@ -102,6 +105,7 @@ namespace Source.Visual_Novel
         private void Awake()
         {
             _gm = GameObject.FindWithTag("GameManager").GetComponent<VisualGameManager>();
+            _holderOrigPosY = holder.transform.position.y;
         }
     }
 }
