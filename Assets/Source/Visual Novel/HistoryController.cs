@@ -71,6 +71,7 @@ namespace Source.Visual_Novel
         private float CalcSliderPos()
         {
             var slope = -_holderOrigPosY + (-_lastYPos + 500);
+            //var slope = _holderOrigPosY + (-_lastYPos + 500);
             return slope * slider.value;
         }
 
