@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 namespace Source.Soul_Shop
 {
@@ -11,6 +13,7 @@ namespace Source.Soul_Shop
         private CanvasRenderer _renderer;
         public Material material;
         public GameObject[] positions;
+        public Texture2D texture2D;
 
         public float[] stats;
         private List<Vector2> defaultPositions = new();
@@ -40,6 +43,11 @@ namespace Source.Soul_Shop
 
         private void UpdateJoint()
         {
+            for (var i = 0; i < stats.Length; i++)
+            {
+                stats[i] = Random.Range(0, 200);
+            }
+            
             for (var i = 1; i < positions.Length; i++)
             {
                 var statSlope = (defaultPositions[i].x - positions[0].transform.position.x) / 200;
@@ -55,14 +63,14 @@ namespace Source.Soul_Shop
         {
             var vertices = new Vector3[]
             {
-                new Vector3(positions[0].transform.position.x, positions[0].transform.position.y),
-                new Vector3(positions[1].transform.position.x, positions[1].transform.position.y),
-                new Vector3(positions[2].transform.position.x, positions[2].transform.position.y),
-                new Vector3(positions[3].transform.position.x, positions[3].transform.position.y),
-                new Vector3(positions[4].transform.position.x, positions[4].transform.position.y),
-                new Vector3(positions[5].transform.position.x, positions[5].transform.position.y),
-                new Vector3(positions[6].transform.position.x, positions[6].transform.position.y),
-                new Vector3(positions[7].transform.position.x, positions[7].transform.position.y),
+                new (positions[0].transform.position.x, positions[0].transform.position.y),
+                new (positions[1].transform.position.x, positions[1].transform.position.y),
+                new (positions[2].transform.position.x, positions[2].transform.position.y),
+                new (positions[3].transform.position.x, positions[3].transform.position.y),
+                new (positions[4].transform.position.x, positions[4].transform.position.y),
+                new (positions[5].transform.position.x, positions[5].transform.position.y),
+                new (positions[6].transform.position.x, positions[6].transform.position.y),
+                new (positions[7].transform.position.x, positions[7].transform.position.y),
             };
 
             var triangles = new int[]
@@ -77,14 +85,27 @@ namespace Source.Soul_Shop
 
             };
 
+            var uvs = new Vector2[]
+            {
+                Vector2.zero, 
+                Vector2.one, 
+                Vector2.one, 
+                Vector2.one, 
+                Vector2.one, 
+                Vector2.one, 
+                Vector2.one, 
+                Vector2.one
+            };
+
             var mesh = new Mesh();
             mesh.vertices = vertices;
             mesh.triangles = triangles;
+            mesh.uv = uvs;
             
             this.GetComponent<MeshFilter>().mesh = mesh;
-            
+
             _renderer.materialCount = 1;
-            _renderer.SetMaterial(material, 0);
+            _renderer.SetMaterial(material, texture2D);
             _renderer.SetMesh(mesh);
 
             transform.position = Camera.main.ScreenToWorldPoint(positions[0].transform.position);
