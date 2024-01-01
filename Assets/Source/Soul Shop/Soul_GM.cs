@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Source.Soul_Shop;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,10 +16,11 @@ public class Soul_GM : MonoBehaviour
     public GameObject TutorialPrefab;
 
     private int availableAffinities = 30;
-    private int soulPoints = 20;
+    private int soulPoints = 100;
 
     private void Start()
     {
+        soulPoints = Int32.MaxValue;
         soulPoints += StaticHolder.SP;
 
         print(StaticHolder.ShowTutorialSoul);

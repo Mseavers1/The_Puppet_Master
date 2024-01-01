@@ -126,17 +126,24 @@ public class SoulShop_Controls : MonoBehaviour
                 if (result.gameObject.CompareTag("Stat"))
                 {
                     var resultName = result.gameObject.name;
+                    var gm = GetComponent<Soul_GM>();
 
                     switch (resultName)
                     {
                         case "Plus":
-                            if (string.IsNullOrEmpty(selectedStatName)) return;
+                            var cost = statTransformer.GetCurrentCost();
+                            if (string.IsNullOrEmpty(selectedStatName) || gm.GetSP() < cost || SoulGmSettings.IsBuyableMaxedOut() || statTransformer.IsStatMaxed(selectedStatName)) return;
                             
+                            SoulGmSettings.BuyStat();
+                            gm.Buy(cost);
                             statTransformer.IncrementStat(selectedStatName);
                             break;
                         case "Minus":
-                            if (string.IsNullOrEmpty(selectedStatName)) return;
+                            var gain = statTransformer.GetCurrentGain();
+                            if (string.IsNullOrEmpty(selectedStatName) || statTransformer.IsStatZero(selectedStatName)) return;
                             
+                            SoulGmSettings.SellStat();
+                            gm.Gain(gain);
                             statTransformer.ReduceStat(selectedStatName);
                             break;
                         default:

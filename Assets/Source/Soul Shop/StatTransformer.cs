@@ -21,19 +21,50 @@ namespace Source.Soul_Shop
 
         public float[] stats;
         private List<Vector2> defaultPositions = new();
+        private int _currentCost, _currentGain;
+        public TMP_Text gainText, costText;
 
         public void IncrementStat(string stat)
         {
             stats[_statDictionary[stat]]++;
             UpdateMesh();
+            UpdateCost();
+            UpdateGain();
         }
+
+        public bool IsStatZero(string stat) { return stats[_statDictionary[stat]] == 0; }
+
+        public bool IsStatMaxed(string stat) { return stats[_statDictionary[stat]] >= SoulGmSettings.MAXValuePerStat; }
         
         public void ReduceStat(string stat)
         {
             stats[_statDictionary[stat]]--;
             UpdateMesh();
+            UpdateCost();
+            UpdateGain();
         }
-        
+
+        public int GetCurrentCost()
+        {
+            return _currentCost;
+        }
+
+        public int GetCurrentGain()
+        {
+            return _currentGain;
+        }
+
+        private void UpdateCost()
+        {
+            _currentCost = Mathf.CeilToInt(Mathf.Pow(SoulGmSettings.GetCurrentStatPoints() + 1, 2));
+            costText.text = "-" + _currentCost + " SP";
+        }
+
+        private void UpdateGain()
+        {
+            _currentGain = Mathf.CeilToInt(Mathf.Pow(SoulGmSettings.GetCurrentStatPoints(), 2));
+            gainText.text = "+" + _currentGain + " SP";
+        }
 
         private void Awake()
         {
@@ -47,19 +78,13 @@ namespace Source.Soul_Shop
             _statDictionary.Add("Strength", 6);
         }
 
-        private void Update()
-        {
-            if (Input.GetMouseButtonDown(2))
-            {
-                UpdateMesh();
-            }
-        }
-
         private void Start()
         {
             foreach (var pos in positions) defaultPositions.Add((pos.transform.position));
 
             UpdateMesh();
+            UpdateCost();
+            UpdateGain();
         }
 
         private void UpdateDisplay()
@@ -76,8 +101,8 @@ namespace Source.Soul_Shop
 
             for (var i = 1; i < positions.Length; i++)
             {
-                var statSlope = (defaultPositions[i].x - positions[0].transform.position.x) / 200;
-                var x = statSlope * stats[i - 1] + positions[0].transform.position.x;
+                var statSlope = (defaultPositions[i].x - positions[0].transform.position.x) / (SoulGmSettings.MAXValuePerStat + 50);
+                var x = statSlope * (stats[i - 1] + 50) + positions[0].transform.position.x;
                 var slope = (positions[0].transform.position.y - defaultPositions[i].y) / (positions[0].transform.position.x - defaultPositions[i].x);
                 var b = positions[0].transform.position.y - (slope * positions[0].transform.position.x);
                 var y = slope * x + b;
