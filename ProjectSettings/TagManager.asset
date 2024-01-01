@@ -17,6 +17,7 @@ TagManager:
   - InventorySlot
   - BackgroundSlot
   - Button
+  - Stat
   layers:
   - Default
   - TransparentFX

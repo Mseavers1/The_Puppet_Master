@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Source.Soul_Shop;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,6 +12,7 @@ public class SoulShop_Controls : MonoBehaviour
 {
     public GameObject canvas;
     public Card_Display display;
+    public StatTransformer statTransformer;
 
     private PlayerControls controls;
     private PlayerInput input;
@@ -197,6 +199,12 @@ public class SoulShop_Controls : MonoBehaviour
                     var gain = result.gameObject.GetComponentInParent<StatUI_Updater>().RemovePoint();
 
                     if (gain > 0) GetComponent<Soul_GM>().Gain(gain);
+                }
+                
+                // Stats
+                if (result.gameObject.CompareTag("Stat"))
+                {
+                    statTransformer.Increment(result.gameObject.name);
                 }
             }
 

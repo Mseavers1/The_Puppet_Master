@@ -1,53 +1,72 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using Random = UnityEngine.Random;
 
 namespace Source.Soul_Shop
 {
     public class StatTransformer : MonoBehaviour
     {
-        public float offset = 10;
         private CanvasRenderer _renderer;
+        public TMP_Text[] statValues;
         public Material material;
         public GameObject[] positions;
         public Texture2D texture2D;
+        private Dictionary<string, int> _statDictionary = new();
 
         public float[] stats;
         private List<Vector2> defaultPositions = new();
 
+        public void Increment(string stat)
+        {
+            stats[_statDictionary[stat]]++;
+            UpdateMesh();
+        }
+
         private void Awake()
         {
             _renderer = GetComponent<CanvasRenderer>();
+            _statDictionary.Add("Vitality", 0);
+            _statDictionary.Add("Intelligence", 4);
+            _statDictionary.Add("Luck", 1);
+            _statDictionary.Add("Endurance", 3);
+            _statDictionary.Add("Speed", 2);
+            _statDictionary.Add("Agility", 5);
+            _statDictionary.Add("Strength", 6);
         }
 
         private void Update()
         {
             if (Input.GetMouseButtonDown(2))
             {
-                UpdateJoint();
-                _renderer.Clear();
-                GenerateMesh();
+                UpdateMesh();
             }
         }
 
         private void Start()
         {
-            foreach (var pos in positions) defaultPositions.Add(pos.transform.position);
-            
-            
-            GenerateMesh();
+            foreach (var pos in positions) defaultPositions.Add((pos.transform.position));
+
+            UpdateMesh();
         }
 
-        private void UpdateJoint()
+        private void UpdateDisplay()
         {
             for (var i = 0; i < stats.Length; i++)
             {
-                stats[i] = Random.Range(0, 200);
+                statValues[i].text = stats[i].ToString(CultureInfo.InvariantCulture);
             }
-            
+        }
+
+        private void UpdateMesh()
+        {
+            UpdateDisplay();
+
             for (var i = 1; i < positions.Length; i++)
             {
                 var statSlope = (defaultPositions[i].x - positions[0].transform.position.x) / 200;
@@ -57,20 +76,23 @@ namespace Source.Soul_Shop
                 var y = slope * x + b;
                 positions[i].transform.position = (new Vector2(x, y));
             }
+            
+            _renderer.Clear();
+            GenerateMesh();
         }
 
         private void GenerateMesh()
         {
             var vertices = new Vector3[]
             {
-                new (positions[0].transform.position.x, positions[0].transform.position.y),
-                new (positions[1].transform.position.x, positions[1].transform.position.y),
-                new (positions[2].transform.position.x, positions[2].transform.position.y),
-                new (positions[3].transform.position.x, positions[3].transform.position.y),
-                new (positions[4].transform.position.x, positions[4].transform.position.y),
-                new (positions[5].transform.position.x, positions[5].transform.position.y),
-                new (positions[6].transform.position.x, positions[6].transform.position.y),
-                new (positions[7].transform.position.x, positions[7].transform.position.y),
+                (positions[0].transform.position),
+                (positions[1].transform.position),
+                (positions[2].transform.position),
+                (positions[3].transform.position),
+                (positions[4].transform.position),
+                (positions[5].transform.position),
+                (positions[6].transform.position),
+                (positions[7].transform.position)
             };
 
             var triangles = new int[]
@@ -107,8 +129,6 @@ namespace Source.Soul_Shop
             _renderer.materialCount = 1;
             _renderer.SetMaterial(material, texture2D);
             _renderer.SetMesh(mesh);
-
-            transform.position = Camera.main.ScreenToWorldPoint(positions[0].transform.position);
         }
     }
 }

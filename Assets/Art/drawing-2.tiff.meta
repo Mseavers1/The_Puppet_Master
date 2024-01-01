@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f8c5489cca79d324e860c7b18b284080
+guid: 7fa23a7685e23e343b548d31d1519fe8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 2
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: drawing-1 1_0
+      name: drawing-2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 789
-        height: 39
+        x: 58
+        y: 424
+        width: 289
+        height: 290
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec6f72437794b1d4392c31be9cb681d6
-      internalID: -98155953
+      spriteID: 973df8c9a58ffca4ca61d463aabf4c4e
+      internalID: 624608121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawing-2_1
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 414
+        width: 289
+        height: 289
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cf92adeec56f204193fb039df708344
+      internalID: 1610933833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawing-2_2
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 67
+        width: 289
+        height: 290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccfa6a1899a5610449e86e1544d19a0c
+      internalID: 383791573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawing-2_3
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 56
+        width: 289
+        height: 290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c45626a942ff6b4688a73d53162c2b1
+      internalID: -1020764732
       vertices: []
       indices: 
       edges: []
@@ -141,7 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      drawing-1 1_0: -98155953
+      drawing-2_0: 624608121
+      drawing-2_1: 1610933833
+      drawing-2_2: 383791573
+      drawing-2_3: -1020764732
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
