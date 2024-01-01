@@ -26,6 +26,7 @@ public class SoulShop_Controls : MonoBehaviour
     private string nameSkill = "";
 
     private byte hoveringItem = 0; // 0 = None, 1 = Upgrade, 2 = Downgrade, 3 = Unlock
+    private string selectedStatName;
 
     private void Awake()
     {
@@ -121,6 +122,31 @@ public class SoulShop_Controls : MonoBehaviour
             // Cycle through the results
             foreach (var result in pointerResults)
             {
+                // Stats
+                if (result.gameObject.CompareTag("Stat"))
+                {
+                    var resultName = result.gameObject.name;
+
+                    switch (resultName)
+                    {
+                        case "Plus":
+                            if (string.IsNullOrEmpty(selectedStatName)) return;
+                            
+                            statTransformer.IncrementStat(selectedStatName);
+                            break;
+                        case "Minus":
+                            if (string.IsNullOrEmpty(selectedStatName)) return;
+                            
+                            statTransformer.ReduceStat(selectedStatName);
+                            break;
+                        default:
+                            selectedStatName = resultName;
+                            break;
+                    }
+
+                    //statTransformer.IncrementStat(result.gameObject.name);
+                }
+                
                 // Find the first (should be one) skill if available
                 if (result.gameObject.CompareTag("SkillOption"))
                 {
@@ -199,12 +225,6 @@ public class SoulShop_Controls : MonoBehaviour
                     var gain = result.gameObject.GetComponentInParent<StatUI_Updater>().RemovePoint();
 
                     if (gain > 0) GetComponent<Soul_GM>().Gain(gain);
-                }
-                
-                // Stats
-                if (result.gameObject.CompareTag("Stat"))
-                {
-                    statTransformer.Increment(result.gameObject.name);
                 }
             }
 

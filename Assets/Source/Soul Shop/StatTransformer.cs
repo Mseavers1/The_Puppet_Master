@@ -22,11 +22,18 @@ namespace Source.Soul_Shop
         public float[] stats;
         private List<Vector2> defaultPositions = new();
 
-        public void Increment(string stat)
+        public void IncrementStat(string stat)
         {
             stats[_statDictionary[stat]]++;
             UpdateMesh();
         }
+        
+        public void ReduceStat(string stat)
+        {
+            stats[_statDictionary[stat]]--;
+            UpdateMesh();
+        }
+        
 
         private void Awake()
         {
