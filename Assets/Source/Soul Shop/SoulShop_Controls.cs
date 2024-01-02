@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Source.Soul_Shop;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Vector3 = UnityEngine.Vector3;
 
 public class SoulShop_Controls : MonoBehaviour
 {
@@ -26,7 +28,12 @@ public class SoulShop_Controls : MonoBehaviour
     private string nameSkill = "";
 
     private byte hoveringItem = 0; // 0 = None, 1 = Upgrade, 2 = Downgrade, 3 = Unlock
+    private byte hoveringStat, hoveringStatLabel;
     private string selectedStatName;
+    public TMP_Text[] statsIconTexts;
+    private Vector3 defaultLocalScale;
+    public GameObject[] statsIconLabels;
+    public Color defaultStatHighlight, statHighlight;
 
     private void Awake()
     {
@@ -44,6 +51,8 @@ public class SoulShop_Controls : MonoBehaviour
 
         hoveringData = new PointerEventData(EventSystem.current);
         hoveringResults = new List<RaycastResult>();
+
+        defaultLocalScale = statsIconLabels[0].transform.localScale;
     }
 
     private void FixedUpdate()
@@ -54,7 +63,7 @@ public class SoulShop_Controls : MonoBehaviour
         hoveringData.position = Mouse.current.position.ReadValue();
         hoveringResults.Clear();
         caster.Raycast(hoveringData, hoveringResults);
-        bool hasFound = false;
+        bool hasFound = false, hasFoundStat = false, hasFoundStatGainOrMinus = false;
 
         foreach (var result in hoveringResults)
         {
@@ -77,10 +86,63 @@ public class SoulShop_Controls : MonoBehaviour
                     default: throw new Exception("Found something that doesn't belong... Word " + result.gameObject.name + " is invalid!");
                 }
             }
-        }
+            
+            if (!hasFound) if (hoveringItem != 0) SwitchHover(0);
 
-        if (!hasFound) if (hoveringItem != 0) SwitchHover(0);
-        
+            if (result.gameObject.CompareTag("Stat"))
+            {
+                switch (result.gameObject.name)
+                {
+                    case "Vitality":
+                        hasFoundStat = true;
+                        if (hoveringStat != 1) SwitchHoverStat(1);
+                        break;
+                    case "Intelligence":
+                        hasFoundStat = true;
+                        if (hoveringStat != 2) SwitchHoverStat(2);
+                        break;
+                    case "Endurance":
+                        hasFoundStat = true;
+                        if (hoveringStat != 3) SwitchHoverStat(3);
+                        break;
+                    case "Strength":
+                        hasFoundStat = true;
+                        if (hoveringStat != 4) SwitchHoverStat(4);
+                        break;
+                    case "Agility":
+                        hasFoundStat = true;
+                        if (hoveringStat != 5) SwitchHoverStat(5);
+                        break;
+                    case "Speed":
+                        hasFoundStat = true;
+                        if (hoveringStat != 6) SwitchHoverStat(6);
+                        break;
+                    case "Luck":
+                        hasFoundStat = true;
+                        if (hoveringStat != 7) SwitchHoverStat(7);
+                        break;
+                }
+            }
+            
+            if (!hasFoundStat) if (hoveringStat != 0) SwitchHoverStat(0);
+            
+            if (result.gameObject.CompareTag("Stat"))
+            {
+                switch (result.gameObject.name)
+                {
+                    case "Plus":
+                        hasFoundStatGainOrMinus = true;
+                        if (hoveringStatLabel != 1) SwitchHoverStatLabel(1);
+                        break;
+                    case "Minus":
+                        hasFoundStatGainOrMinus = true;
+                        if (hoveringStatLabel != 2) SwitchHoverStatLabel(2);
+                        break;
+                }
+            }
+            
+            if (!hasFoundStatGainOrMinus) if (hoveringStatLabel != 0) SwitchHoverStatLabel(0);
+        }
     }
 
     private void SwitchHover(byte item)
@@ -107,6 +169,30 @@ public class SoulShop_Controls : MonoBehaviour
                 break;
         }
     }
+    
+    private void SwitchHoverStat(byte item)
+    {
+        hoveringStat = item;
+
+        if (item is > 0 and <= 7) statsIconTexts[item - 1].color = statHighlight;
+        else
+        {
+            foreach (var stat in statsIconTexts)
+            {
+                if (stat.text != selectedStatName)
+                    stat.color = defaultStatHighlight;
+            }
+        }
+    }
+    
+    private void SwitchHoverStatLabel(byte item)
+    {
+        hoveringStatLabel = item;
+
+        if (item is > 0 and <= 2) statsIconLabels[item - 1].transform.localScale = defaultLocalScale * 1.25f;
+        else foreach (var label in statsIconLabels) label.transform.localScale = defaultLocalScale;
+    }
+    
     private void OnClick(InputAction.CallbackContext context)
     {
         if (GetComponent<Soul_GM>().IsTutorialOn()) return;
@@ -148,6 +234,7 @@ public class SoulShop_Controls : MonoBehaviour
                             break;
                         default:
                             selectedStatName = resultName;
+                            SwitchHoverStat(0);
                             break;
                     }
 
