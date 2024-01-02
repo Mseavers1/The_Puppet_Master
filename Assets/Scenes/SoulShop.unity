@@ -5115,18 +5115,15 @@ MonoBehaviour:
   spText: {fileID: 1667479985}
   affinitiesText: {fileID: 1023778928}
   display: {fileID: 511698590}
-  pointText:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   TutorialPrefab: {fileID: 776254844}
+  pointValues:
+  - {fileID: 756376557}
+  - {fileID: 451364958}
+  - {fileID: 747141836}
+  - {fileID: 133149392}
+  - {fileID: 1682295820}
+  - {fileID: 1320271756}
+  - {fileID: 1537467731}
 --- !u!114 &511698593
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,10 +11,10 @@ public class Soul_GM : MonoBehaviour
 {
     public TMP_Text spText, affinitiesText;
     public Card_Display display;
-    public TMP_Text[] pointText;
     private bool OnTutorial = true;
     public GameObject TutorialPrefab;
 
+    public TMP_Text[] pointValues;
     private int availableAffinities = 30;
     private int soulPoints = 100;
 
@@ -106,10 +106,10 @@ public class Soul_GM : MonoBehaviour
         }
 
         // Get points from pointTexts
-        int[] arr = new int[pointText.Length];
+        int[] arr = new int[pointValues.Length];
         int index = 0;
 
-        foreach (var txt in pointText)
+        foreach (var txt in pointValues)
         {
             arr[index] = int.Parse(txt.text);
             index++;

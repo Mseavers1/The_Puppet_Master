@@ -1,9 +1,3 @@
-/*
- * ID - ID for the certain mob
- * Name - Name of the mob
- * Stats - MaxHealth, MaxMana, MaxStamina, Agility, Speed, Luck, PStrength, MStrength, PDefense, MDefense
- * CurveStats - Linear, Pow, Log -> How the stats rise as the level goes up
-*/
 [
   {
     "id": 0,
@@ -22,14 +16,8 @@
     "curveSpeed": "linear",
     "luck": 0,
     "curveLuck": "linear",
-    "pStrength": 0,
-    "curvePStrength": "linear",
-    "mStrength": 0,
-    "curveMStrength": "linear",
-    "pDefense": 0,
-    "curvePDefense": "linear",
-    "mDefense": 0,
-    "curveMDefense": "linear",
+    "strength": 0,
+    "curveStrength": "linear",
     "mobSkills": [
       {
         "name": "Swordsmanship",
@@ -60,14 +48,8 @@
     "curveSpeed": "linear",
     "luck": 0,
     "curveLuck": "linear",
-    "pStrength": 0,
-    "curvePStrength": "linear",
-    "mStrength": 0,
-    "curveMStrength": "linear",
-    "pDefense": 0,
-    "curvePDefense": "linear",
-    "mDefense": 0,
-    "curveMDefense": "linear",
+    "strength": 0,
+    "curveStrength": "linear",
     "mobSkills": [
       {
         "name": "Swordsmanship",

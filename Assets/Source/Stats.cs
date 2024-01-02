@@ -17,7 +17,7 @@ public class Stats
     private Dictionary<string, int> StatPoints = new();
     public Dictionary<string, double> StatValues = new();
 
-    public Stats (int health, int mana, int stamina, int agility, int speed, int luck, int pStrength, int mStrength, int pDefense, int mDefense, int level)
+    public Stats (int health, int mana, int stamina, int strength, int agility, int speed, int luck, int level)
     {
         StatPoints.Add("Health", health);
         StatPoints.Add("Mana", mana);
@@ -25,10 +25,7 @@ public class Stats
         StatPoints.Add("Agility", agility);
         StatPoints.Add("Speed", speed);
         StatPoints.Add("Luck", luck);
-        StatPoints.Add("PStrength", pStrength);
-        StatPoints.Add("MStrength", mStrength);
-        StatPoints.Add("PDefense", pDefense);
-        StatPoints.Add("MDefense", mDefense);
+        StatPoints.Add("Strength", strength);
 
         StatValues.Add("Health", 0);
         StatValues.Add("Mana", 0);
@@ -36,10 +33,7 @@ public class Stats
         StatValues.Add("Agility", 0);
         StatValues.Add("Speed", 0);
         StatValues.Add("Luck", 0);
-        StatValues.Add("PStrength", 0);
-        StatValues.Add("MStrength", 0);
-        StatValues.Add("PDefense", 0);
-        StatValues.Add("MDefense", 0);
+        StatValues.Add("Strength", 0);
 
         Level = level;
 

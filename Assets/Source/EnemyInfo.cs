@@ -36,27 +36,21 @@ public class EnemyInfo : MonoBehaviour, IBattleable
         curveStats.Add("health", CheckJSONName(mob.CurveHealth, "health"));
         curveStats.Add("mana", CheckJSONName(mob.CurveMana, "mana"));
         curveStats.Add("stamina", CheckJSONName(mob.CurveStamina, "stamina"));
+        curveStats.Add("strength", CheckJSONName(mob.CurveStamina, "strength"));
         curveStats.Add("luck", CheckJSONName(mob.CurveLuck, "luck"));
         curveStats.Add("speed", CheckJSONName(mob.CurveSpeed, "speed"));
         curveStats.Add("agility", CheckJSONName(mob.CurveAgility, "agility"));
-        curveStats.Add("pStrength", CheckJSONName(mob.CurvePStrength, "pStrength"));
-        curveStats.Add("mStrength", CheckJSONName(mob.CurveMStrength, "mStrength"));
-        curveStats.Add("pDefense", CheckJSONName(mob.CurvePDefense, "pDefense"));
-        curveStats.Add("mDefense", CheckJSONName(mob.CurveMDefense, "mDefense"));
 
         bonusStats.Add("health", mob.MaxHealth);
         bonusStats.Add("mana", mob.MaxMana);
         bonusStats.Add("stamina", mob.MaxStamina);
+        bonusStats.Add("strength", mob.Strength);
         bonusStats.Add("luck", mob.Luck);
         bonusStats.Add("speed", mob.Speed);
         bonusStats.Add("agility", mob.Agility);
-        bonusStats.Add("pStrength", mob.PStrength);
-        bonusStats.Add("mStrength", mob.MStrength);
-        bonusStats.Add("pDefense", mob.PDefense);
-        bonusStats.Add("mDefense", mob.MDefense);
 
         // Generate and sets new stats based on current level
-        Stat = new Stats(bonusStats["health"], bonusStats["mana"], bonusStats["stamina"], bonusStats["agility"], bonusStats["speed"], bonusStats["luck"], bonusStats["pStrength"], bonusStats["mStrength"], bonusStats["pDefense"], bonusStats["mDefense"], level);
+        Stat = new Stats(bonusStats["health"], bonusStats["mana"], bonusStats["stamina"], bonusStats["strength"], bonusStats["agility"], bonusStats["speed"], bonusStats["luck"], level);
         Debug.Log(Stat);
 
         // Convert skills into list
@@ -277,14 +271,8 @@ internal class Mobs
     public string CurveSpeed;
     public int Luck;
     public string CurveLuck;
-    public int PStrength;
-    public string CurvePStrength;
-    public int MStrength;
-    public string CurveMStrength;
-    public int PDefense;
-    public string CurvePDefense;
-    public int MDefense;
-    public string CurveMDefense;
+    public int Strength;
+    public string CurveStrength;
     public MobSkills[] MobSkills;
 }
 

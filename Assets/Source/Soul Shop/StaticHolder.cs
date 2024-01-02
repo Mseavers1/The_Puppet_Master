@@ -27,7 +27,7 @@ public static class StaticHolder
         if (HasDied)
         {
             PlayerStats = null; InventoryManagement = null;
-            PlayerStats = new Stats(points[0], points[1], points[2], points[3], points[4], points[5], points[6], points[7], points[8], points[9], 1);
+            PlayerStats = new Stats(points[0], points[1], points[2], points[3], points[4], points[5], points[6], 1);
 
             InventoryManagement = new InventoryManagement();
             return;
@@ -40,7 +40,7 @@ public static class StaticHolder
         // Check if there are any errors in curves
         foreach (var curve in curves) if (curve.Value != "linear" && curve.Value != "power" && curve.Value != "log") throw new Exception("Curve array contains something that is not LINEAR, POWER, or LOG!! -> " + curve);
 
-        PlayerStats = new Stats(points[0], points[1], points[2], points[3], points[4], points[5], points[6], points[7], points[8], points[9], 1);
+        PlayerStats = new Stats(points[0], points[1], points[2], points[3], points[4], points[5], points[6], 1);
 
         InventoryManagement = new InventoryManagement();
     }
@@ -53,10 +53,7 @@ public static class StaticHolder
         curves.Add("Luck", "linear");
         curves.Add("Agility", "linear");
         curves.Add("Speed", "linear");
-        curves.Add("PStrength", "linear");
-        curves.Add("MStrength", "linear");
-        curves.Add("PDefense", "linear");
-        curves.Add("MDefense", "linear");
+        curves.Add("Strength", "linear");
     }
 
     private static void SetDefaultValues()
@@ -67,10 +64,7 @@ public static class StaticHolder
         defaultStatValues.Add("Luck", 10);
         defaultStatValues.Add("Agility", 10);
         defaultStatValues.Add("Speed", 10);
-        defaultStatValues.Add("PStrength", 10);
-        defaultStatValues.Add("MStrength", 10);
-        defaultStatValues.Add("PDefense", 10);
-        defaultStatValues.Add("MDefense", 10);
+        defaultStatValues.Add("Strength", 10);
     }
 
     private static void SetMaxValues()
@@ -81,9 +75,6 @@ public static class StaticHolder
         maxValues.Add("Luck", 1000);
         maxValues.Add("Agility", 1000);
         maxValues.Add("Speed", 1000);
-        maxValues.Add("PStrength", 1000);
-        maxValues.Add("MStrength", 1000);
-        maxValues.Add("PDefense", 1000);
-        maxValues.Add("MDefense", 1000);
+        maxValues.Add("Strength", 1000);
     }
 }
