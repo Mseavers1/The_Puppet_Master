@@ -18,6 +18,7 @@ TagManager:
   - BackgroundSlot
   - Button
   - Stat
+  - Group A
   layers:
   - Default
   - TransparentFX

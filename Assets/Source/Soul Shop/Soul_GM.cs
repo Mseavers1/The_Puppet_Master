@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Source.Soul_Shop;
+using Source.Utility;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,6 +11,8 @@ using UnityEngine.SceneManagement;
 
 public class Soul_GM : MonoBehaviour
 {
+    public GameObject affinityCanvas;
+    
     public TMP_Text spText, affinitiesText;
     public Card_Display display;
     private bool OnTutorial = true;
@@ -48,7 +52,7 @@ public class Soul_GM : MonoBehaviour
 
     public void UpdateSPText()
     {
-        spText.text = soulPoints.ToString();
+        spText.text = GlobalResources.SoulEssences.ToString(CultureInfo.CurrentCulture);
     }
 
     public void UpdateAffinityText()

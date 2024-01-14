@@ -57,16 +57,18 @@ public class SoulShop_Controls : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GetComponent<Soul_GM>().IsTutorialOn()) return;
+        //if (GetComponent<Soul_GM>().IsTutorialOn()) return;
 
         // Hovering
         hoveringData.position = Mouse.current.position.ReadValue();
         hoveringResults.Clear();
         caster.Raycast(hoveringData, hoveringResults);
-        bool hasFound = false, hasFoundStat = false, hasFoundStatGainOrMinus = false;
-
+        bool hasFound = false, hasFoundStat = false, hasFoundStatGainOrMinus = false, hasFoundMenu = false;
+        
         foreach (var result in hoveringResults)
         {
+         
+            // Soul Card
             if (result.gameObject.CompareTag("SoulCardUI"))
             {
                 switch (result.gameObject.name)
@@ -89,6 +91,7 @@ public class SoulShop_Controls : MonoBehaviour
             
             if (!hasFound) if (hoveringItem != 0) SwitchHover(0);
 
+            // Stats
             if (result.gameObject.CompareTag("Stat"))
             {
                 switch (result.gameObject.name)
@@ -126,6 +129,7 @@ public class SoulShop_Controls : MonoBehaviour
             
             if (!hasFoundStat) if (hoveringStat != 0) SwitchHoverStat(0);
             
+            // Plus & Minus on Stats
             if (result.gameObject.CompareTag("Stat"))
             {
                 switch (result.gameObject.name)
@@ -143,6 +147,7 @@ public class SoulShop_Controls : MonoBehaviour
             
             if (!hasFoundStatGainOrMinus) if (hoveringStatLabel != 0) SwitchHoverStatLabel(0);
         }
+        
     }
 
     private void SwitchHover(byte item)
