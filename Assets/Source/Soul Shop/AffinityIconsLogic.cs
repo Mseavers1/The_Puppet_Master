@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using Source.Utility;
 using TMPro;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -75,16 +77,26 @@ namespace Source.Soul_Shop
 
         private void UpdateRequirements(string name)
         {
-            foreach (var affinity in _affinities)
+            if (GetIndexFromName(name) >= 6) return;
+
+            foreach (var requirement in from requirements in _requirements from requirement in requirements.Value where requirement == name select requirements.Key)
             {
-                var affinityName = affinity.name;
-
-                if (affinityName == name || CheckRequirements(affinityName)) continue;
-
-                SoulGmSettings.SetAffinityPosition(GetIndexFromName(affinityName), false);
-                affinity.transform.GetChild(0).GetComponent<Image>().color = _deactivatedColor;
+                if (!SoulGmSettings.GetAffinityPosition(GetIndexFromName(requirement))) continue;
+                
+                UpdateAffinities(requirement);
             }
-            
+
+            if (SoulGmSettings.GetAffinityPosition(GetIndexFromName("Null"))) UpdateAffinities("Null");
+        }
+
+        private void UpdateAffinities(string name)
+        {
+            SoulGmSettings.SetAffinityPosition(GetIndexFromName(name), false);
+            GlobalResources.SoulEssences += SoulGmSettings.GetAffinityGain(GetIndexFromName(name));
+            SoulGmSettings.UpdateAffinityCosts();
+            GameObject.FindWithTag("GameManager").GetComponent<Soul_GM>().UpdateSPText();
+
+            _affinities[GetIndexFromName(name)-6].transform.GetChild(0).GetComponent<Image>().color = _deactivatedColor;
         }
 
         private bool CheckRequirements(string selected)

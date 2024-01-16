@@ -103,7 +103,7 @@ namespace Source.Soul_Shop
             return _currentStatPointsBuyable;
         }
 
-        private static void UpdateAffinityCosts()
+        public static void UpdateAffinityCosts()
         {
             for (var i = 0; i < 12; i++)
             {

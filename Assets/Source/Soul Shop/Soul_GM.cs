@@ -24,7 +24,7 @@ public class Soul_GM : MonoBehaviour
 
     private void Start()
     {
-        soulPoints = Int32.MaxValue;
+        soulPoints = 10000;
         soulPoints += StaticHolder.SP;
 
         print(StaticHolder.ShowTutorialSoul);
