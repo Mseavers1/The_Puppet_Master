@@ -110,8 +110,9 @@ namespace Source.Soul_Shop
                 _affinityCost[i] = Mathf.Floor((float) (_defaultCosts[i] + _defaultCosts[i] * MultiplierForUpgrade * GetNumberOfActiveAffinities()));
                 _affinityGains[i] = Mathf.Floor((float) ((_defaultCosts[i] / 2) + (_defaultCosts[i] / 2) * MultiplierForDowngrade * GetNumberOfActiveAffinities()));
             }
-            
-            GameObject.FindWithTag("GameManager").GetComponent<Soul_GM>().affinityCanvas.GetComponent<AffinitiesCanvas>().UpdateAffinityText();
+
+            var gm = GameObject.FindWithTag("GameManager").GetComponent<Soul_GM>();
+            gm.menuCanvases[gm.GetCanvasID("Affinity")].GetComponent<AffinitiesCanvas>().UpdateAffinityText();
         }
 
         private static int GetNumberOfActiveAffinities()

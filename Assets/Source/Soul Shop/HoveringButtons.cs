@@ -90,7 +90,11 @@ namespace Source.Soul_Shop
         public override void OnSwitchClick(int index)
         {
             ClickedIndex = index;
-            if (index is >= 1 and <= 7) _buttons[index - 1].transform.GetChild(1).gameObject.SetActive(true);
+            if (index is >= 1 and <= 7)
+            {
+                _buttons[index - 1].transform.GetChild(1).gameObject.SetActive(true);
+                GameObject.FindWithTag("GameManager").GetComponent<Soul_GM>().SwitchCanvas(index - 1);
+            }
             
             for (var i = 0; i < _buttons.Length; i++)
             {

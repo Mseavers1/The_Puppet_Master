@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 public class Soul_GM : MonoBehaviour
 {
-    public GameObject affinityCanvas;
+    public GameObject[] menuCanvases;
     
     public TMP_Text spText, affinitiesText;
     public Card_Display display;
@@ -36,6 +36,33 @@ public class Soul_GM : MonoBehaviour
 
         UpdateSPText();
         UpdateAffinityText();
+    }
+
+    public void SwitchCanvas(int id)
+    {
+        menuCanvases[id].SetActive(true);
+
+        for (var i = 0; i < menuCanvases.Length; i++)
+        {
+            if (i == id) continue;
+            
+            menuCanvases[i].SetActive(false);
+        }
+    }
+
+    public int GetCanvasID(string canvas)
+    {
+        return canvas switch
+        {
+            "Home" => 0,
+            "Stats" => 1,
+            "Affinity" => 2,
+            "Transcend" => 3,
+            "Skills" => 4,
+            "Item Shop" => 5,
+            "Curses" => 6,
+            _ => throw new Exception("Unable to find the correct ID from the name " + canvas)
+        };
     }
 
     public void ExitTutorial()

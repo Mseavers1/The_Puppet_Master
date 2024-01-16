@@ -19,6 +19,7 @@ TagManager:
   - Button
   - Stat
   - Group A
+  - Group B
   layers:
   - Default
   - TransparentFX
