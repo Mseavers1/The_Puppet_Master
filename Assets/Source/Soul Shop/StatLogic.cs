@@ -25,6 +25,21 @@ namespace Source.Soul_Shop
             _selectedClicked = SelectedIndex;
         }
 
+        public string GetCurrentIndexName()
+        {
+            return _selectedClicked switch
+            {
+                1 => "Vitality",
+                2 => "Intelligence",
+                3 => "Endurance",
+                4 => "Strength",
+                5 => "Agility",
+                6 => "Speed",
+                7 => "Luck",
+                _ => throw new Exception("Currently clicked is not valid... [" + _selectedClicked + "]")
+            };
+        }
+
         public override void OnMouseHover(string name)
         {
             switch (name)
@@ -52,6 +67,8 @@ namespace Source.Soul_Shop
                     break;
                 default: throw new Exception("Could not find an item with the name of " + name);
             }
+
+            SelectedName = name;
         }
 
         public override void OnMouseHover(GameObject item)

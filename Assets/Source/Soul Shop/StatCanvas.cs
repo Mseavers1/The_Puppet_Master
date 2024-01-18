@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using Source.Soul_Shop;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StatCanvas : MonoBehaviour
 {
     public GameObject[] buttons, buttons2;
+    public StatTransformer statTransformer;
+    public TMP_Text cost, refund;
     
     private GraphicRaycaster _caster;
     private List<RaycastResult> _clickResults, _pointerResults;
@@ -22,7 +26,7 @@ public class StatCanvas : MonoBehaviour
         _input = GameObject.FindWithTag("GameManager").GetComponent<PlayerInput>();
         _input.onActionTriggered += OnClick;
         _statLogic = new StatLogic(buttons);
-        _statInputLogic = new StatInputLogic(buttons2);
+        _statInputLogic = new StatInputLogic(buttons2, _statLogic, statTransformer, cost, refund);
     }
 
     private void Start()

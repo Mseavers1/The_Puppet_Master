@@ -7,6 +7,7 @@ namespace Source.Utility
     {
         public bool HasButtonClicked { set; protected get; }
         public int SelectedIndex { protected set; get; }
+        public string SelectedName { protected set; get; }
         public int ClickedIndex { protected set; get; }
 
         public string Tag { private set; get; }

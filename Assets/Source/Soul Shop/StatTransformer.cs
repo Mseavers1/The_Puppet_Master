@@ -22,11 +22,10 @@ namespace Source.Soul_Shop
         public float[] stats;
         private List<Vector2> defaultPositions = new();
         private int _currentCost, _currentGain;
-        public TMP_Text gainText, costText;
 
-        public void IncrementStat(string stat)
+        public void IncrementStat(string stat, int amount)
         {
-            stats[_statDictionary[stat]]++;
+            stats[_statDictionary[stat]] += amount;
             UpdateMesh();
             UpdateCost();
             UpdateGain();
@@ -36,9 +35,9 @@ namespace Source.Soul_Shop
 
         public bool IsStatMaxed(string stat) { return stats[_statDictionary[stat]] >= SoulGmSettings.MAXValuePerStat; }
         
-        public void ReduceStat(string stat)
+        public void ReduceStat(string stat, int amount)
         {
-            stats[_statDictionary[stat]]--;
+            stats[_statDictionary[stat]] -= amount;
             UpdateMesh();
             UpdateCost();
             UpdateGain();
@@ -57,13 +56,11 @@ namespace Source.Soul_Shop
         private void UpdateCost()
         {
             _currentCost = Mathf.CeilToInt(Mathf.Pow(SoulGmSettings.GetCurrentStatPoints() + 1, 2));
-            costText.text = "-" + _currentCost + " SP";
         }
 
         private void UpdateGain()
         {
             _currentGain = Mathf.CeilToInt(Mathf.Pow(SoulGmSettings.GetCurrentStatPoints(), 2));
-            gainText.text = "+" + _currentGain + " SP";
         }
 
         private void Awake()

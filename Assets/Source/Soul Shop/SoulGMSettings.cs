@@ -7,8 +7,11 @@ namespace Source.Soul_Shop
 {
     public static class SoulGmSettings
     {
-
         public const int MAXValuePerStat = 150;
+        public const int MAXBuyablePoints = 300;
+
+        private static int[] _statPoints;
+
         private static readonly bool[] AffinitiesPositions; // False - Dont have ::: True - Have affinity
         private static double[] _affinityCost, _affinityGains, _defaultCosts;
         
@@ -18,6 +21,7 @@ namespace Source.Soul_Shop
 
         static SoulGmSettings()
         {
+            _statPoints = new int[7];
             _currentStatPointsBuyable = 0;
             AffinitiesPositions = new bool[12];
             _defaultCosts = new double[]
@@ -39,6 +43,25 @@ namespace Source.Soul_Shop
             }
 
             UpdateAffinityCosts();
+        }
+
+        public static int GetStatPoints(int index)
+        {
+            return _statPoints[index];
+        }
+
+        public static int AddStatPoints(int index, int value)
+        {
+            _statPoints[index] += value;
+
+            return GetStatPoints(index);
+        }
+        
+        public static int SubtractStatPoints(int index, int value)
+        {
+            _statPoints[index] -= value;
+            
+            return GetStatPoints(index);
         }
         
         public static double GetAffinityCost(int index)

@@ -208,8 +208,6 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  gainText: {fileID: 1347988772}
-  costText: {fileID: 673159064}
 --- !u!222 &6975892
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3643,6 +3641,9 @@ MonoBehaviour:
   - {fileID: 1535095191}
   - {fileID: 1832240352}
   - {fileID: 1139310259}
+  statTransformer: {fileID: 6975891}
+  cost: {fileID: 1347988772}
+  refund: {fileID: 673159064}
 --- !u!1 &272968554
 GameObject:
   m_ObjectHideFlags: 0
@@ -6980,7 +6981,6 @@ GameObject:
   - component: {fileID: 511698592}
   - component: {fileID: 511698595}
   - component: {fileID: 511698593}
-  - component: {fileID: 511698594}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: GameManager
@@ -7141,34 +7141,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &511698594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 511698589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4774b27f389db5f43833ddd9ad9efe41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 1231472289}
-  display: {fileID: 511698590}
-  statTransformer: {fileID: 1925304393}
-  statsIconTexts:
-  - {fileID: 1791817484}
-  - {fileID: 1109659473}
-  - {fileID: 1617231710}
-  - {fileID: 1726467970}
-  - {fileID: 1147213865}
-  - {fileID: 537410617}
-  - {fileID: 413602939}
-  statsIconLabels:
-  - {fileID: 1027239350}
-  - {fileID: 1388351503}
-  defaultStatHighlight: {r: 0.96470594, g: 0.9921569, b: 0.14901961, a: 1}
-  statHighlight: {r: 0, g: 0.3238839, b: 0.6792453, a: 1}
 --- !u!114 &511698595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28284,8 +28256,6 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  gainText: {fileID: 1967247153}
-  costText: {fileID: 970872073}
 --- !u!222 &1925304394
 CanvasRenderer:
   m_ObjectHideFlags: 0

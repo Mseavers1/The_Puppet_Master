@@ -227,7 +227,7 @@ public class SoulShop_Controls : MonoBehaviour
                             
                             SoulGmSettings.BuyStat();
                             gm.Buy(cost);
-                            statTransformer.IncrementStat(selectedStatName);
+                            //statTransformer.IncrementStat(selectedStatName);
                             break;
                         case "Minus":
                             var gain = statTransformer.GetCurrentGain();
@@ -235,7 +235,7 @@ public class SoulShop_Controls : MonoBehaviour
                             
                             SoulGmSettings.SellStat();
                             gm.Gain(gain);
-                            statTransformer.ReduceStat(selectedStatName);
+                            //statTransformer.ReduceStat(selectedStatName);
                             break;
                         default:
                             selectedStatName = resultName;
