@@ -9,7 +9,7 @@ namespace Source.Utility
         
         static GlobalResources()
         {
-            SoulEssences = 100000;
+            SoulEssences = 1000000;
         }
     }
 }

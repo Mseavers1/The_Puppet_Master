@@ -64,7 +64,8 @@ namespace Source.Soul_Shop
                 case "Add":
                     const int max = SoulGmSettings.MAXValuePerStat;
                     
-                    if (SoulGmSettings.GetStatPoints(_statLogic.ClickedIndex) >= max) return;
+                    if (SoulGmSettings.GetStatPoints(_statLogic.ClickedIndex) >= max || _currentCost > GlobalResources.SoulEssences) return;
+                    
                     if (_currentIndexOfSize != _sizes.Length - 1)
                     {
                         if (current + length > max) length = max - current;
@@ -72,6 +73,7 @@ namespace Source.Soul_Shop
                         _boughtPoints += length;
                         _statTransformer.IncrementStat(_statLogic.GetCurrentIndexName(), length);
                         SoulGmSettings.AddStatPoints(_statLogic.ClickedIndex, length);
+                        GlobalResources.SoulEssences -= _currentCost;
                     }
                     break;
                 case "Remove":
@@ -84,6 +86,7 @@ namespace Source.Soul_Shop
                         _boughtPoints -= length;
                         _statTransformer.ReduceStat(_statLogic.GetCurrentIndexName(), length);
                         SoulGmSettings.SubtractStatPoints(_statLogic.ClickedIndex, length);
+                        GlobalResources.SoulEssences += _currentRefund;
                     }
                     break;
                 case "Quantity":
@@ -95,6 +98,7 @@ namespace Source.Soul_Shop
             }
             
             UpdateCostAndRefund();
+            GameObject.FindWithTag("GameManager").GetComponent<Soul_GM>().UpdateSPText();
         }
 
         public void UpdateCostAndRefund()
