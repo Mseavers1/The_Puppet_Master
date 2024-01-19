@@ -64,7 +64,7 @@ namespace Source.Soul_Shop
                 case "Add":
                     const int max = SoulGmSettings.MAXValuePerStat;
                     
-                    if (SoulGmSettings.GetStatPoints(_statLogic.ClickedIndex) >= max || _currentCost > GlobalResources.SoulEssences) return;
+                    if (SoulGmSettings.GetStatPoints(_statLogic.ClickedIndex) >= max || _currentCost > GlobalResources.SoulEssences || _boughtPoints > SoulGmSettings.MAXBuyablePoints) return;
                     
                     if (_currentIndexOfSize != _sizes.Length - 1)
                     {
