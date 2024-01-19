@@ -7,6 +7,7 @@ namespace Source.Soul_Shop
 {
     public class StatLogic : MouseInteraction
     {
+        private StatInputLogic _inputLogic;
         private readonly GameObject[] _buttons;
         private int _selectedClicked; 
         
@@ -15,6 +16,11 @@ namespace Source.Soul_Shop
             _buttons = buttons;
         }
 
+        public void SetInputLogic(StatInputLogic inputLogic)
+        {
+            _inputLogic = inputLogic;
+        }
+        
         public override void OnLeftClick(string name)
         {
             throw new System.NotImplementedException();
@@ -23,6 +29,8 @@ namespace Source.Soul_Shop
         public override void OnLeftClick(GameObject item)
         {
             _selectedClicked = SelectedIndex;
+            ClickedIndex = _selectedClicked - 1;
+            _inputLogic.UpdateCostAndRefund();
         }
 
         public string GetCurrentIndexName()

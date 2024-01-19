@@ -36,7 +36,7 @@ namespace Source.Soul_Shop
             _boughtPoints = 0;
             _currentRefund = 0;
 
-            UpdateCostAndRefund(_sizes[_currentIndexOfSize]);
+            UpdateCostAndRefund();
         }
 
         public override void OnLeftClick(string name)
@@ -62,10 +62,11 @@ namespace Source.Soul_Shop
             switch (item.name)
             {
                 case "Add":
+                    const int max = SoulGmSettings.MAXValuePerStat;
+                    
+                    if (SoulGmSettings.GetStatPoints(_statLogic.ClickedIndex) >= max) return;
                     if (_currentIndexOfSize != _sizes.Length - 1)
                     {
-                        const int max = SoulGmSettings.MAXValuePerStat;
-
                         if (current + length > max) length = max - current;
                         
                         _boughtPoints += length;
@@ -74,6 +75,8 @@ namespace Source.Soul_Shop
                     }
                     break;
                 case "Remove":
+                    if (SoulGmSettings.GetStatPoints(_statLogic.ClickedIndex) <= 0) return;
+                    
                     if (_currentIndexOfSize != _sizes.Length - 1)
                     {
                         if (current - length < 0) length = current;
@@ -91,13 +94,18 @@ namespace Source.Soul_Shop
                 default: throw new Exception("Could not find an item with the name of " + item.name);
             }
             
-            UpdateCostAndRefund(length);
+            UpdateCostAndRefund();
         }
 
-        private void UpdateCostAndRefund(int length)
+        public void UpdateCostAndRefund()
         {
+            const int max = SoulGmSettings.MAXValuePerStat;
             var points = _boughtPoints;
-
+            var length = _sizes[_currentIndexOfSize];
+            var current = SoulGmSettings.GetStatPoints(_statLogic.ClickedIndex);
+            
+            if (current + length > max) length = max - current;
+            
             // Logic for every multiplier other than max
             if (_currentIndexOfSize != _sizes.Length - 1)
             {
@@ -106,6 +114,11 @@ namespace Source.Soul_Shop
                     _currentCost += Mathf.Floor((float) _costEquation.CalcValue(points + i - 1));
                 
                 _cost.text = "-" + _currentCost + " SP";
+
+                
+                // Refund
+                length = _sizes[_currentIndexOfSize];
+                if (current - length < 0) length = current;
                 
                 _currentRefund = 0;
                 for (var i = 1; i <= length; i++)

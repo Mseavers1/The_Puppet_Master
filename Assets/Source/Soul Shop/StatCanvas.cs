@@ -27,6 +27,7 @@ public class StatCanvas : MonoBehaviour
         _input.onActionTriggered += OnClick;
         _statLogic = new StatLogic(buttons);
         _statInputLogic = new StatInputLogic(buttons2, _statLogic, statTransformer, cost, refund);
+        _statLogic.SetInputLogic(_statInputLogic);
     }
 
     private void Start()
