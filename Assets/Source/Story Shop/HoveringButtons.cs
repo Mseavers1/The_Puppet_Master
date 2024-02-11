@@ -8,10 +8,12 @@ namespace Source.Story_Shop
     {
         private readonly GameObject[] _buttons;
         private const float HoverSize = 1.1f, SelectedSize = 1.2f;
+        private CurtainCommands _curtain;
 
-        public HoveringButtons(GameObject[] arr) : base("Group A")
+        public HoveringButtons(GameObject[] arr, CurtainCommands curtain) : base("Group A")
         {
             _buttons = arr;
+            _curtain = curtain;
         }
         
         public override void OnLeftClick(string name)
@@ -85,6 +87,7 @@ namespace Source.Story_Shop
             if (index is >= 1 and <= 5)
             {
                 _buttons[index - 1].transform.localScale = new Vector3(SelectedSize, SelectedSize);
+                _curtain.StartCurtainAnimation(1.5f);
                 //GameObject.FindWithTag("GameManager").GetComponent<Soul_GM>().SwitchCanvas(index - 1);
             }
             

@@ -10,6 +10,7 @@ namespace Source.Story_Shop
     public class BackCanvasMouse : MonoBehaviour
     {
         public GameObject[] menuButtons;
+        public CurtainCommands curtain;
 
         private GraphicRaycaster _caster;
         private List<RaycastResult> _pointerResults, _clickResults;
@@ -21,7 +22,7 @@ namespace Source.Story_Shop
         {
             _input = GameObject.FindWithTag("GameManager").GetComponent<PlayerInput>();
             _input.onActionTriggered += OnClick;
-            _hoveringButtons = new HoveringButtons(menuButtons);
+            _hoveringButtons = new HoveringButtons(menuButtons, curtain);
         }
 
         private void Start()
@@ -74,6 +75,8 @@ namespace Source.Story_Shop
             {
                 if (result.gameObject.CompareTag(_hoveringButtons.Tag))
                 {
+                    if (curtain.isAnimating) return; 
+                    
                     _hoveringButtons.OnLeftClick(result.gameObject.name);
                     hasFoundItem = true;
                     break;
