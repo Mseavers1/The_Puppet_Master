@@ -33,6 +33,8 @@ namespace Source.Story_Shop
 
             _clickData = new PointerEventData(EventSystem.current);
             _clickResults = new List<RaycastResult>();
+            
+            // Have the 
         }
 
 
@@ -69,8 +71,7 @@ namespace Source.Story_Shop
             _clickResults.Clear();
 
             _caster.Raycast(_clickData, _clickResults);
-            var hasFoundItem = false;
-            
+
             foreach (var result in _clickResults)
             {
                 if (result.gameObject.CompareTag(_hoveringButtons.Tag))
@@ -78,12 +79,9 @@ namespace Source.Story_Shop
                     if (curtain.isAnimating) return; 
                     
                     _hoveringButtons.OnLeftClick(result.gameObject.name);
-                    hasFoundItem = true;
                     break;
                 }
             }
-            
-            if (!hasFoundItem) if (_hoveringButtons.ClickedIndex != 0) _hoveringButtons.OnSwitchClick(0);
         }
     }
 }

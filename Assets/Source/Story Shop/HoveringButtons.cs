@@ -70,7 +70,7 @@ namespace Source.Story_Shop
         {
             SelectedIndex = index;
             
-            if (SelectedIndex == ClickedIndex) return;
+            if (SelectedIndex == ClickedIndex && ClickedIndex != 0) return;
             
             if (index is >= 1 and <= 5) _buttons[index - 1].transform.localScale = new Vector3(HoverSize, HoverSize);
             
