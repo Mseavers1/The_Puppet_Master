@@ -7293,7 +7293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3aac0aab6c21249a8067cdffa6cdef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 945792411}
   menuButtons:
   - {fileID: 1408016241}
   - {fileID: 1363535713}
@@ -7302,6 +7301,7 @@ MonoBehaviour:
   - {fileID: 1877834193}
   - {fileID: 1616842383}
   - {fileID: 1705350041}
+  curtain: {fileID: 0}
 --- !u!1 &514116633
 GameObject:
   m_ObjectHideFlags: 0

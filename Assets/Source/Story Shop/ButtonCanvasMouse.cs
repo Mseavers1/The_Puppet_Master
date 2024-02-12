@@ -7,9 +7,10 @@ using UnityEngine.UI;
 
 namespace Source.Story_Shop
 {
-    public class BackCanvasMouse : MonoBehaviour
+    public class ButtonCanvasMouse : MonoBehaviour
     {
         public GameObject[] menuButtons;
+        public GameObject coord;
         public CurtainCommands curtain;
 
         private GraphicRaycaster _caster;
@@ -17,12 +18,14 @@ namespace Source.Story_Shop
         private PointerEventData _pointerData, _clickData;
         private HoveringButtons _hoveringButtons;
         private PlayerInput _input;
+        private CoordLogic _coordLogic;
 
         private void Awake()
         {
             _input = GameObject.FindWithTag("GameManager").GetComponent<PlayerInput>();
             _input.onActionTriggered += OnClick;
             _hoveringButtons = new HoveringButtons(menuButtons, curtain);
+            _coordLogic = new CoordLogic(coord);
         }
 
         private void Start()
@@ -33,8 +36,6 @@ namespace Source.Story_Shop
 
             _clickData = new PointerEventData(EventSystem.current);
             _clickResults = new List<RaycastResult>();
-            
-            // Have the 
         }
 
 
@@ -45,6 +46,7 @@ namespace Source.Story_Shop
             _pointerResults.Clear();
             _caster.Raycast(_pointerData, _pointerResults);
             var hasFoundItem = false;
+            var hasFoundCoord = false;
 
             foreach (var result in _pointerResults)
             {
@@ -54,10 +56,18 @@ namespace Source.Story_Shop
                     hasFoundItem = true;
                     break;
                 }
+                
+                if (result.gameObject.CompareTag(_coordLogic.Tag))
+                {
+                    _coordLogic.OnMouseHover(result.gameObject.name);
+                    hasFoundCoord = true;
+                    break;
+                }
             }
 
             if (!hasFoundItem) if (_hoveringButtons.SelectedIndex != 0) _hoveringButtons.OnSwitch(0);
 
+            if (!hasFoundCoord) if (_coordLogic.SelectedIndex != 0) _coordLogic.OnSwitch(0);
         }
 
         private void OnClick(InputAction.CallbackContext context)
@@ -79,6 +89,13 @@ namespace Source.Story_Shop
                     if (curtain.isAnimating) return; 
                     
                     _hoveringButtons.OnLeftClick(result.gameObject.name);
+                    break;
+                }
+                
+                if (result.gameObject.CompareTag(_coordLogic.Tag))
+                {
+
+                    _coordLogic.OnLeftClick(result.gameObject.name);
                     break;
                 }
             }

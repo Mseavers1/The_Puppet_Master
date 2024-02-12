@@ -26,14 +26,11 @@ namespace Source.Story_Shop
                 case "Stats Button":
                     OnSwitchClick(2);
                     break;
-                case "Start Story Button":
+                case "Curses Button":
                     OnSwitchClick(3);
                     break;
-                case "Curses Button":
-                    OnSwitchClick(4);
-                    break;
                 case "Item Shop Button":
-                    OnSwitchClick(5);
+                    OnSwitchClick(4);
                     break;
                 default: throw new Exception("Could not find an item with the name of " + name);
             }
@@ -51,14 +48,11 @@ namespace Source.Story_Shop
                 case "Stats Button":
                     OnSwitch(2);
                     break;
-                case "Start Story Button":
+                case "Curses Button":
                     OnSwitch(3);
                     break;
-                case "Curses Button":
-                    OnSwitch(4);
-                    break;
                 case "Item Shop Button":
-                    OnSwitch(5);
+                    OnSwitch(4);
                     break;
                 default: throw new Exception("Could not find an item with the name of " + name);
             }
@@ -72,7 +66,7 @@ namespace Source.Story_Shop
             
             if (SelectedIndex == ClickedIndex && ClickedIndex != 0) return;
             
-            if (index is >= 1 and <= 5) _buttons[index - 1].transform.localScale = new Vector3(HoverSize, HoverSize);
+            if (index is >= 1 and <= 4) _buttons[index - 1].transform.localScale = new Vector3(HoverSize, HoverSize);
             
             for (var i = 0; i < _buttons.Length; i++)
             {
@@ -84,7 +78,7 @@ namespace Source.Story_Shop
         public override void OnSwitchClick(int index)
         {
             ClickedIndex = index;
-            if (index is >= 1 and <= 5)
+            if (index is >= 1 and <= 4)
             {
                 _buttons[index - 1].transform.localScale = new Vector3(SelectedSize, SelectedSize);
                 _curtain.StartCurtainAnimation(1.5f);
