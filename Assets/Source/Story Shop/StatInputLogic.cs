@@ -1,9 +1,10 @@
 using System;
+using Source.Soul_Shop;
 using Source.Utility;
 using TMPro;
 using UnityEngine;
 
-namespace Source.Soul_Shop
+namespace Source.Story_Shop
 {
     public class StatInputLogic : MouseInteraction
     {

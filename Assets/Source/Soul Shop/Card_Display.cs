@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Newtonsoft.Json;
+using Source.Soul_Shop;
 using UnityEngine;
 
 public class Card_Display : MonoBehaviour

@@ -135,7 +135,7 @@ namespace Source.Soul_Shop
             }
 
             var gm = GameObject.FindWithTag("GameManager").GetComponent<Soul_GM>();
-            gm.menuCanvases[gm.GetCanvasID("Affinity")].GetComponent<AffinitiesCanvas>().UpdateAffinityText();
+            //gm.menuCanvases[gm.GetCanvasID("Affinity")].GetComponent<AffinitiesCanvas>().UpdateAffinityText();
         }
 
         private static int GetNumberOfActiveAffinities()
