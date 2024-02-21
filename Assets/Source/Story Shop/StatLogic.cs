@@ -8,8 +8,8 @@ namespace Source.Story_Shop
     {
         private StatInputLogic _inputLogic;
         private readonly GameObject[] _buttons;
-        private int _selectedClicked; 
-        
+        private int _selectedClicked;
+
         public StatLogic(GameObject[] buttons) : base("Group A")
         {
             _buttons = buttons;

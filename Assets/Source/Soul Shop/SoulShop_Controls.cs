@@ -274,40 +274,12 @@ public class SoulShop_Controls : MonoBehaviour
                             newLevel = display.ClickDowngrade();
                             break;
                         case "Unlock":
-
-                            // See if player has the affinity
-                            print(nameSkill);
-                            var requirements = HoldingOfSkills.LoadData(nameSkill).Requirements;
-
-                            foreach (var requirement in requirements)
-                            {
-                                foreach (var affinity in affinityUI)
-                                {
-                                    if (affinity.name == requirement)
-                                    {
-                                        if (!affinity.GetComponent<AffinitiyUI>().HasBought()) return;
-                                    }
-                                }
-                            }
-
                             newLevel = display.ClickUpgrade();
                             break;
                         default: throw new Exception("I don't know how you got here... But you are here since [" + result.gameObject.name + "] is not a button...");
                     }
 
                     UpdateCardText(newLevel);
-                }
-
-                // Affinities
-                if (result.gameObject.CompareTag("AffinitiesIcon"))
-                {
-                    result.gameObject.GetComponent<AffinitiyUI>().OnClicked();
-
-                    // Check if other affinities are still valid
-                    foreach(var affinity in affinityUI)
-                    {
-                        affinity.GetComponent<AffinitiyUI>().CheckRequirementsSatisfaction();
-                    }
                 }
 
                 // Stats - Buy

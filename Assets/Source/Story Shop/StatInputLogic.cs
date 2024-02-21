@@ -10,6 +10,7 @@ namespace Source.Story_Shop
     {
         private readonly GameObject[] _buttons;
         private const float HoverSize = 1.1f;
+        private Color _selectedColor;
 
         private const double StartingCost = 10;
         private double _currentCost, _currentRefund;
@@ -23,8 +24,9 @@ namespace Source.Story_Shop
         private readonly TMP_Text _cost, _refund;
         private EquationMaker _costEquation;
 
-        public StatInputLogic(GameObject[] buttons, StatLogic statLogic, StatTransformer statTransformer, TMP_Text cost, TMP_Text refund) : base("Group B")
+        public StatInputLogic(GameObject[] buttons, StatLogic statLogic, StatTransformer statTransformer, TMP_Text cost, TMP_Text refund, Color selectedColor) : base("Group B")
         {
+            _selectedColor = selectedColor;
             _buttons = buttons;
             _statLogic = statLogic;
             _statTransformer = statTransformer;
@@ -160,12 +162,37 @@ namespace Source.Story_Shop
         public override void OnSwitch(int index)
         {
             SelectedIndex = index;
-            if (index is >= 1 and <= 7) _buttons[index - 1].transform.localScale = Vector3.one * HoverSize;
             
+            switch (index)
+            {
+                case >= 1 and <= 2:
+                    _buttons[index - 1].transform.GetChild(2).GetComponent<TMP_Text>().color = _selectedColor;
+                    _buttons[index - 1].transform.GetChild(1).GetComponent<TMP_Text>().color = _selectedColor;
+                    break;
+                case 3:
+                    _buttons[index - 1].transform.GetChild(1).GetComponent<TMP_Text>().color = _selectedColor;
+                    break;
+            }
+
             for (var i = 0; i < _buttons.Length; i++)
             {
                 if (SelectedIndex != i + 1)
-                    _buttons[i].transform.localScale = Vector3.one;
+                {
+                    switch (i + 1)
+                    {
+                        case 1:
+                            _buttons[i].transform.GetChild(2).GetComponent<TMP_Text>().color = Color.green;
+                            _buttons[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.green;
+                            break;
+                        case 2:
+                            _buttons[i].transform.GetChild(2).GetComponent<TMP_Text>().color = Color.red;
+                            _buttons[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.red;
+                            break;
+                        case 3:
+                            _buttons[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.red;
+                            break;
+                    }
+                }
             }
         }
 

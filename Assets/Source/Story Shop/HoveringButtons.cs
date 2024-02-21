@@ -1,4 +1,5 @@
 using System;
+using Source.Soul_Shop;
 using Source.Utility;
 using UnityEngine;
 
@@ -82,7 +83,7 @@ namespace Source.Story_Shop
             {
                 _buttons[index - 1].transform.localScale = new Vector3(SelectedSize, SelectedSize);
                 _curtain.StartCurtainAnimation(1.5f);
-                //GameObject.FindWithTag("GameManager").GetComponent<Soul_GM>().SwitchCanvas(index - 1);
+                GameObject.FindWithTag("GameManager").GetComponent<Soul_GM>().SwitchCanvas(index - 1);
             }
             
             for (var i = 0; i < _buttons.Length; i++)

@@ -13,7 +13,8 @@ namespace Source.Story_Shop
         public GameObject[] buttons, buttons2;
         public StatTransformer statTransformer;
         public TMP_Text cost, refund;
-    
+        public Color selectedColor;
+
         private GraphicRaycaster _caster;
         private List<RaycastResult> _clickResults, _pointerResults;
         private PointerEventData _clickData, _pointerData;
@@ -26,7 +27,7 @@ namespace Source.Story_Shop
             _input = GameObject.FindWithTag("GameManager").GetComponent<PlayerInput>();
             _input.onActionTriggered += OnClick;
             _statLogic = new StatLogic(buttons);
-            _statInputLogic = new StatInputLogic(buttons2, _statLogic, statTransformer, cost, refund);
+            _statInputLogic = new StatInputLogic(buttons2, _statLogic, statTransformer, cost, refund, selectedColor);
             _statLogic.SetInputLogic(_statInputLogic);
         }
 

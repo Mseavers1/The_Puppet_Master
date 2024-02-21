@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Source.Utility;
@@ -12,13 +13,12 @@ namespace Source.Soul_Shop
     {
         public GameObject[] menuCanvases;
     
-        public TMP_Text spText, affinitiesText;
+        public TMP_Text spText;
         public Card_Display display;
         private bool OnTutorial = true;
         public GameObject TutorialPrefab;
 
         public TMP_Text[] pointValues;
-        private int availableAffinities = 30;
         private int soulPoints = 100;
 
         private void Start()
@@ -34,11 +34,17 @@ namespace Source.Soul_Shop
             }
 
             UpdateSPText();
-            UpdateAffinityText();
         }
 
         public void SwitchCanvas(int id)
         {
+            StartCoroutine(SwitchCanvasDelay(id));
+        }
+
+        private IEnumerator SwitchCanvasDelay(int id)
+        {
+            yield return new WaitForSeconds(1);
+            
             menuCanvases[id].SetActive(true);
 
             for (var i = 0; i < menuCanvases.Length; i++)
@@ -74,33 +80,10 @@ namespace Source.Soul_Shop
         public bool IsTutorialOn() { return OnTutorial; }
 
         public int GetSP() { return soulPoints; }
-        public int GetAffinityCount() { return availableAffinities; }
 
         public void UpdateSPText()
         {
             spText.text = GlobalResources.SoulEssences.ToString(CultureInfo.CurrentCulture);
-        }
-
-        public void UpdateAffinityText()
-        {
-            var txt = affinitiesText.text.Split(" ");
-            affinitiesText.text = txt[0] + " " + txt[1] + " " + availableAffinities.ToString();
-        }
-
-        public void AddAffinity(int SP)
-        {
-            soulPoints -= SP;
-            availableAffinities -= 1;
-            UpdateAffinityText();
-            UpdateSPText();
-        }
-
-        public void RemoveAffinity(int SP)
-        {
-            soulPoints += SP;
-            availableAffinities += 1;
-            UpdateAffinityText();
-            UpdateSPText();
         }
 
         public void Buy(int SP)
