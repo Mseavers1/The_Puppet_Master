@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 91d9e96c744e8ab43b36cf09baf3176e
+guid: 9a8ae13eb82590347871b779ea99fcf4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: curtains_0
+      name: white boxes_1
       rect:
         serializedVersion: 2
-        x: 44
-        y: 53
-        width: 241
-        height: 973
+        x: 102
+        y: 269
+        width: 807
+        height: 461
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4937a1cb25d7db04da39a757f1e67a94
-      internalID: -1502924984
+      spriteID: 90551abeeb7916e47827a0d7f6e0d9e1
+      internalID: -1525294265
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: curtains_1
+      name: white boxes_2
       rect:
         serializedVersion: 2
-        x: 1885
-        y: 0
-        width: 15
-        height: 5
+        x: 1291
+        y: 362
+        width: 423
+        height: 395
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,50 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e18d2cc68c540cb4cb3ef28b7336b43a
-      internalID: -499925515
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: curtains_2
-      rect:
-        serializedVersion: 2
-        x: 1598
-        y: 53
-        width: 241
-        height: 973
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa4dc1413c1ef024ba58a43191342d76
-      internalID: -1068069097
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: curtains_3
-      rect:
-        serializedVersion: 2
-        x: 285
-        y: 919
-        width: 1313
-        height: 107
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 222d2b1c0c631a84d85717da7dd5852b
-      internalID: -807402012
+      spriteID: db07df6555ee43f4e8c7ce34438dd2be
+      internalID: -1829454050
       vertices: []
       indices: 
       edges: []
@@ -204,10 +162,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      curtains_0: -1502924984
-      curtains_1: -499925515
-      curtains_2: -1068069097
-      curtains_3: -807402012
+      white boxes_0: 512095294
+      white boxes_1: -1525294265
+      white boxes_2: -1829454050
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

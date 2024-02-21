@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 91d9e96c744e8ab43b36cf09baf3176e
+guid: d25904a8a61ea3d49be260c84b6dc3ec
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,55 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: curtains_0
+      name: triangles_0
       rect:
         serializedVersion: 2
-        x: 44
-        y: 53
-        width: 241
-        height: 973
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4937a1cb25d7db04da39a757f1e67a94
-      internalID: -1502924984
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: curtains_1
-      rect:
-        serializedVersion: 2
-        x: 1885
-        y: 0
-        width: 15
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e18d2cc68c540cb4cb3ef28b7336b43a
-      internalID: -499925515
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: curtains_2
-      rect:
-        serializedVersion: 2
-        x: 1598
-        y: 53
-        width: 241
-        height: 973
+        x: 173
+        y: 361
+        width: 424
+        height: 402
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa4dc1413c1ef024ba58a43191342d76
-      internalID: -1068069097
+      spriteID: b288befe363e6804c86af25d6b39f16e
+      internalID: 1865465382
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: curtains_3
+      name: triangles_1
       rect:
         serializedVersion: 2
-        x: 285
-        y: 919
-        width: 1313
-        height: 107
+        x: 1312
+        y: 457
+        width: 425
+        height: 395
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 222d2b1c0c631a84d85717da7dd5852b
-      internalID: -807402012
+      spriteID: 92bd486ec4f63f64ba04d2fc5a806468
+      internalID: 1076558067
       vertices: []
       indices: 
       edges: []
@@ -204,10 +162,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      curtains_0: -1502924984
-      curtains_1: -499925515
-      curtains_2: -1068069097
-      curtains_3: -807402012
+      triangles_0: 1865465382
+      triangles_1: 1076558067
+      triangles_2: 1620968633
+      triangles_3: 1039940583
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
