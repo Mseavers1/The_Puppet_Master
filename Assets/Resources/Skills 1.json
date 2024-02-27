@@ -1,0 +1,534 @@
+[
+  {
+    "id": 0,
+    "name": "Swordsmanship",
+    "flavor": "Learn the art of the sword to slice all your opponents.",
+    "type": "W",
+    "weapon": "Sword",
+    "levels": [
+      {
+        "combat": "Gain <color=red>5</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>4</color> <color=orange>slashing</color> damage.",
+        "nonCombat": "Able to use swords at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 1,
+        "downgradeGains": 1,
+        "effects": [
+          {
+            "numberOfCards": 5,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ], 
+            "totalDamage": 1,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>5</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>5</color> <color=orange>slashing</color> damage.",
+        "nonCombat": "Able to use swords at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 2,
+        "downgradeGains": 1,
+        "effects": [
+          {
+            "numberOfCards": 2,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 1.5,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>6</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>5</color> <color=orange>slashing</color> damage.",
+        "nonCombat": "Able to use swords at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 4,
+        "downgradeGains": 2,
+        "effects": [
+          {
+            "numberOfCards": 2,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 2,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>6</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>6</color> <color=orange>slashing</color> damage.",
+        "nonCombat": "Able to use swords at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 8,
+        "downgradeGains": 4,
+        "effects": [
+          {
+            "numberOfCards": 3,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 2.5,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>7</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>6</color> <color=orange>slashing</color> damage.",
+        "nonCombat": "Able to use swords at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 16,
+        "downgradeGains": 8,
+        "effects": [
+          {
+            "numberOfCards": 3,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 3,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>7</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>7</color> <color=orange>slashing</color> damage.",
+        "nonCombat": "Able to use swords at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 32,
+        "downgradeGains": 16,
+        "effects": [
+          {
+            "numberOfCards": 3,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 3.5,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>8</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>7</color> <color=orange>slashing</color> damage.",
+        "nonCombat": "Able to use swords at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 64,
+        "downgradeGains": 32,
+        "effects": [
+          {
+            "numberOfCards": 4,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 4,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>8</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>8</color> <color=orange>slashing</color> damage.",
+        "nonCombat": "Able to use swords at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 128,
+        "downgradeGains": 64,
+        "effects": [
+          {
+            "numberOfCards": 4,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 4.5,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>9</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>8</color> <color=orange>slashing</color> damage.",
+        "nonCombat": "Able to use swords at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 256,
+        "downgradeGains": 128,
+        "effects": [
+          {
+            "numberOfCards": 5,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 5,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>9</color> swordsmanship cards of the <color=red>basic</color> style. Each card deals <color=red>9</color> <color=orange>slashing</color> damage.",
+        "nonCombat": "Able to use swords at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 512,
+        "downgradeGains": 256,
+        "effects": [
+          {
+            "numberOfCards": 5,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 6,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Archery",
+    "flavor": "Shoot arrows of various types at your enemies, but in style.",
+    "type": "W",
+    "weapon": "Bow",
+    "levels": [
+      {
+        "combat": "Gain <color=red>5</color> archery cards of the <color=red>basic</color> style. Each card deals <color=red>4</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use bows at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 1,
+        "downgradeGains": 1,
+        "effects": [
+          {
+            "numberOfCards": 5,
+            "damageTypes": [ "Peircing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 1,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>5</color> archery cards of the <color=red>basic</color> style. Each card deals <color=red>5</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use bows at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 2,
+        "downgradeGains": 1,
+        "effects": [
+          {
+            "numberOfCards": 2,
+            "damageTypes": [ "Peircing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 1,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>6</color> archery cards of the <color=red>basic</color> style. Each card deals <color=red>5</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use bows at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 4,
+        "downgradeGains": 2,
+        "effects": [
+          {
+            "numberOfCards": 2,
+            "damageTypes": [ "Peircing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 2,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>6</color> archery cards of the <color=red>basic</color> style. Each card deals <color=red>6</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use bows at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 8,
+        "downgradeGains": 4,
+        "effects": [
+          {
+            "numberOfCards": 3,
+            "damageTypes": [ "Peircing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 2,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>7</color> archery cards of the <color=red>basic</color> style. Each card deals <color=red>6</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use bows at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 16,
+        "downgradeGains": 8,
+        "effects": [
+          {
+            "numberOfCards": 3,
+            "damageTypes": [ "Peircing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 3,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>7</color> archery cards of the <color=red>basic</color> style. Each card deals <color=red>7</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use bows at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 32,
+        "downgradeGains": 16,
+        "effects": [
+          {
+            "numberOfCards": 4,
+            "damageTypes": [ "Peircing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 3,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>8</color> archery cards of the <color=red>basic</color> style. Each card deals <color=red>7</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use bows at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 64,
+        "downgradeGains": 32,
+        "effects": [
+          {
+            "numberOfCards": 4,
+            "damageTypes": [ "Peircing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 4,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>8</color> archery cards of the <color=red>basic</color> style. Each card deals <color=red>8</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use bows at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 128,
+        "downgradeGains": 64,
+        "effects": [
+          {
+            "numberOfCards": 5,
+            "damageTypes": [ "Peircing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 4,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>9</color> archery cards of the <color=red>basic</color> style. Each card deals <color=red>8</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use bows at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 256,
+        "downgradeGains": 128,
+        "effects": [
+          {
+            "numberOfCards": 5,
+            "damageTypes": [ "Peircing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 5,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>9</color> archery cards of the <color=red>basic</color> style. Each card deals <color=red>9</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use bows at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 512,
+        "downgradeGains": 256,
+        "effects": [
+          {
+            "numberOfCards": 5,
+            "damageTypes": [ "Peircing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 6,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Spearmanship",
+    "flavor": "How hard could a stick with a sharp end be to use? Well, hard enough that you need a skill to do it.",
+    "type": "W",
+    "weapon": "Spear",
+    "levels": [
+      {
+        "combat": "Gain <color=red>5</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>4</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use spears at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 1,
+        "downgradeGains": 1,
+        "effects": [
+          {
+            "numberOfCards": 5,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 1,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>5</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>5</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use spears at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 2,
+        "downgradeGains": 1,
+        "effects": [
+          {
+            "numberOfCards": 3,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 3,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      },
+      {
+        "combat": "Gain <color=red>6</color> spearmanship cards of the <color=red>basic</color> style. Each card deals <color=red>5</color> <color=orange>peircing</color> damage.",
+        "nonCombat": "Able to use spears at the novice level.",
+        "manaCost": 1,
+        "staminaCost": 2,
+        "levelCost": 4,
+        "downgradeGains": 2,
+        "effects": [
+          {
+            "numberOfCards": 1,
+            "damageTypes": [ "Slashing" ],
+            "damageRatio": [ 1 ],
+            "totalDamage": 6,
+            "AOE": "Single",
+            "special": "none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Healing",
+    "flavor": "Allows you to heal inside combat.",
+    "type": "S",
+    "requirements": [ "Recovery" ],
+    "weapon": "None",
+    "levels": [
+      {
+        "combat": "Restores a tiny ammount of HP. Requires the <color=green>RECOVERY</color> attribute.",
+        "nonCombat": "",
+        "manaCost": 2,
+        "staminaCost": 0,
+        "levelCost": 1,
+        "downgradeGains": 1,
+        "effects": [
+          {
+            "numberOfCards": 5,
+            "damageTypes": [],
+            "damageRatio": [],
+            "totalDamage": 0,
+            "AOE": "Single",
+            "special": "HEAL 0.2,ALLY,NO COMBAT"
+          }
+        ]
+      },
+      {
+        "combat": "Restores a modest ammount of HP.",
+        "nonCombat": "",
+        "manaCost": 4,
+        "staminaCost": 0,
+        "levelCost": 2,
+        "downgradeGains": 1,
+        "effects": [
+          {
+            "numberOfCards": 3,
+            "damageTypes": [],
+            "damageRatio": [],
+            "totalDamage": 0,
+            "AOE": "Single",
+            "special": "HEAL 0.4,ALLY,NO COMBAT"
+          }
+        ]
+      },
+      {
+        "combat": "Restores a large ammount of HP.",
+        "nonCombat": "",
+        "manaCost": 6,
+        "staminaCost": 0,
+        "levelCost": 4,
+        "downgradeGains": 2,
+        "effects": [
+          {
+            "numberOfCards": 1,
+            "damageTypes": [],
+            "damageRatio": [],
+            "totalDamage": 0,
+            "AOE": "Single",
+            "special": "HEAL 0.6,ALLY,NO COMBAT"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Hand",
+    "flavor": "Use your fists to punch everyone you can!",
+    "type": "W",
+    "weapon": "None",
+    "levels": [
+      {
+        "combat": "Use your fists if you have nothing left.",
+        "nonCombat": "",
+        "manaCost": 0,
+        "staminaCost": 1,
+        "levelCost": 1,
+        "downgradeGains": 1,
+        "effects": [
+          {
+            "numberOfCards": 5,
+            "damageTypes": ["Blunt"],
+            "damageRatio": [1],
+            "totalDamage": 1,
+            "AOE": "Single",
+            "special": ""
+          }
+        ]
+      }
+    ]
+  }
+]

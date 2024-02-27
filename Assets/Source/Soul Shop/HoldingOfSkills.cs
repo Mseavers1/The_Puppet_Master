@@ -6,6 +6,9 @@ using UnityEngine;
 
 public static class HoldingOfSkills
 {
+    public static Dictionary<string, int> BoughtSkills = new();
+
+
     private static List<string> skills = new ();
 
     public static void StartOfGame(List<string> s)
@@ -43,6 +46,14 @@ public static class HoldingOfSkills
         }
 
         throw new Exception("Unable to find skill with the name of " + name);
+    }
+
+    public static List<SkillType> GetAllSkills()
+    {
+        TextAsset txt = (TextAsset)Resources.Load("Skills", typeof(TextAsset));
+        List<SkillType> skills = JsonConvert.DeserializeObject<List<SkillType>>(txt.text) ?? throw new Exception("Empty Json!");
+
+        return skills;
     }
 
     public static List<Card> CreateCards(string name, int level)
