@@ -2,7 +2,10 @@
   {
     "id": 0,
     "name": "slime",
-    "baseSP": 1,
+    "hasSpriteSheet": true,
+    "fileName": "Slimes",
+    "fileIndex": 2,
+    "baseSP": 2,
     "maxSP": 100,
     "maxHealth": 0,
     "curveHealth": "linear",

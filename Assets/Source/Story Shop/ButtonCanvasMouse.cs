@@ -1,8 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Source.Soul_Shop;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Source.Story_Shop
@@ -10,8 +13,9 @@ namespace Source.Story_Shop
     public class ButtonCanvasMouse : MonoBehaviour
     {
         public GameObject[] menuButtons;
-        public GameObject coord;
+        public GameObject coord, confirmation;
         public CurtainCommands curtain;
+        public SignAnimator signAnimator;
 
         private GraphicRaycaster _caster;
         private List<RaycastResult> _pointerResults, _clickResults;
@@ -20,12 +24,36 @@ namespace Source.Story_Shop
         private PlayerInput _input;
         private CoordLogic _coordLogic;
 
+        public void Confirmation(float delay)
+        {
+            StartCoroutine(ShowConfirmation(delay));
+        }
+
+        public void NoConfirmation()
+        {
+            confirmation.SetActive(false);
+            curtain.OpenCurtains(1.5f);
+        }
+
+        public void YesConfirmation()
+        {
+            signAnimator.DeleteTween();
+            SceneManager.LoadScene(1);
+        }
+        
+        private IEnumerator ShowConfirmation(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            
+            confirmation.SetActive(true);
+        }
+
         private void Awake()
         {
             _input = GameObject.FindWithTag("GameManager").GetComponent<PlayerInput>();
             _input.onActionTriggered += OnClick;
             _hoveringButtons = new HoveringButtons(menuButtons, curtain);
-            _coordLogic = new CoordLogic(coord);
+            _coordLogic = new CoordLogic(coord, curtain, this);
         }
 
         private void Start()

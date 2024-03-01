@@ -15,6 +15,16 @@ namespace Source.Story_Shop
             transform.DOMoveY(-10, duration).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine).onComplete = Unlock;
         }
 
+        public void CloseCurtains(float duration)
+        {
+            transform.DOMoveY(-10, duration);
+        }
+
+        public void OpenCurtains(float duration)
+        {
+            transform.DOMoveY(1000, duration);
+        }
+
         private void Unlock()
         {
             isAnimating = false;

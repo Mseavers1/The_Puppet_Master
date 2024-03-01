@@ -12,9 +12,7 @@ namespace Source.Game
         public Vector2 GridPos;
         public int Type;
         public bool DoorTop, DoorBot, DoorLeft, DoorRight;
-
-        public Room(Vector2 gridPos, int type)
-        {
+        public Room(Vector2 gridPos, int type){
             GridPos = gridPos;
             Type = type;
         }

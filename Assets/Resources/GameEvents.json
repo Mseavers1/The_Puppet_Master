@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "start": "The Young adventurer comes across a slime...",
+    "win": "Good job killing such a weak creature!",
+    "lose": "Wow... Couldn't even defeat the weakest monster in the game.",
+    "mobs": 
+    [
+      {
+        "id": 0,
+        "levelMin": 1,
+        "levelMax": 10
+      }
+    ]
+    
+  }
+]

@@ -18,5 +18,13 @@ namespace Source.Story_Shop
                 sign.transform.DOShakePosition(seconds, strength, vibrate, randomness, false, false).SetLoops(-1).timeScale = speed;
             }
         }
+
+        public void DeleteTween()
+        {
+            foreach (var sign in signs)
+            {
+                sign.transform.DOKill();
+            }
+        }
     }
 }

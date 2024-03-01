@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 748b6b02e2b56144ab729e6dcfb6fe5d
+guid: a51eae8b2a7ebe749914d07d1d6495a8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player1_0
+      name: player_0
       rect:
         serializedVersion: 2
-        x: 696
-        y: 23
-        width: 585
-        height: 1020
+        x: 464
+        y: 571
+        width: 588
+        height: 1218
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce3e9924b9ce91d4ba5f00f81b53c5f4
-      internalID: -1655543967
+      spriteID: 678c5e8b44a8b5040b707d1bd420a427
+      internalID: -1098337897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_1
+      rect:
+        serializedVersion: 2
+        x: 1648
+        y: 1400
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79c2cc4648b8f504c838a8f92e47d344
+      internalID: 2043110721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_2
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 329
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71b095a68b7672b44ba25d72c9a0e209
+      internalID: -181655301
       vertices: []
       indices: 
       edges: []
@@ -141,7 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      player1_0: -1655543967
+      player_0: -1098337897
+      player_1: 2043110721
+      player_2: -181655301
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
