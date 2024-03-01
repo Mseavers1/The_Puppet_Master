@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using DG.Tweening;
 using Source.Soul_Shop;
 using Source.Utility;
 using TMPro;
@@ -10,16 +11,27 @@ namespace Source.Story_Shop
 {
     public class PlaceholderLogic : MouseInteraction
     {
+        public Transform selectedItem;
+
         private DisplaySkills _displaySkills;
+        private GameObject _blankCard;
+        private float _blankDefaultX;
         
-        public PlaceholderLogic(DisplaySkills displaySkills) : base("Group D")
+        public PlaceholderLogic(DisplaySkills displaySkills, GameObject blankCard) : base("Group D")
         {
             _displaySkills = displaySkills;
+            _blankCard = blankCard;
+            _blankDefaultX = blankCard.transform.position.x;
         }
 
         public override void OnLeftClick(string name)
         {
             
+        }
+
+        public float GetDefaultX()
+        {
+            return _blankDefaultX;
         }
 
         public override void OnLeftClick(GameObject item)
@@ -46,6 +58,9 @@ namespace Source.Story_Shop
                     
                     break;
                 case "But B": // Info
+                    selectedItem = parent;
+                    _displaySkills.HandleInfoBut();
+                    
                     break;
                 case "But C": // ++
                     

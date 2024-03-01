@@ -1,15 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Color = UnityEngine.Color;
 
 namespace Source.Story_Shop
 {
     public class DisplaySkills : MonoBehaviour
     {
+        public GameObject blankCard;
         public GameObject[] slots;
         public TMP_Text pageCounterText;
         public TMP_Text[] slotsPlus, slotsMinus;
@@ -42,6 +47,59 @@ namespace Source.Story_Shop
             UpdatePageDisplay();
         }
 
+        public void HandleInfoBut()
+        {
+            // Check if card is already out
+            if (Math.Abs(blankCard.transform.position.x - _placeholderLogic.GetDefaultX()) > 0.1f)
+            {
+                blankCard.transform.DOMoveX(_placeholderLogic.GetDefaultX(), 1f).SetEase(Ease.InOutSine);
+                Invoke(nameof(SetInfo), 1.1f);
+                
+                return;
+            } 
+                    
+            SetInfo();
+        }
+
+        private void SetInfo()
+        {
+            // Set Card Info
+            var card = blankCard.transform.GetChild(0);
+            var level = int.Parse(_placeholderLogic.selectedItem.GetChild(4).GetComponent<TMP_Text>().text.Split(' ')[1]);
+            var isLevel0 = false;
+
+            var skill = HoldingOfSkills.LoadData(_placeholderLogic.selectedItem.GetChild(3).GetComponent<TMP_Text>().text);
+
+            // If level is 0, display the card at level 1
+            if (level == 0)
+            {
+                isLevel0 = true;
+                level = 1;
+            }
+            
+            // Set Mana Cost
+            card.GetChild(0).GetChild(3).GetComponent<TMP_Text>().text = skill.ManaCost[level - 1].ToString();
+            
+            // Set Stamina Cost
+            card.GetChild(1).GetChild(3).GetComponent<TMP_Text>().text = skill.StaminaCost[level - 1].ToString();
+            
+            // Set Name
+            card.GetChild(2).GetComponent<TMP_Text>().text = skill.Name;
+            
+            // Set Level
+            card.GetChild(3).GetComponent<TMP_Text>().text = "lv. " + level;
+            if (isLevel0) card.GetChild(3).GetComponent<TMP_Text>().text = "lv. <color=#FF171A>" + level;
+            
+            // Set Desc
+            card.GetChild(4).GetComponent<TMP_Text>().text = skill.Description;
+            
+            // Set Type
+            card.GetChild(5).GetComponent<TMP_Text>().text = skill.Type;
+            
+            // Display Card
+            blankCard.transform.DOMoveX(1790, 1f).SetEase(Ease.InOutSine);
+        }
+
         private void FixedUpdate()
         {
             // Hovering
@@ -68,7 +126,7 @@ namespace Source.Story_Shop
             _input = GameObject.FindWithTag("GameManager").GetComponent<PlayerInput>();
             _input.onActionTriggered += OnClick;
             _pageButtonLogic = new PageButtonLogic(this);
-            _placeholderLogic = new PlaceholderLogic(this);
+            _placeholderLogic = new PlaceholderLogic(this, blankCard);
         }
         
         private void OnClick(InputAction.CallbackContext context)

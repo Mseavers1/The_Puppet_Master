@@ -3,36 +3,54 @@
     "id": 0,
     "name": "Swordsmanship",
     "type": "Weapon",
-    "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "staminaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    "manaCost": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "description": "Able to use Sword skills"
   },
   {
     "id": 1,
     "name": "Archery",
     "type": "Weapon",
-    "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "staminaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    "manaCost": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "description": "Able to use Bow skills"
   },
   {
     "id": 2,
     "name": "Spearmanship",
     "type": "Weapon",
-    "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "staminaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    "manaCost": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "description": "Able to use Spear skills"
   },
   {
     "id": 3,
     "name": "Shield",
     "type": "Defend",
-    "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "staminaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    "manaCost": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "description": "Able to use Shield skills"
   },
   {
     "id": 4,
     "name": "Healing",
     "type": "Spell",
-    "costs": [50, 60, 70, 80, 90, 100, 110, 120, 130, 140]
+    "costs": [50, 60, 70, 80, 90, 100, 110, 120, 130, 140],
+    "staminaCost": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "manaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    "description": "Able to use Healing skills"
   },
   {
     "id": 5,
     "name": "Status",
     "type": "Other",
-    "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "staminaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    "manaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    "description": "Able to use Status skills"
   }
 ]
