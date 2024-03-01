@@ -27,12 +27,21 @@ namespace Source.Story_Shop
         public void Confirmation(float delay)
         {
             StartCoroutine(ShowConfirmation(delay));
+            Invoke(nameof(StartShake), 3);
+        }
+
+        private void StartShake()
+        {
+            coord.transform.DOKill();
+            coord.transform.DOShakePosition(1, 5, 10, 50, false, false).SetLoops(-1).timeScale = 0.35f;
+            coord.transform.DOPause();
         }
 
         public void NoConfirmation()
         {
             confirmation.SetActive(false);
             curtain.OpenCurtains(1.5f);
+            _coordLogic.ReturnCoord(1.5f);
         }
 
         public void YesConfirmation()

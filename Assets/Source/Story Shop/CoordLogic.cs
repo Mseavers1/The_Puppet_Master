@@ -11,6 +11,7 @@ namespace Source.Story_Shop
         private GameObject _coord;
         private CurtainCommands _commands;
         private ButtonCanvasMouse _canvasMouse;
+        private float _yPos;
         
         private bool _isCordPulled = false;
         
@@ -21,6 +22,15 @@ namespace Source.Story_Shop
             _coord.transform.DOPause();
             _commands = commands;
             _canvasMouse = canvasMouse;
+            _yPos = coord.transform.position.y;
+        }
+
+        public void ReturnCoord(float duration)
+        {
+            _coord.transform.DOKill();
+            _coord.transform.DOMoveY(_yPos, duration);
+            _isCordPulled = false;
+            ClickedIndex = -1;
         }
 
         public override void OnLeftClick(string name)
@@ -47,9 +57,8 @@ namespace Source.Story_Shop
         {
             SelectedIndex = index;
             if (_isCordPulled) return;
-            
             if (SelectedIndex == ClickedIndex && ClickedIndex != 0) return;
-
+            
             if (index == 1) _coord.transform.DOPlay();
             else _coord.transform.DOPause();
         }
