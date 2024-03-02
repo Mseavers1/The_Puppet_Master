@@ -24,7 +24,7 @@ namespace Source.Game
             _input.onActionTriggered += OnClick;
             _cardUiLogic = new CardUiLogic(GameObject.FindWithTag("GameManager").GetComponent<GameGm>().cards, this);
             _endTurnLogic = new EndTurnLogic(GameObject.FindWithTag("GameManager").GetComponent<GameGm>());
-            _icons = new HoveringStatsIcons(GameObject.FindWithTag("GameManager").GetComponent<GameGm>().icons);
+            _icons = new HoveringStatsIcons(GameObject.FindWithTag("GameManager").GetComponent<GameGm>().icons, GameObject.FindWithTag("GameManager").GetComponent<GameGm>().enemyHp);
         }
         
         private void Start()

@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using Source.Story_Shop;
 using Source.Utility;
 using UnityEngine;
@@ -125,13 +127,14 @@ namespace Source.Game
                 
                 if (found)
                 {
+                    var originalType = hit.transform.GetComponent<MapSpriteSelector>().type;
                     hit.transform.GetComponent<MapSpriteSelector>().type = -1;
                     hit.transform.GetComponent<SpriteRenderer>().color = new Color(0f, 0.46f, 0.27f);
                     _mapMode = false;
                     Invoke(nameof(TurnOffMap), 1.5f);
                     curtains.StartCurtainAnimation(1.5f);
-                    Invoke(nameof(StartEvent), 1.6f);
-                    
+                    StartCoroutine(StartEvent(originalType));
+
                 }
             }
         }
@@ -148,10 +151,104 @@ namespace Source.Game
             return 50 * completed;
         }
 
-        private void StartEvent()
+        private IEnumerator StartEvent(int roomType)
         {
-            var rand = Random.Range(0, 3);
-            GetComponent<GameGm>().LoadEvent(rand);
+            yield return 1.6f;
+
+            switch (roomType)
+            {
+                case 0:
+                    GetComponent<GameGm>().LoadNormalEvent(GetNormalGameEvents());
+                    break;
+                case 1:
+                    
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    GetComponent<GameGm>().LoadLootEvent(GetLootGameEvents());
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+            }
+        }
+        
+        public LootGameEvents GetLootGameEvents()
+        {
+            var txt = (TextAsset)Resources.Load("LootGameEvents", typeof(TextAsset));
+            var events = JsonConvert.DeserializeObject<List<LootGameEvents>>(txt.text) ?? throw new Exception("Empty Json!");
+
+            for (var i = 0; i < events.Count; i++)
+            {
+                var random = Random.Range(0, events.Count - i);
+                
+                var randomChance = Random.Range(0f, 100f);
+                
+                if (randomChance > events[random].Chance) continue;
+
+                return events[random];
+            }
+
+            return events[0];
+        }
+        
+        public NormalGameEvents GetNormalGameEvents()
+        {
+            var txt = (TextAsset)Resources.Load("NormalGameEvents", typeof(TextAsset));
+            var events = JsonConvert.DeserializeObject<List<NormalGameEvents>>(txt.text) ?? throw new Exception("Empty Json!");
+
+            for (var i = 0; i < events.Count; i++)
+            {
+                var random = Random.Range(0, events.Count - i);
+                
+                var randomChance = Random.Range(0f, 100f);
+                
+                if (randomChance > events[random].Chance) continue;
+
+                return events[random];
+            }
+
+            return events[0];
+        }
+
+        private int GetIDFromName(string n)
+        {
+            // 0: normal, 1: story, 2: mini-boss, 3: secret, 4: trap, 5: loot, 6: special, 7: secret boss, 8: start
+            return n switch
+            {
+                "Normal" => 0,
+                "Story" => 1,
+                "Mini-Boss" => 2,
+                "Secret" => 3,
+                "Trap" => 4,
+                "Loot" => 5,
+                "Special" => 6,
+                "Secret Boss" => 7,
+                _ => throw new Exception("The room typo of " + n + " does not exist!")
+            };
+        }
+        
+        private string GetNameFromID(int n)
+        {
+            // 0: normal, 1: story, 2: mini-boss, 3: secret, 4: trap, 5: loot, 6: special, 7: secret boss, 8: start
+            return n switch
+            {
+                0 => "Normal",
+                1 => "Story",
+                2 => "Mini-Boss",
+                3 => "Secret",
+                4 => "Trap",
+                5 => "Loot",
+                6 => "Special",
+                7 => "Secret Boss",
+                _ => throw new Exception("The room typo of " + n + " does not exist!")
+            };
         }
         
         public void TurnOnMap()

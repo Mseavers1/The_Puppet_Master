@@ -137,13 +137,12 @@ namespace Source.Game
 
 
         // Plays the selected event
-        public void LoadEvent(int eventID)
+        public void LoadNormalEvent(NormalGameEvents gameEvent)
         {
-            var gameEvent = LoadEventData(eventID);
-            _currentEventID = eventID;
+            _currentEventID = gameEvent.Id;
 
             // Load and play the starting audio
-            _source.clip = Resources.Load<AudioClip>("Voices/" + eventID + "_start");
+            _source.clip = Resources.Load<AudioClip>("Voices/" + _currentEventID + "_start");
             _source.Play();
             var length = _source.clip.length;
             
@@ -189,6 +188,30 @@ namespace Source.Game
             Invoke(nameof(PlayBattleStart), length);
 
         }
+        
+        public void LoadLootEvent(LootGameEvents gameEvent)
+        {
+            _currentEventID = gameEvent.Id;
+
+            // Load and play the starting audio
+            _source.clip = Resources.Load<AudioClip>("Voices/Loot/" + _currentEventID + "_start");
+            _source.Play();
+            var length = _source.clip.length;
+
+            // Set Display Skin
+            var targetImage = Resources.Load<Sprite>("Mobs/" + gameEvent.FileName);
+            enemy.transform.GetChild(0).GetComponent<Image>().sprite = targetImage;
+            enemy.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(targetImage.rect.width, targetImage.rect.height);
+
+            // Move Characters in
+            _orinPosEnemy = enemy.transform.position.x;
+            _orinPosPlayer = player.transform.position.x;
+            
+            player.transform.DOMoveY(800, length).SetEase(Ease.InOutSine);
+            enemy.transform.DOMoveY(900, length).SetEase(Ease.InOutSine);
+            
+            
+        }
 
         public Card GetCardInHand(int index)
         {
@@ -216,6 +239,9 @@ namespace Source.Game
             var health = enemyHp.transform.GetChild(0).GetChild(1);
             var x = (float) (enemy.Stat.CurrentHealth / enemy.Stat.StatValues["Health"]);
 
+            enemyHp.transform.GetChild(0).GetChild(3).GetComponent<TMP_Text>().text =
+                enemy.Stat.CurrentHealth + " / " + enemy.Stat.StatValues["Health"];
+            
             if (x < 0) x = 0;
             
             health.localScale = new Vector3(health.localScale.x, x, health.localScale.z);
@@ -342,19 +368,6 @@ namespace Source.Game
             SceneManager.LoadScene(2);
         }
 
-        private static GameEvents LoadEventData(int id)
-        {
-            var txt = (TextAsset)Resources.Load("GameEvents", typeof(TextAsset));
-            var events = JsonConvert.DeserializeObject<List<GameEvents>>(txt.text) ?? throw new Exception("Empty Json!");
-
-            foreach (var gameEvent in events.Where(gameEvent => gameEvent.Id == id))
-            {
-                return gameEvent;
-            }
-
-            throw new Exception("Unable to find event with the ID of " + id);
-        }
-        
         private static Mobs LoadMobData(int id)
         {
             var txt = (TextAsset)Resources.Load("Mobs", typeof(TextAsset));

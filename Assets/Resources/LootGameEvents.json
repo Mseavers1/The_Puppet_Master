@@ -1,0 +1,30 @@
+[
+  {
+    "id": 0,
+    "chance": 100,
+    "start": "Oh look! There be a chest! I Wonder what's inside?",
+    "fileName": "Chest",
+    "inside": 
+    [
+      {
+        "id": 0,
+        "sp": 500,
+        "chance": 10,
+        "talk": "Ooh... 500 Story Points!"
+      },
+      {
+        "id": 1,
+        "sp": 10,
+        "chance": 50,
+        "talk": "Oh... 10 Story Points... Cool I guess?"
+      },
+      {
+        "id": 2,
+        "sp": 0,
+        "chance": 20,
+        "talk": "It be empty... Sorry bud."
+      }
+    ]
+    
+  }
+]
