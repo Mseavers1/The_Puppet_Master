@@ -142,14 +142,35 @@ public class EnemyInfo : IBattleable
         hand[cardIndex] = deck.PullCard(deck.GetTypeIndex(cardIndex));
         Debug.Log(mobName + " used " + card.GetName() + " at level " + card.GetLevel() + " dealing a total of " + damage + " damage!");
         
-        // No combat
-        if (!card.IsNoCombat())
+        if (card.GetTypeName() == 'W')
         {
             StaticHolder.TakeDamage(damage);
-            _gm.UpdateHealthIcon();
+        } 
+        else if (card.GetTypeName() == 'D')
+        {
+                
+        }
+        else if (card.GetTypeName() == 'S')
+        {
+            // Does do damage?
+            if (card.GetDamage() != 0)
+            {
+                StaticHolder.TakeDamage(damage);
+            }
+
+            // Has Special?
+            if (card.GetSpecial() != "")
+            {
+                StaticHolder.ParseSpecial(card.GetSpecial(), Stat);
+            }
+        }
+        else // Misc
+        {
+                
         }
 
-
+        _gm.UpdateEnemyHealthIcon(this);
+        _gm.UpdateHealthIcon();
     }
 
     private void GenerateSkillsList(Mobs mob)

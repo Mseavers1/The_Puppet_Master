@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Card
 {
-    public string SpecialType { get; private set; }
-
     private string name;
     private float manaCost, staminaCost;
     private string[] damageTypes;
@@ -18,8 +17,9 @@ public class Card
     private bool isAllyOnly, isNoCombat;
     private string[] _inGameDescription;
     private string _typeName;
+    private string _specials;
     
-    public Card(string name, string type, float manaCost, float staminaCost, string[] damageTypes, float[] damageRatio, float totalDamage, int currentLevel, string requiredWeaponSlot, string[] inGameDescription)
+    public Card(string name, string type, float manaCost, float staminaCost, string[] damageTypes, float[] damageRatio, float totalDamage, int currentLevel, string requiredWeaponSlot, string[] inGameDescription, string special)
     {
         this.manaCost = manaCost;
         this.staminaCost = staminaCost;
@@ -29,27 +29,41 @@ public class Card
         this.damageRatio = damageRatio;
         this.totalDamage = totalDamage;
         _inGameDescription = inGameDescription;
+        _specials = special;
 
         this.currentLevel = currentLevel;
         this.requiredWeaponSlot = requiredWeaponSlot;
         isAllyOnly = false;
 
-        foreach (var t in damageTypes)
-        {
-            if (t == "Heal")
-                isNoCombat = true;
-        }
+        if (totalDamage == 0) isNoCombat = true;
 
         this.type = type[0];
         CheckType();
         
         if (!isNoCombat)
-            desc = inGameDescription[0] + " " + totalDamage + " " + damageTypes[0] + " " + inGameDescription[1];
-        else
-            desc = inGameDescription[0] + " " + totalDamage + " " + inGameDescription[1];
+            desc = inGameDescription[0] + " " + totalDamage + " " + damageTypes[0] + " " + inGameDescription[1] + "/n";
+
+        if (special != "")
+        {
+            desc += ParseSpecial(special);
+        }
+        
+    }
+    
+    private string ParseSpecial(string special)
+    {
+        var commands = special.Split(',');
+        var description = commands.Select(command => command.Split(' '))
+            .Aggregate("", (current, sentence) => current + sentence[0] switch
+            {
+                "Heal" => "Heal " + sentence[1] + " % HP\n",
+                _ => throw new Exception("The command " + sentence[0] + " is no been implemented.")
+            });
+
+        return description;
     }
 
-    public string[] GetExtra() { return _inGameDescription; }
+    public string GetSpecial() { return _specials; }
 
     public string GetFullTypeName() { return _typeName; }
 

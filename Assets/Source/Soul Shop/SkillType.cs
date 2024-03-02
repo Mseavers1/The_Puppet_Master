@@ -13,6 +13,7 @@ public class SkillType
     public string[] DamageTypes;
     public float[] DamageRatios;
     public string[] GameCardInfo;
+    public string[] Special;
     
 
 

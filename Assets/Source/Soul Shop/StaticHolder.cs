@@ -53,6 +53,25 @@ public static class StaticHolder
 
         InventoryManagement = new InventoryManagement();
     }
+    
+    public static void ParseSpecial(string special, Stats userStats)
+    {
+        var commands = special.Split(',');
+
+        foreach (var command in commands)
+        {
+            var sentence = command.Split(' ');
+
+            switch (sentence[0])
+            {
+                case "Heal":
+                    userStats.Heal(float.Parse(sentence[1]) / 100);
+                    break;
+                default:
+                    throw new Exception("The command " + sentence[0] + " is no been implemented.");
+            }
+        }
+    }
 
     private static void SetCurves()
     {

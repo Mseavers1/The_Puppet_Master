@@ -17,12 +17,14 @@ namespace Source.Story_Shop
 
         public void CloseCurtains(float duration)
         {
-            transform.DOMoveY(-10, duration);
+            isAnimating = true;
+            transform.DOMoveY(-10, duration).onComplete = Unlock;
         }
 
         public void OpenCurtains(float duration)
         {
-            transform.DOMoveY(1000, duration);
+            isAnimating = true;
+            transform.DOMoveY(1000, duration).onComplete = Unlock;
         }
 
         private void Unlock()

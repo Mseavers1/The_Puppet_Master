@@ -19,6 +19,8 @@ namespace Source.Story_Shop
         
         public override void OnLeftClick(string name)
         {
+            if (_curtain.isAnimating) return;
+
             switch (name)
             {
                 case "Skills Button":

@@ -1,5 +1,7 @@
+using System;
 using DG.Tweening;
 using Source.Utility;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Source.Game
@@ -57,7 +59,20 @@ namespace Source.Game
             }
             else if (card.GetTypeName() == 'S')
             {
-                
+                // Does do damage?
+                if (card.GetDamage() != 0)
+                {
+                    var enemy = gm.GetCurrentEnemy();
+                    enemy.TakeDamage(card.GetDamage());
+
+                    if (enemy.IsDead()) gm.NextTurn();
+                }
+
+                // Has Special?
+                if (card.GetSpecial() != "")
+                {
+                    StaticHolder.ParseSpecial(card.GetSpecial(), StaticHolder.PlayerStats);
+                }
             }
             else // Misc
             {
@@ -67,6 +82,7 @@ namespace Source.Game
             // Update UI
             gm.UpdateManaIcon();
             gm.UpdateStaminaIcon();
+            gm.UpdateHealthIcon();
 
             // Redraw card
             _handler.ReturnCardPosition(ClickedIndex - 1);

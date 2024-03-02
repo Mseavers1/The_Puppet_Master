@@ -59,7 +59,7 @@ public static class HoldingOfSkills
 
             for (var i = 0; i < numCards; i++)
             {
-                cards.Add(new Card(name, skill.Type, skill.ManaCost[currentLevel - 1], skill.StaminaCost[currentLevel - 1], skill.DamageTypes, skill.DamageRatios, skill.TotalDamage[currentLevel - 1], currentLevel, null, skill.GameCardInfo));
+               cards.Add(new Card(name, skill.Type, skill.ManaCost[currentLevel - 1], skill.StaminaCost[currentLevel - 1], skill.DamageTypes, skill.DamageRatios, skill.TotalDamage[currentLevel - 1], currentLevel, null, skill.GameCardInfo, skill.Special[currentLevel - 1]));
             }
 
             currentLevel--;

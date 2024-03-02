@@ -322,8 +322,8 @@ namespace Source.Game
                 card.transform.DOKill();
                 card.transform.DOMoveY(-530, 1.5f).SetEase(Ease.InOutSine);
             }
-            
-            yield return new WaitForSeconds(2f);
+
+            yield return new WaitForSeconds(0.7f);
             
             curtainCommands.OpenCurtains(1.5f);
         }
