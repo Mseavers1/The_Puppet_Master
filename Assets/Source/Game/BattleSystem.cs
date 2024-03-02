@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleSystem : MonoBehaviour
+namespace Source.Game
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BattleSystem : MonoBehaviour
     {
-        
-    }
+        public int CurrentTurn { get; private set; }
 
-    // Update is called once per frame
-    void Update()
-    {
+        private int[] _order;
+
+        private void SetOrder()
+        {
+            
+        }
         
     }
 }

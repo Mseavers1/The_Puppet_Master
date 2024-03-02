@@ -6,7 +6,13 @@
     "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
     "staminaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
     "manaCost": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    "description": "Able to use Sword skills"
+    "description": "Able to use Sword skills.",
+    "addon": "Sword Slashing Cards",
+    "totalDamage": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "numberOfCards": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "damageTypes": ["Slash"],
+    "damageRatios": [1],
+    "gameCardInfo": ["Deals", "Damage"]
   },
   {
     "id": 1,
@@ -15,7 +21,13 @@
     "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
     "staminaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
     "manaCost": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    "description": "Able to use Bow skills"
+    "description": "Able to use Bow skills",
+    "addon": "Shooting Cards",
+    "totalDamage": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "numberOfCards": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "damageTypes": ["Pierce"],
+    "damageRatios": [1],
+    "gameCardInfo": ["Deals", "Damage"]
   },
   {
     "id": 2,
@@ -24,7 +36,13 @@
     "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
     "staminaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
     "manaCost": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    "description": "Able to use Spear skills"
+    "description": "Able to use Spear skills",
+    "addon": "Piercing Spear Cards",
+    "totalDamage": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "numberOfCards": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "damageTypes": ["Pierce"],
+    "damageRatios": [1],
+    "gameCardInfo": ["Deals", "Damage"]
   },
   {
     "id": 3,
@@ -33,7 +51,13 @@
     "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
     "staminaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
     "manaCost": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    "description": "Able to use Shield skills"
+    "description": "Able to use Shield skills",
+    "addon": "Shield Cards",
+    "totalDamage": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "numberOfCards": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "damageTypes": ["Blunt"],
+    "damageRatios": [1],
+    "gameCardInfo": ["Deals", "Damage"]
   },
   {
     "id": 4,
@@ -42,15 +66,42 @@
     "costs": [50, 60, 70, 80, 90, 100, 110, 120, 130, 140],
     "staminaCost": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     "manaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-    "description": "Able to use Healing skills"
+    "description": "Able to use Healing skills",
+    "addon": "Healing Cards",
+    "totalDamage": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "numberOfCards": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "damageTypes": ["Heal"],
+    "damageRatios": [1],
+    "gameCardInfo": ["Heals", "HP"]
   },
   {
     "id": 5,
     "name": "Status",
-    "type": "Other",
+    "type": "Misc",
     "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
     "staminaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
     "manaCost": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-    "description": "Able to use Status skills"
+    "description": "Able to use Status skills",
+    "addon": "Status Cards",
+    "totalDamage": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "numberOfCards": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "damageTypes": ["None"],
+    "damageRatios": [1],
+    "gameCardInfo": ["Deals", "Damage"]
+  },
+  {
+    "id": 6,
+    "name": "Hands",
+    "type": "Weapon",
+    "costs": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "staminaCost": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    "manaCost": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "description": "Able to use your fists",
+    "addon": "Bashing fists Cards",
+    "totalDamage": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "numberOfCards": [5, 5, 4, 4, 3, 3, 2, 2, 1, 1],
+    "damageTypes": ["Blunt"],
+    "damageRatios": [1],
+    "gameCardInfo": ["Deals", "Damage"]
   }
 ]

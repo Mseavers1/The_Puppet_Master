@@ -61,15 +61,17 @@ public class CardDisplayInfo : MonoBehaviour
     
     public float CalculateHealing(Card card)
     {
+        /*
         float healAmount = 0;
         foreach (var x in card.GetSpellAttributes())
         {
             if (x.Split(' ')[0] != "HEAL") continue;
 
-            healAmount = float.Parse(x.Split(' ')[1]);
+            //healAmount = float.Parse(x.Split(' ')[1]);
             break;
         }
 
-        return healAmount * 100;
+        return healAmount * 100; */
+        return 0;
     }
 }

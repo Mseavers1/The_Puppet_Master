@@ -36,6 +36,7 @@ namespace Source.Story_Shop
         {
             return _selectedClicked switch
             {
+                0 => "Empty",
                 1 => "Vitality",
                 2 => "Intelligence",
                 3 => "Endurance",

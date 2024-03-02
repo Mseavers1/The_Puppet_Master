@@ -38,6 +38,11 @@ namespace Source.Story_Shop
             UpdatePageDisplay();
         }
 
+        public List<SkillType> GetAllSkills()
+        {
+            return _allSkills;
+        }
+
         public void PageDown()
         {
             if (_currentPage > 1)
@@ -91,8 +96,8 @@ namespace Source.Story_Shop
             if (isLevel0) card.GetChild(3).GetComponent<TMP_Text>().text = "lv. <color=#FF171A>" + level;
             
             // Set Desc
-            card.GetChild(4).GetComponent<TMP_Text>().text = skill.Description;
-            
+            card.GetChild(4).GetComponent<TMP_Text>().text = skill.Description + "\n\n+" + skill.NumberOfCards[level - 1] + " " + skill.Addon;
+
             // Set Type
             card.GetChild(5).GetComponent<TMP_Text>().text = skill.Type;
             

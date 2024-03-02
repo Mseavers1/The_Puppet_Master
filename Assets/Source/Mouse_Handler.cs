@@ -174,7 +174,7 @@ public class Mouse_Handler : MonoBehaviour
                         var enemy = detectedCollider.GetComponent<EnemyInfo>();
                         var playables = new GameObject[1]; // Temp
                         playables[0] = gameObject;
-                        enemy.StartBattle(playables);
+                        //enemy.StartBattle(playables);
 
                         if (battleSimulator.IsPlayerTurn()) gm.Mode = "Battle Player";
                         else
@@ -225,6 +225,7 @@ public class Mouse_Handler : MonoBehaviour
         }
 
         // Do Specials
+        /*
         foreach(var c in card.GetSpellAttributes())
         {
             var command = c.Split(' ');
@@ -235,9 +236,9 @@ public class Mouse_Handler : MonoBehaviour
 
                     break;
             }
-        }
+        } */
 
-        currentCard.SetDesc(battleSimulator.DrawCard(currentCard.GetCardType()));
+        //currentCard.SetDesc(battleSimulator.DrawCard(currentCard.GetCardType()));
 
         //battleSimulator.NextTurn(); // Temp - Only end turn when player is ready
         // Update top bar

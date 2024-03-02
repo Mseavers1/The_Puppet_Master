@@ -7,10 +7,13 @@ public class Deck
     private List<Card> cards;
     private Stack<Card> dispile;
 
-    public Deck()
+    public Deck(bool isPlayer)
     {
         cards = new List<Card>();
         dispile = new Stack<Card>();
+        
+        if(isPlayer)
+            AddCards(HoldingOfSkills.CreateCards("Hands", 1));
     }
 
     public void AddCards(List<Card> c)

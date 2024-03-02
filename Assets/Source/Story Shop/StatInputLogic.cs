@@ -66,6 +66,7 @@ namespace Source.Story_Shop
             {
                 case "Add":
                     const int max = SoulGmSettings.MAXValuePerStat;
+                    if (_statLogic.GetCurrentIndexName() == "Empty") return;
                     
                     if (SoulGmSettings.GetStatPoints(_statLogic.ClickedIndex) >= max || _currentCost > GlobalResources.SoulEssences || _boughtPoints > SoulGmSettings.MAXBuyablePoints) return;
                     
@@ -80,6 +81,7 @@ namespace Source.Story_Shop
                     }
                     break;
                 case "Remove":
+                    if (_statLogic.GetCurrentIndexName() == "Empty") return;
                     if (SoulGmSettings.GetStatPoints(_statLogic.ClickedIndex) <= 0) return;
                     
                     if (_currentIndexOfSize != _sizes.Length - 1)

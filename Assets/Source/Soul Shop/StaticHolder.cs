@@ -6,6 +6,7 @@ public static class StaticHolder
 {
     // Player Stuff
     public static Stats PlayerStats { get; private set; }
+
     public static bool HasDied { get; set; } = false;
     public static bool ShowTutorialSoul { get; set; } = true;
     public static bool ShowTutorialGame { get; set; } = true;
@@ -22,10 +23,18 @@ public static class StaticHolder
     public static readonly Dictionary<string, double> defaultStatValues = new();
     public static readonly Dictionary<string, double> maxValues = new();
 
+    public static void TakeDamage(float damage)
+    {
+        PlayerStats.CurrentHealth -= damage;
+
+        if (PlayerStats.CurrentHealth <= 0) HasDied = true;
+    }
+
     public static void StartOfGame(int[] points)
     {
         if (HasDied)
         {
+            HasDied = false;
             PlayerStats = null; InventoryManagement = null;
             PlayerStats = new Stats(points[0], points[1], points[2], points[3], points[4], points[5], points[6], 1);
 

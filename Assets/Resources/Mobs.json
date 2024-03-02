@@ -24,12 +24,12 @@
     "mobSkills": [
       {
         "name": "Swordsmanship",
-        "level": 10,
+        "level": 3,
         "chance": 0.5
       },
       {
         "name": "Archery",
-        "level": 1,
+        "level": 3,
         "chance": 0.5
       }
     ]

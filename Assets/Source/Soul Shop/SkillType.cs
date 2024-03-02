@@ -7,6 +7,12 @@ public class SkillType
     public int[] StaminaCost;
     public int[] ManaCost;
     public string Description;
+    public string Addon;
+    public float[] TotalDamage;
+    public int[] NumberOfCards;
+    public string[] DamageTypes;
+    public float[] DamageRatios;
+    public string[] GameCardInfo;
     
 
 

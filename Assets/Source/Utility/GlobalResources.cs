@@ -6,10 +6,10 @@ namespace Source.Utility
     public static class GlobalResources
     {
         public static double SoulEssences { get; set; }
-        
+
         static GlobalResources()
         {
-            SoulEssences = 1000000;
+            SoulEssences = 1000;
         }
     }
 }

@@ -45,9 +45,22 @@ namespace Source.Soul_Shop
             UpdateAffinityCosts();
         }
 
+        public static void ResetStatPoints()
+        {
+            for (var i = 0; i < _statPoints.Length; i++)
+            {
+                _statPoints[i] = 0;
+            }
+        }
+
         public static int GetStatPoints(int index)
         {
             return _statPoints[index];
+        }
+        
+        public static int[] GetStatPoints()
+        {
+            return _statPoints;
         }
 
         public static int AddStatPoints(int index, int value)

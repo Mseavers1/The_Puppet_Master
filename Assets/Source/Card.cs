@@ -12,35 +12,46 @@ public class Card
     private float[] damageRatio;
     private float totalDamage;
     private char type; // W - Weapon // S - Spell // D - Defense // M - Misc
-    private string desc, AOE;
+    private string desc;
     private int currentLevel;
     private string requiredWeaponSlot;
-    private string[] specials, spellAttributes;
     private bool isAllyOnly, isNoCombat;
-
-    public Card(string name, string type, float manaCost, float staminaCost, string[] damageTypes, float[] damageRatio, float totalDamage, string special, string aoe, int currentLevel, string requiredWeaponSlot)
+    private string[] _inGameDescription;
+    private string _typeName;
+    
+    public Card(string name, string type, float manaCost, float staminaCost, string[] damageTypes, float[] damageRatio, float totalDamage, int currentLevel, string requiredWeaponSlot, string[] inGameDescription)
     {
         this.manaCost = manaCost;
         this.staminaCost = staminaCost;
         this.name = name;
         this.damageTypes = damageTypes;
+        _typeName = type;
         this.damageRatio = damageRatio;
         this.totalDamage = totalDamage;
-        specials = special.Split(',');
+        _inGameDescription = inGameDescription;
+
         this.currentLevel = currentLevel;
         this.requiredWeaponSlot = requiredWeaponSlot;
-        AOE = aoe;
         isAllyOnly = false;
-        isNoCombat = false;
 
-        this.type = char.Parse(type);
+        foreach (var t in damageTypes)
+        {
+            if (t == "Heal")
+                isNoCombat = true;
+        }
+
+        this.type = type[0];
         CheckType();
-
-        if (!isNoCombat && damageTypes.Length > 0)
-            desc = "Deals " + totalDamage + " " + damageTypes[0] + " damage!";
-
-        SpecialParser();
+        
+        if (!isNoCombat)
+            desc = inGameDescription[0] + " " + totalDamage + " " + damageTypes[0] + " " + inGameDescription[1];
+        else
+            desc = inGameDescription[0] + " " + totalDamage + " " + inGameDescription[1];
     }
+
+    public string[] GetExtra() { return _inGameDescription; }
+
+    public string GetFullTypeName() { return _typeName; }
 
     public float GetDamage() { return totalDamage; }
     public string[] GetDamageTypes() {  return damageTypes; }
@@ -54,7 +65,6 @@ public class Card
     public float GetStaminaCost() { return staminaCost; }
     public bool IsAllyOnly() { return isAllyOnly; }
     public bool IsNoCombat() { return isNoCombat; }
-    public string[] GetSpellAttributes() { return spellAttributes; }
 
     public bool IsTypeOf(char type)
     {
@@ -69,46 +79,5 @@ public class Card
     private void CheckType()
     { 
         if (type != 'W' && type != 'S' && type != 'D' && type != 'M') throw new Exception("Type of card is not valid! Type " + type + " does not exsist!");
-    }
-
-    private void SpecialParser()
-    {
-        List<string> nonusedSpecials = new List<string>();
-        int index = 0;
-        foreach(var special in specials)
-        {
-            bool found = false;
-            switch (special)
-            {
-                case "ALLY":
-                    found = true;
-                    isAllyOnly = true;
-                    break;
-                case "NO COMBAT":
-                    found = true;
-                    isNoCombat = true;
-                    break;
-            }
-
-            if (!found)
-                nonusedSpecials.Add(special);
-
-            index++;
-        }
-
-        spellAttributes = nonusedSpecials.ToArray();
-
-        foreach (var att in spellAttributes)
-        {
-            var command = att.Split(' ');
-            switch (command[0])
-            {
-                case "HEAL":
-                    SpecialType = "Heals";
-                    break;
-            }
-        }
-
-
     }
 }

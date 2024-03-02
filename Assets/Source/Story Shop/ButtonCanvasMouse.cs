@@ -46,6 +46,7 @@ namespace Source.Story_Shop
 
         public void YesConfirmation()
         {
+            StaticHolder.StartOfGame(SoulGmSettings.GetStatPoints());
             signAnimator.DeleteTween();
             SceneManager.LoadScene(1);
         }

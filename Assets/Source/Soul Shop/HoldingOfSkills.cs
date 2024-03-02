@@ -9,28 +9,16 @@ public static class HoldingOfSkills
     public static Dictionary<string, int> BoughtSkills = new();
 
 
-    private static List<string> skills = new ();
+    //private static List<string> skills = new ();
 
     public static void StartOfGame(List<string> s)
     {
-        skills = s;
-        skills.Add("Hand 1");
+        //skills = s;
+        //skills.Add("Hand 1");
     }
-
+    
     public static bool ContainSkill(string skillName)
     {
-        foreach(string s in skills)
-        {
-            var split = s.Split (' ');
-            Debug.Log("Check:");
-            Debug.Log(split[0]);
-            Debug.Log(skillName);
-            Debug.Log(split[0] == skillName);
-            Debug.Log("_______");
-
-            if (split[0] == skillName) return true;
-        }
-
         return false;
     }
 
@@ -67,12 +55,11 @@ public static class HoldingOfSkills
 
         while (currentLevel > 0)
         {
-            var numCards = skill.Levels[currentLevel - 1].Effects[0].NumberOfCards;
+            var numCards = skill.NumberOfCards[currentLevel - 1];
 
             for (var i = 0; i < numCards; i++)
             {
-                var effect = skill.Levels[currentLevel - 1].Effects[0];
-                cards.Add(new Card(name, skill.Type, skill.Levels[currentLevel - 1].ManaCost, skill.Levels[currentLevel - 1].StaminaCost, effect.DamageTypes, effect.DamageRatio, effect.TotalDamage, effect.Special, effect.AOE, currentLevel, skill.Weapon));
+                cards.Add(new Card(name, skill.Type, skill.ManaCost[currentLevel - 1], skill.StaminaCost[currentLevel - 1], skill.DamageTypes, skill.DamageRatios, skill.TotalDamage[currentLevel - 1], currentLevel, null, skill.GameCardInfo));
             }
 
             currentLevel--;
@@ -84,17 +71,14 @@ public static class HoldingOfSkills
     // Generate the player's deck based on the skills the player has selected
     public static Deck GenerateDeck()
     {
-        Deck deck = new();
+        Deck deck = new(true);
 
-        foreach (var skill in skills)
+        foreach (var (skillName, level) in BoughtSkills)
         {
-            var div = skill.Split(' ');
-            var name = div[0];
-            var level = int.Parse(div[1]);
-
-            var cards = CreateCards(name, level);
+            if (level == 0) continue;
+            
+            var cards = CreateCards(skillName, level);
             deck.AddCards(cards);
-
         }
 
         deck.RandomizeDeck();

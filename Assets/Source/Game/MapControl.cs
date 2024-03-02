@@ -139,6 +139,12 @@ namespace Source.Game
             GetComponent<GameGm>().LoadEvent(0);
         }
         
+        public void TurnOnMap()
+        {
+            levelGeneration.gameObject.SetActive(true);
+            _mapMode = true;
+        }
+        
         private void TurnOffMap()
         {
             levelGeneration.gameObject.SetActive(false);

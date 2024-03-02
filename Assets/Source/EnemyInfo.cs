@@ -1,18 +1,17 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using Source.Game;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class EnemyInfo : MonoBehaviour, IBattleable
+public class EnemyInfo : IBattleable
 {
     private const int Max_Level = 100;
     public Stats Stat { get; private set; }
-    public int ID;
-    [Range(1, Max_Level)] public int level;
+    private int _id;
     public int holdingSP;
-
-    private BattleSimulator battle;
+    
     private string mobName;
 
     private Dictionary<string, string> curveStats = new ();
@@ -22,15 +21,15 @@ public class EnemyInfo : MonoBehaviour, IBattleable
     private Card[] hand;
     private Dictionary<string, float> skills = new ();
 
-    private void Awake()
-    {
-        battle = GameObject.FindGameObjectWithTag("GameManager").GetComponent<BattleSimulator>();
-    }
+    private GameGm _gm;
 
-    private void Start()
+    public EnemyInfo(int id, GameGm gm, int level)
     {
+        _id = id;
+        _gm = gm;
+        
         // Get Mob info from json
-        Mobs mob = LoadData(ID);
+        var mob = LoadData(_id);
         mobName = mob.Name;
 
         curveStats.Add("health", CheckJSONName(mob.CurveHealth, "health"));
@@ -93,14 +92,12 @@ public class EnemyInfo : MonoBehaviour, IBattleable
         }
 
         var attempts = 0;
-        var target = battle.GetRandomPlayable(); // Find target (Random for now TODO - not random?)
 
-        while (attempts < 3 && !target.GetComponent<PlayerStats>().IsDead())
+        while (attempts < 3 && !StaticHolder.HasDied)
         {
             float chanceToStop = UnityEngine.Random.Range(0, 100);
             if (chanceToStop > 70) break;
             
-
             // Get Random number
             float rand = UnityEngine.Random.Range(0, total);
 
@@ -118,13 +115,12 @@ public class EnemyInfo : MonoBehaviour, IBattleable
                     // Check if card is playable
                     if (!Stat.PlayCard(hand[index].GetManaCost(), hand[index].GetStaminaCost()))
                     {
-                        print("Do not have enough stamina or mp");
+                        Debug.Log("Do not have enough stamina or mp");
                         attempts++;
                         break;
                     }
 
-                    PlayCard(index, target);
-                    target = battle.GetRandomPlayable();
+                    PlayCard(index);
 
                     break;
                 }
@@ -134,46 +130,25 @@ public class EnemyInfo : MonoBehaviour, IBattleable
         }
         
         // Progress order when move is done.
-        battle.NextTurn();
+        _gm.NextTurn();
     }
 
-    private void PlayCard(int cardIndex, GameObject target)
+    private void PlayCard(int cardIndex)
     {
         var card = hand[cardIndex];
         var damage = card.GetDamage();
 
         // Replace card in there hand
         hand[cardIndex] = deck.PullCard(deck.GetTypeIndex(cardIndex));
-        print(name + " used " + card.GetName() + " at level " + card.GetLevel() + " dealing a total of " + damage + " damage!");
+        Debug.Log(mobName + " used " + card.GetName() + " at level " + card.GetLevel() + " dealing a total of " + damage + " damage!");
         
         // No combat
         if (!card.IsNoCombat())
         {
-            // Check if player or playable
-            if (target.tag == "Player")
-            {
-                target.GetComponent<PlayerStats>().TakeDamage(damage);
-            }
-            else
-            {
-                target.GetComponent<PlayableStats>().TakeDamage(damage);
-            }
+            StaticHolder.TakeDamage(damage);
+            _gm.UpdateHealthIcon();
         }
 
-        // If ally
-        if (card.IsAllyOnly()) target = gameObject;
-
-        // Specials
-        foreach (var c in card.GetSpellAttributes())
-        {
-            var command = c.Split(' ');
-            switch (command[0])
-            {
-                case "HEAL":
-                    target.GetComponent<EnemyInfo>().Stat.Heal(float.Parse(command[1])); // TODO - Change for enemies allies
-                    break;
-            }
-        }
 
     }
 
@@ -187,7 +162,7 @@ public class EnemyInfo : MonoBehaviour, IBattleable
 
     private Deck GenerateDeck()
     {
-        Deck deck = new();
+        Deck deck = new(false);
 
         foreach (var skill in skills)
         {
@@ -227,16 +202,7 @@ public class EnemyInfo : MonoBehaviour, IBattleable
     
     private void UpdateHealthDisplay()
     {
-        var canvas = transform.GetChild(1);
-        canvas.gameObject.SetActive(true);
-        canvas.GetChild(0).GetComponent<DisplayStatTop>().UpdateText(Stat.CurrentHealth + " / " + Stat.GetStatValue("Health") + " HP");
-    }
-
-    public void StartBattle(GameObject[] playables)
-    {
-        UpdateHealthDisplay();
-        GameObject[] x = {gameObject}; // TEMP
-        battle.BattleSetup(playables, x);
+        _gm.UpdateEnemyHealthIcon(this);
     }
 
     public void TakeDamage(float damage)

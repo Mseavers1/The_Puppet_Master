@@ -198,9 +198,7 @@ public class Gamemanager_World : MonoBehaviour
         inventoryTextClose.text = "Open Inventory";
         inventoryTextOpen.text = "Open Inventory";
         InventoryPanel.SetActive(false);
-
-        if (Mode == "Battle Player" || Mode == "Battle" || Mode == "Battle Enemy")
-            GetComponent<BattleSimulator>().UpdateHandDisplay();
+        
 
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Movement>().EnableMovement(true);
     }
