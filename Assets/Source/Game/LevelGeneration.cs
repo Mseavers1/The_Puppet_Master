@@ -145,6 +145,12 @@ namespace Source.Game
 			}
 			return ret;
 		}
+
+		public Room[,] GetAllRooms()
+		{
+			return _rooms;
+		}
+		
 		void DrawMap()
 		{
 			var randomRoom = Random.Range(1, numberOfRooms);

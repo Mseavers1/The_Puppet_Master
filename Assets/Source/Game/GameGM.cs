@@ -331,11 +331,14 @@ namespace Source.Game
         public IEnumerator Lose(float delay)
         {
             yield return new WaitForSeconds(delay);
+            player.transform.DOKill();
+            enemy.transform.DOKill();
+            
             StaticHolder.PlayerStats.Heal();
             StaticHolder.PlayerStats.RestoreMana();
             StaticHolder.PlayerStats.RestoreStamina();
 
-            GlobalResources.SoulEssences += currentGameSP;
+            GlobalResources.SoulEssences += currentGameSP + (GetComponent<MapControl>().GetRoomSpPerRoom() - 1);
             SceneManager.LoadScene(2);
         }
 

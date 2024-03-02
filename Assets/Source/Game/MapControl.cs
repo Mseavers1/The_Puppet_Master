@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Source.Story_Shop;
+using Source.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Debug = System.Diagnostics.Debug;
 
@@ -124,7 +127,7 @@ namespace Source.Game
                 if (found)
                 {
                     hit.transform.GetComponent<MapSpriteSelector>().type = -1;
-                    hit.transform.GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.4f, 0.9f);
+                    hit.transform.GetComponent<SpriteRenderer>().color = new Color(0f, 0.46f, 0.27f);
                     _mapMode = false;
                     Invoke(nameof(TurnOffMap), 1.5f);
                     curtains.StartCurtainAnimation(1.5f);
@@ -132,6 +135,18 @@ namespace Source.Game
                     
                 }
             }
+        }
+
+        private bool CompletedAllRooms()
+        {
+            return levelGeneration.GetAllRooms().Cast<Room>().Where(room => room != null).All(room => room.Type is -1 or 8);
+        }
+
+        public float GetRoomSpPerRoom()
+        {
+            var completed = levelGeneration.GetAllRooms().Cast<Room>().Where(room => room != null).Count(room => room.Type is -1 or 8);
+
+            return 50 * completed;
         }
 
         private void StartEvent()
@@ -143,6 +158,12 @@ namespace Source.Game
         {
             levelGeneration.gameObject.SetActive(true);
             _mapMode = true;
+            
+            // Check if all rooms are completed
+            if (CompletedAllRooms()) return;
+
+            GlobalResources.SoulEssences += GetComponent<GameGm>().currentGameSP + (GetRoomSpPerRoom() * 1.5f);
+            SceneManager.LoadScene(2);
         }
         
         private void TurnOffMap()
