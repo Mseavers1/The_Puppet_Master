@@ -338,7 +338,7 @@ namespace Source.Game
             StaticHolder.PlayerStats.RestoreMana();
             StaticHolder.PlayerStats.RestoreStamina();
 
-            GlobalResources.SoulEssences += currentGameSP + (GetComponent<MapControl>().GetRoomSpPerRoom() - 1);
+            GlobalResources.SoulEssences += currentGameSP + (GetComponent<MapControl>().GetRoomSpPerRoom() - 1) * 50;
             SceneManager.LoadScene(2);
         }
 

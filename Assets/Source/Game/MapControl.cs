@@ -6,8 +6,7 @@ using Source.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
-using Debug = System.Diagnostics.Debug;
+using Random = UnityEngine.Random;
 
 namespace Source.Game
 {
@@ -151,7 +150,8 @@ namespace Source.Game
 
         private void StartEvent()
         {
-            GetComponent<GameGm>().LoadEvent(0);
+            var rand = Random.Range(0, 3);
+            GetComponent<GameGm>().LoadEvent(rand);
         }
         
         public void TurnOnMap()
@@ -160,7 +160,7 @@ namespace Source.Game
             _mapMode = true;
             
             // Check if all rooms are completed
-            if (CompletedAllRooms()) return;
+            if (!CompletedAllRooms()) return;
 
             GlobalResources.SoulEssences += GetComponent<GameGm>().currentGameSP + (GetRoomSpPerRoom() * 1.5f);
             SceneManager.LoadScene(2);

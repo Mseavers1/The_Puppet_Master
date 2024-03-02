@@ -1,7 +1,7 @@
 [
   {
     "id": 0,
-    "name": "slime",
+    "name": "Blue Slime",
     "hasSpriteSheet": true,
     "fileName": "Slimes",
     "fileIndex": 2,
@@ -23,23 +23,21 @@
     "curveStrength": "linear",
     "mobSkills": [
       {
-        "name": "Swordsmanship",
-        "level": 3,
-        "chance": 0.5
-      },
-      {
-        "name": "Archery",
-        "level": 3,
-        "chance": 0.5
+        "name": "Hands",
+        "level": 1,
+        "chance": 1
       }
     ]
   },
   {
     "id": 1,
-    "name": "golem",
-    "baseSP": 10,
-    "maxSP": 5000,
-    "maxHealth": 20,
+    "name": "Red Slime",
+    "hasSpriteSheet": true,
+    "fileName": "Slimes",
+    "fileIndex": 3,
+    "baseSP": 2,
+    "maxSP": 100,
+    "maxHealth": 0,
     "curveHealth": "linear",
     "maxMana": 0,
     "curveMana": "pow",
@@ -55,14 +53,69 @@
     "curveStrength": "linear",
     "mobSkills": [
       {
-        "name": "Swordsmanship",
-        "level": 8,
-        "chance": 0.5
-      },
+        "name": "Hands",
+        "level": 3,
+        "chance": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Yellow Slime",
+    "hasSpriteSheet": true,
+    "fileName": "Slimes",
+    "fileIndex": 1,
+    "baseSP": 2,
+    "maxSP": 100,
+    "maxHealth": 0,
+    "curveHealth": "linear",
+    "maxMana": 0,
+    "curveMana": "pow",
+    "maxStamina": 0,
+    "curveStamina": "log",
+    "agility": 0,
+    "curveAgility": "linear",
+    "speed": 0,
+    "curveSpeed": "linear",
+    "luck": 0,
+    "curveLuck": "linear",
+    "strength": 0,
+    "curveStrength": "linear",
+    "mobSkills": [
       {
-        "name": "Archery",
-        "level": 8,
-        "chance": 0.5
+        "name": "Hands",
+        "level": 5,
+        "chance": 1
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Green Slime",
+    "hasSpriteSheet": true,
+    "fileName": "Slimes",
+    "fileIndex": 0,
+    "baseSP": 2,
+    "maxSP": 100,
+    "maxHealth": 0,
+    "curveHealth": "linear",
+    "maxMana": 0,
+    "curveMana": "pow",
+    "maxStamina": 0,
+    "curveStamina": "log",
+    "agility": 0,
+    "curveAgility": "linear",
+    "speed": 0,
+    "curveSpeed": "linear",
+    "luck": 0,
+    "curveLuck": "linear",
+    "strength": 0,
+    "curveStrength": "linear",
+    "mobSkills": [
+      {
+        "name": "Hands",
+        "level": 7,
+        "chance": 1
       }
     ]
   }
