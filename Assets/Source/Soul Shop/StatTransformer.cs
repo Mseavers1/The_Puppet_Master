@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -78,10 +79,31 @@ namespace Source.Soul_Shop
         private void Start()
         {
             foreach (var pos in positions) defaultPositions.Add((pos.transform.position));
+            
+            // Load any previous stats inside
+            for (var i = 0; i < _statDictionary.Count; i++)
+            {
+                IncrementStat(IdToString(i), SoulGmSettings.GetStatPoints(i));
+            }
 
             UpdateMesh();
             UpdateCost();
             UpdateGain();
+        }
+
+        private string IdToString(int id)
+        {
+            return id switch
+            {
+                0 => "Vitality",
+                1 => "Intelligence",
+                2 => "Endurance",
+                3 => "Strength",
+                4 => "Agility",
+                5 => "Speed",
+                6 => "Luck",
+                _ => throw new Exception("The ID of " + id + " is not within range!")
+            };
         }
 
         private void UpdateDisplay()
